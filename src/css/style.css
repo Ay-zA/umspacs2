@@ -1,0 +1,356 @@
+body, html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#main-container {
+    display: flex;
+    height: calc(100% - 51px);
+    height: -o-calc(100% - 51px);
+    height: -webkit-calc(100% - 51px);
+    height: -moz-calc(100% - 51px);
+    flex-flow: column;
+}
+.navbar-inverse .navbar-nav> li> a {
+    color: #ccc;
+}
+.navbar-inverse .navbar-brand {
+    color: #eee;
+}
+.active> a, .navbar-inverse .navbar-nav> .active> a:hover, .navbar-inverse .navbar-nav> .active> a:focus {
+    background: rgb(0, 161, 117) !important;
+    /*color: #333 !important;*/
+    transition: 0.4s;
+}
+.nav-xs {
+    vertical-align: middle;
+    height: 50px;
+}
+.nav-xs li, .nav-xs li a {
+    height: 100%;
+}
+.nav-xs li {
+    display: inline-block;
+    margin-right: -4px;
+}
+.nav-xs a {
+    line-height: 30px;
+    color: #fff;
+    background-color: transparent;
+    position: relative;
+    display: block;
+}
+.nav-xs li a:hover {
+    background: #333;
+}
+.nav-xs li.active a {
+    background: rgb(0, 161, 117) !important;
+    transition: 0.4s;
+}
+.form-control {
+    border-radius: 0;
+}
+.btn, .btn:focus {
+    border-radius: 0;
+    background: #333;
+    border: 1px solid #333;
+    outline: none;
+    color: #fff;
+}
+#login-form {
+    padding: 2em 3em;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin-top: 33%;
+}
+.btn:hover {
+    background: #444;
+    border: 1px solid #444;
+    color: #fff;
+}
+.btn:active {
+    background: #222 !important;
+    border: 1px solid #222 !important;
+    outline: none !important;
+    color: #fff !important;
+}
+body {
+    background: #f9f9f9;
+}
+.section-header {
+    margin-top: -40px;
+    flex: 0 0 40px;
+    background: #222;
+    color: #fff;
+    box-shadow: 0px -1px 1px 0px rgba(0,0,0,0.4);
+}
+.section-content {
+    flex: 1;
+    max-height: 100%;
+}
+#login-form .header {
+    margin: -2em -3em 2em;
+}
+#login-form h4 {
+    margin-left: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#login-form .form-control {
+    box-sizing: border-box;
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-bottom: 1.4em;
+}
+#login-form .btn {
+    margin-top: 2.5em;
+    padding-top: .7em;
+    padding-bottom: .7em;
+}
+tr.active td {
+    color: white;
+    background-color: #333 !important;
+}
+#thumb-div {
+    position: relative;
+    background: #000;
+}
+.full-height {
+    height: 100%;
+}
+.thumb-img {
+    max-height: 100%;
+    margin-left: 25%;
+    position: absolute;
+    top: 0;
+}
+#search-section {
+    background: #eee;
+}
+#study-section {
+    flex: 2;
+    position: relative;
+}
+#result-section {
+    max-height: 768px;
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    background: #eee;
+}
+#series-table {
+    max-height: 100%;
+    overflow-y: auto;
+}
+#result-section div.full-height {
+    overflow-y: auto;
+}
+#search-section {
+    background: #292929;
+}
+#search-from {
+    display: flex;
+    overflow: auto;
+    flex-wrap: wrap;
+    margin: 1em 0 0.5em 0;
+    padding-right: -1em;
+    justify-content: flex-start;
+}
+#search-from input {
+    margin-right: 1em;
+    margin-bottom: .5em;
+    flex: 1 200px;
+    max-width: 200px;
+    height: auto;
+    background: #444;
+    padding: 5px 10px;
+    border: none;
+    box-shadow: 0;
+    color: #eee;
+}
+#search-from input:focus, #search-from input.used {
+    border-bottom: 1px solid rgb(0, 161, 117) !important;
+    box-shadow: none;
+}
+#search-from input::-webkit-input-placeholder {
+    color: #bbb;
+}
+#search-from input::-moz-placeholder {
+    color: #bbb;
+}
+#search-from input:-ms-input-placeholder {
+    color: #bbb;
+}
+#search-from input:-moz-placeholder {
+    color: #bbb;
+}
+.upper-inputgroup {
+    margin-bottom: .5em;
+}
+.search-control {
+    padding: 2px 12px;
+    height: 1.8em;
+}
+#close-button {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 20%;
+    right: 5px;
+    color: white;
+    z-index: 99;
+}
+#patient-table-div {
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+}
+.header-fixed {
+    position: absolute;
+    z-index: 9999;
+    top: 10px;
+    display: none;
+    background-color: white;
+}
+.under-result {
+    margin-bottom: 40px;
+}
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+.table-striped> tbody> tr:nth-of-type(odd) {
+    background: #fff;
+}
+
+/* Ripples container */
+
+.ripples {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+/* Ripples circle */
+
+.ripplesCircle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+}
+.ripples.is-active .ripplesCircle {
+    -webkit-animation: ripples .4s ease-in;
+    animation: ripples .4s ease-in;
+}
+
+/* Ripples animation */
+
+@-webkit-keyframes ripples {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
+}
+@keyframes ripples {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
+}
+#myModal {
+    padding: 0px !important;
+}
+.modal-content {
+    border-radius: 0;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+.modal-header {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 0;
+    padding: 11px;
+}
+.modal-header .close {
+    color: white;
+}
+.modal-body {
+    overflow-y: auto;
+    flex: 1;
+    /* padding: 0; */
+}
+.modal-dialog {
+    max-height: 100%
+}
+.modal-body .thumb-img {
+    position: relative;
+    margin: 0;
+    width: 100%;
+}
+tr.active .weasis-btn {
+    border: 1px solid #00ffde;
+    color: #00ffde;
+}
+.weasis-btn {
+    background: transparent;
+    border: 1px solid #00a175;
+    padding: 3px 5px;
+    color: #00a175;
+}
+
+.lSSlideOuter{
+  background:black;
+}
+.lslide {
+  text-align: center;
+}
+
+.lightSlider{
+  text-align: center;
+}
+@media (max-width: 767px) {
+    table {
+        font-size: smaller;
+    }
+    .modal-dialog {
+        margin: 0;
+    }
+    .modal-footer {
+        padding: 10px;
+    }
+    .modal-dialog {
+        height: 100%
+    }
+    #search-from input {
+        flex: 1;
+        max-width: 1000px;
+    }
+}

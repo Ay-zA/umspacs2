@@ -1,0 +1,355 @@
+@font-face {
+    font-family: hejaz;
+    src: url(fonts/hejaz.ttf);
+}
+* {
+    box-sizing: border-box;
+}
+html, body{
+  height:100%;
+  padding: 0;
+  margin:0;
+}
+body {
+    height:100%;
+    font-family: sans-serif;
+    background: url(../images/index.jpg) center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-font-smoothing: antialiased;
+}
+hgroup {
+    font-family: hejaz;
+    text-align: center;
+    margin-top: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h1, h3 {
+    font-weight: 300;
+}
+h1 {
+    color: #eee;
+    margin: 0;
+    background: #222;
+    opacity: .9;
+    min-width: 400px;
+    text-align: center;
+    padding: 1em 0;
+}
+h3 {
+    color: #00ffde;
+}
+form {
+    display: none;
+    max-width: 400px;
+    margin: 0em auto 0;
+    padding: 4em 3em 2em 3em;
+    /* background: #fafafa; */
+    /* border: 1px solid #ebebeb; */
+    box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+    background: #333;
+    opacity: 0.8;
+}
+.group {
+    position: relative;
+    margin-bottom: 45px;
+}
+input {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    -webkit-appearance: none;
+    display: block;
+    background: transparent;
+    color: #eee;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #757575;
+}
+input:focus {
+    outline: none;
+}
+
+/* Label */
+
+label {
+    color: #ccc;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+/* active */
+input:focus ~ label, input.used ~ label{
+    top: -20px;
+    -webkit-transform: scale(.75);
+    transform: scale(.75);
+    left: -2px;
+    /* font-size: 14px; */
+    color: #00ffde;
+}
+
+input:-webkit-autofill ~ label {
+  top: -20px;
+  -webkit-transform: scale(.75);
+  transform: scale(.75);
+  left: -2px;
+  /* font-size: 14px; */
+  color: #00ffde;
+}
+
+input:-moz-autofill ~ label {
+  top: -20px;
+  -webkit-transform: scale(.75);
+  transform: scale(.75);
+  left: -2px;
+  /* font-size: 14px; */
+  color: #00ffde;
+}
+
+/* Underline */
+
+.bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+.bar:before, .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #00ffde;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.bar:before {
+    left: 50%;
+}
+.bar:after {
+    right: 50%;
+}
+
+/* active */
+
+input:focus~ .bar:before, input:focus~ .bar:after {
+    width: 50%;
+}
+
+/* Highlight */
+
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* active */
+
+input:focus~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+/* Animations */
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #00ffde;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+@keyframes inputHighlighter {
+    from {
+        background: #00ffde;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+/* Button */
+
+.button {
+    position: relative;
+    display: inline-block;
+    padding: 12px 24px;
+    margin: .3em 0 1em 0;
+    width: 100%;
+    vertical-align: middle;
+    color: #333;
+    font-size: 16px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+    letter-spacing: 1px;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #009c88;
+    cursor: pointer;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+}
+.button:focus {
+    outline: 0;
+}
+
+/* Button modifiers */
+
+.buttonBlue {
+    background: #00ffde;
+    /*   text-shadow: 1px 1px 0 rgba(39, 110, 204, .5); */
+}
+.buttonBlue:hover {
+    background: #00ccbb;
+}
+
+/* Ripples container */
+
+.ripples {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+/* Ripples circle */
+
+.ripplesCircle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+}
+.ripples.is-active .ripplesCircle {
+    -webkit-animation: ripples .4s ease-in;
+    animation: ripples .4s ease-in;
+}
+
+/* Ripples animation */
+
+@-webkit-keyframes ripples {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
+}
+@keyframes ripples {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
+}
+footer {
+    text-align: center;
+}
+footer p {
+    color: #888;
+    font-size: 13px;
+    letter-spacing: .4px;
+}
+footer a {
+    color: #00ffde;
+    text-decoration: none;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+footer a:hover {
+    color: #666;
+    text-decoration: underline;
+}
+footer img {
+    width: 80px;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+footer img:hover {
+    opacity: .83;
+}
+footer img:focus, footer a:focus {
+    outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 999s ease-in-out 0s;    
+    background: transparent !important;
+    -webkit-text-fill-color: white !important;
+}
+@media (max-width: 777px) {
+    hgroup {
+    margin-top: 1em;
+    }
+
+
+  h1 {
+      color: #eee;
+      margin: 0;
+      background: #222;
+      opacity: .9;
+      min-width: 340px;
+      text-align: center;
+      padding: 0.8em 0;
+      font-size:1.6em;
+  }
+
+
+    input {
+        font-size: .8rem;
+    }
+    label {
+        font-size: 0.8rem;
+    }
+    input:focus~ label, input.used~ label, input:-webkit-autofill~ label {
+        top: -15px;
+        -webkit-transform: scale(.9);
+        transform: scale(.9);
+        left: -2px;
+    }
+    form {
+        max-width: 340px;
+    }
+}
