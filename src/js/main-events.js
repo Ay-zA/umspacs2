@@ -14,14 +14,14 @@ $("#today-xs").on("click", loadToday);
 $("#all").on("click", loadAll);
 $("#all-xs").on("click", loadAll);
 $("#yesterday").on("click", loadYesterday);
-$("#currentweek").on("click", loadWeek);
-$("#lastweek").on("click", loadLastWeek);
+$("#last-week").on("click", loadWeek);
+$("#last-month").on("click", loadMonth);
 
 $("#today").on("click", hideSearchSection);
 $("#today-xs").on("click", hideSearchSection);
 $("#yesterday").on("click", hideSearchSection);
-$("#currentweek").on("click", hideSearchSection);
-$("#lastweek").on("click", hideSearchSection);
+$("#last-week").on("click", hideSearchSection);
+$("#last-month").on("click", hideSearchSection);
 
 $("#all").on("click", showSearchSection);
 $(".searchButton").on("click", function() {

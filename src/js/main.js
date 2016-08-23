@@ -33,7 +33,7 @@ function searchByInput() {
     from_date = is_valid_date(from_date) ? to_gregorian_date(from_date) : "";
     to_date = is_valid_date(to_date) ? to_gregorian_date(to_date) : "";
 
-    searchStudies(id, name, modality, from_date, to_date);
+    searchStudies(id, name, modality, from_date, to_date, institution);
 }
 
 function loadAll(e) {
@@ -59,35 +59,24 @@ function loadYesterday() {
 }
 
 function loadWeek() {
-    changeTab('#currentweek');
+    changeTab('#last-week');
 
     var curr = new Date();
-    var firstDayOfWeek = curr.getDate() - curr.getDay();
-    var lastDayOfWeek = firstDayOfWeek + 6;
-
-    firstDayOfWeek = new Date(curr.setDate(firstDayOfWeek));
-    lastDayOfWeek = new Date(curr.setDate(lastDayOfWeek));
-
-    firstDayOfWeek = get_date(firstDayOfWeek);
-    lastDayOfWeek = get_date(lastDayOfWeek);
-
-    searchStudyByDate(firstDayOfWeek, lastDayOfWeek);
+    var lastweek = new Date();
+    lastweek.setDate(curr.getDate() - 7);
+    curr = get_date(curr);
+    lastweek = get_date(lastweek);
+    searchStudyByDate(lastweek,curr);
 }
 
-function loadLastWeek() {
-    changeTab('#lastweek');
-
+function loadMonth() {
+    changeTab('#last-month');
     var curr = new Date();
-    var firstDayOfWeek = curr.getDate() - curr.getDay() - 7;
-    var lastDayOfWeek = firstDayOfWeek + 6;
-
-    firstDayOfWeek = new Date(curr.setDate(firstDayOfWeek));
-    lastDayOfWeek = new Date(curr.setDate(lastDayOfWeek));
-
-    firstDayOfWeek = get_date(firstDayOfWeek);
-    lastDayOfWeek = get_date(lastDayOfWeek);
-
-    searchStudyByDate(firstDayOfWeek, lastDayOfWeek);
+    var lastmonth = new Date();
+    lastmonth.setDate(curr.getDate() - 30);
+    curr = get_date(curr);
+    lastmonth = get_date(lastmonth);
+    searchStudyByDate(lastmonth,curr);
 }
 
 
@@ -151,6 +140,7 @@ function printSeries(data) {
     var selected_patient_id = $selected_patient.children('td[data-type="pat_id"]').text();
     series_data[selected_patient_id] = output;
     showResultSection();
+
 }
 
 function loadSeriesData() {
@@ -169,12 +159,8 @@ function printStudies(data) {
         // console.log(i);
         output += '<tr loaded="false" data-iuid=' + data[i].study_iuid + ' data-study-id=' + data[i].study_pk + '>';
         output += '<td data-type="pat_id">' + data[i].pat_id + '</td>';
-        output += '<td data-type="pat_name">' + fix_name(data[i].pat_name) + '</td>';
-
-        var response = getInstitutionName(data[i].study_pk);
-        var ins_name = response.hasOwnProperty('institution') ? fix_name(response.institution) : 'N/A';
-
-        output += '<td data-type="institution">' + ins_name + '</td>';
+        output += '<td data-type="pat_name"><b>' + fix_name(data[i].pat_name) + '</b>/' + get_sex(data[i].pat_sex) + '/' + get_age(data[i].pat_birthdate) + '</td>';
+        output += '<td data-type="institution">' + fix_name(data[i].institution) + '</td>';
         output += '<td data-type="modality">' + data[i].mods_in_study + '</td>';
         output += '<td data-type="study_date">' + to_persian_date(data[i].study_datetime) + '</td>';
         output += '<td data-type="study_time">' + get_time(data[i].study_datetime) + '</td>';
@@ -185,6 +171,7 @@ function printStudies(data) {
         output += '<td><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button><td>';
         output += '</tr>';
     }
+    $("#noresult").css('display' , data.length === 0 ? 'flex' : 'none');
     patient_table.html(output);
 }
 
@@ -212,6 +199,7 @@ function hideResultSection() {
 function showResultSection() {
     result_section.fadeIn();
     $("#study-section").addClass('under-result');
+    selectFirstSerie();
 }
 
 function clearSearchInputs() {
@@ -228,6 +216,10 @@ function showSearchSection() {
 
 function toggleSearchSection() {
     $("#search-section").slideToggle();
+}
+
+function selectFirstSerie() {
+    $("#series-table tbody tr:first").click();
 }
 
 function closeNavbar(event) {

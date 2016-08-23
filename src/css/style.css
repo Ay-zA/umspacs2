@@ -133,8 +133,9 @@ tr.active td {
     position: relative;
 }
 #result-section {
-    max-height: 768px;
-    flex: 1;
+    max-height: 33%;
+    min-height: 33%;
+    flex: 1 0 0;
     position: relative;
     display: flex;
     flex-flow: column;
@@ -206,6 +207,9 @@ tr.active td {
     overflow-y: auto;
     position: absolute;
     top: 0;
+    flex-flow: column;
+    display: flex;
+    ex; */
 }
 .header-fixed {
     position: absolute;
@@ -336,6 +340,36 @@ tr.active .weasis-btn {
 .lightSlider{
   text-align: center;
 }
+
+div#noresult{
+   /* width:100%; */
+   /* height:100%; */
+   /* position:fixed; */
+   flex: 1;
+   display:flex;
+   align-self: center;
+   align-content:center;
+   justify-content:center;
+   flex-direction: row;
+   z-index:10;
+   display:none;
+}
+div#noresult div{
+    align-self: center;
+    flex: 1;
+}
+
+div#noresult div h1{
+    opacity:.5;
+    flex:1;
+}
+
+
+#patient-table-div table{
+    position:absolute;
+}
+
+
 @media (max-width: 767px) {
     table {
         font-size: smaller;

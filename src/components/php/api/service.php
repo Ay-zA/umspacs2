@@ -41,13 +41,14 @@
         break;
       case 'searchstudies':
         // echo  $_GET['id'] . "<br>" . $_GET['name']. '<br> ' . $_GET['modality']. '<br> ' . $_GET['from']. '<br> ' . $_GET['to'];
-        $id       = is_valid($_GET['id'])        ? $_GET['id']                 : NULL;
-        $name     = is_valid($_GET['name'])      ? $_GET['name']               : NULL;
-        $modality = is_valid($_GET['modality'])  ? $_GET['modality']           : NULL;
-        $from     = is_valid($_GET['from'])      ? $_GET['from'] . ' 00:00:00' : NULL;
-        $to       = is_valid($_GET['to'])        ? $_GET['to'] . ' 23:59:59'   : NULL;
+        $id           = is_valid($_GET['id'])           ? $_GET['id']                 : NULL;
+        $name         = is_valid($_GET['name'])         ? $_GET['name']               : NULL;
+        $modality     = is_valid($_GET['modality'])     ? $_GET['modality']           : NULL;
+        $from         = is_valid($_GET['from'])         ? $_GET['from'] . ' 00:00:00' : NULL;
+        $to           = is_valid($_GET['to'])           ? $_GET['to'] . ' 23:59:59'   : NULL;
+        $institution  = is_valid($_GET['institution'])  ? $_GET['institution']        : NULL;
 
-        $response = searchStudies($id, $name, $modality, $from, $to);
+        $response = searchStudies($id, $name, $modality, $from, $to, $institution);
         break;
     }
   }

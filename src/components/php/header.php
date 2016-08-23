@@ -13,7 +13,7 @@
       <ul class="nav nav-xs visible-xs" style="float:left;">
         <li>
           <a id="all-xs" href="#">
-            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>All</a>
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>All / Reset</a>
         </li>
         <li>
           <a id="today-xs" href="#">
@@ -33,7 +33,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="active hidden-xs">
-            <a id="all" href="#"><div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>All</a>
+            <a id="all" href="#"><div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>All / Reset</a>
     </li>
     <li class="hidden-xs">
       <a id="today" href="#">
@@ -44,12 +44,12 @@
         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>Yesterday</a>
     </li>
     <li>
-      <a id="currentweek" href="#">
-        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>Currentweek</a>
+      <a id="last-week" href="#">
+        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>lastweek</a>
     </li>
     <li>
-      <a id="lastweek" href="#">
-        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>Lastweek</a>
+      <a id="last-month" href="#">
+        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>Last Month</a>
     </li>
     </ul>
     <ul class="nav navbar-nav navbar-right hidden-xs">

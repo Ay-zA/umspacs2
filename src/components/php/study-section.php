@@ -1,5 +1,10 @@
 <section id="study-section" class="row">
   <div id="patient-table-div" class="col-xs-12 full-height">
+    <div id="noresult">
+      <div>
+        <h1 id="result-label">No Result Found</h1>
+      </div>
+    </div>
     <!-- <table class="header-fixed table "></table> -->
     <table id="patient-table" class="table table-striped table-hover">
       <thead>

@@ -83,15 +83,36 @@ function getAllInstances($serie_pk)
     return $result;
 }
 
-function searchStudies($patient_id = null, $name = null, $modality = null, $from = null, $to = null)
+function searchStudies($patient_id = null, $name = null, $modality = null, $from = null, $to = null, $institution = null)
 {
     global $char_set;
     $conn = connect('pacsdb');
 
-    $query = 'SELECT patient.pk, patient.pat_id , patient.pat_name, patient.pat_sex, study.num_series,
-                          study.pk AS study_pk, study.mods_in_study, study.num_instances, study.study_iuid,
-                          patient.pat_birthdate ,study.study_id, study.study_datetime, study.study_desc, study.study_status
-                          FROM patient INNER JOIN study ON patient.pk = study.patient_fk WHERE 1 = 1';
+      $query = 'SELECT patient.pk, patient.pat_id , patient.pat_name, patient.pat_sex, study.num_series,
+                            study.pk AS study_pk, study.mods_in_study, study.num_instances, study.study_iuid,
+                            patient.pat_birthdate ,study.study_id, study.study_datetime, study.study_desc, study.study_status
+                            FROM patient INNER JOIN study ON patient.pk = study.patient_fk WHERE 1 = 1';
+
+    $query = 'SELECT
+                patient.pk,
+                patient.pat_id,
+                patient.pat_name,
+                patient.pat_sex,
+                patient.pat_birthdate,
+                study.num_series,
+                study.pk AS study_pk,
+                study.mods_in_study,
+                study.num_instances,
+                study.study_iuid,
+                study.study_id,
+                study.study_datetime,
+                study.study_desc,
+                study.study_status,
+                series.institution
+              FROM study
+              LEFT JOIN patient ON patient.pk = study.patient_fk
+              LEFT JOIN series ON series.study_fk = study.pk
+              WHERE 1 = 1';
 
     if (isset($patient_id)) {
         $patient_id = strtolower($patient_id);
@@ -111,8 +132,26 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
     if (isset($to)) {
         $query = $query.' AND study.study_datetime <= :to';
     }
+    if (isset($institution)) {
+        $query = $query.' AND LOWER(series.institution) LIKE CONCAT ("%",:institution,"%")';
+    }
 
-    $query = $query.' ORDER BY study.study_datetime DESC;';
+    $query = $query.' GROUP BY
+                      patient.pk,
+                      patient.pat_id,
+                      patient.pat_name,
+                      patient.pat_sex,
+                      patient.pat_birthdate,
+                      study.num_series,
+                      study_pk,
+                      study.mods_in_study,
+                      study.num_instances,
+                      study.study_iuid,
+                      study.study_id,
+                      study.study_datetime,
+                      study.study_desc,
+                      study.study_status
+                    ORDER BY study.study_datetime DESC;';
 
     $query = $conn->prepare($query);
 
@@ -131,12 +170,13 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
     if (isset($to)) {
         $query->bindParam(':to', $to);
     }
-
+    if (isset($institution)) {
+        $query->bindParam(':institution', $institution);
+    }
     $query->execute();
     $result = $query->fetchAll();
 
     return $result;
-    // return $char_set . "_ci";
 }
 
 function getInstitutionName($study_pk){

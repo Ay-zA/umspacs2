@@ -1,7 +1,8 @@
 var date_regex = /^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])$/;
 
 function fix_name(name) {
-  name = name.replace(/[\^]+/g, ' ');
+  if(name === null || typeof(name) === 'undefined') return "N/A";
+  name = name.replace(/[\^-]+/g, ' ');
   var output = "";
   name.split(' ').forEach(function(string) {
     output += string.charAt(0).toUpperCase() + string.slice(1).toLowerCase() + ' ';
@@ -50,6 +51,17 @@ function get_time(dateTime) {
 }
 function is_valid_date(date) {
   return date_regex.test(date);
+}
+
+function get_sex(sex) {
+  return ( (sex !== "M" && sex !== "F") ? "N/A" : (sex == "M") ? "Male" : "Female" );
+}
+
+function get_age(date) {
+  date = date || "N/A";
+  var currYear = new Date().getFullYear();
+  var birthYear = +date.substr(0,4);
+  return ( date !== "NAN")  ? +currYear - birthYear  : 'N/A';
 }
 
 var delay = (function() {

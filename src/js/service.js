@@ -50,19 +50,21 @@ function generateRequestURL(study_UID, serie_UID, instance_UID, frame) {
     return url;
 }
 
-function searchStudies(pat_id, pat_name, modality, from_date, to_date) {
+function searchStudies(pat_id, pat_name, modality, from_date, to_date,institution) {
 
     pat_id = (typeof(pat_id) === 'undefined') ? '' : pat_id;
     pat_name = (typeof(pat_name) === 'undefined') ? '' : pat_name;
     modality = (typeof(modality) === 'undefined') ? '' : modality;
     from_date = (typeof(from_date) === 'undefined') ? '' : from_date;
     to_date = (typeof(to_date) === 'undefined') ? '' : to_date;
+    institution = (typeof(institution) === 'undefined') ? '' : institution;
 
     url = "src/components/php/api/service.php?action=searchstudies&id=" + pat_id +
         "&name=" + pat_name +
         "&modality=" + modality +
         "&from=" + from_date +
-        "&to=" + to_date;
+        "&to=" + to_date+
+        "&institution=" + institution;
 
     console.log(url);
 
@@ -70,7 +72,7 @@ function searchStudies(pat_id, pat_name, modality, from_date, to_date) {
 }
 
 function searchStudyByDate(from_date, to_date) {
-    searchStudies(undefined, undefined, undefined, from_date, to_date);
+    searchStudies(undefined, undefined, undefined, from_date, to_date, undefined);
 }
 
 function generateWeasisUrl(type, id) {
