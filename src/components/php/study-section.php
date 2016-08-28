@@ -9,7 +9,7 @@
     <table id="patient-table" class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Patient Id</th>
+          <th>Id</th>
           <th>Name</th>
           <th>Institution</th>
           <th>Modality</th>

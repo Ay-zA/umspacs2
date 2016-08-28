@@ -5,7 +5,7 @@ var patient_table = $("#patient-table tbody");
 var series_table = $("#series-table tbody");
 var result_section = $("#result-section");
 var seriesSectionHeader = $("#result-section .section-header h4");
-
+var $dataTable = false;
 var series_data = {};
 var instance_data = {};
 
@@ -175,13 +175,22 @@ function printStudies(data) {
         output += '<td class="hidden-xs" data-type="num_series">' + data[i].num_series + '</td>';
         output += '<td class="hidden-xs" data-type="num_instances">' + data[i].num_instances + '</td>';
         var url = generateWeasisUrl('patient', data[i].pat_id);
-
-        output += '<td><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button><td>';
+        output += '<td><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
         output += '</tr>';
     }
     $("#noresult").css('display' , data.length === 0 ? 'flex' : 'none');
+    $("#patient-table_wrapper").css('display' , data.length === 0 ? 'none' : 'block ');
     patient_table.html(output);
-}
+    if(!$dataTable){
+     $dataTable = $("#patient-table").DataTable({
+       "searching": false
+    });
+
+    $("#patient-table").on('page.dt', function () {
+      clearSearchInputs();
+    });
+  }
+ }
 
 function toggleModal(modalId) {
     $('#myModal').modal('toggle');

@@ -171,7 +171,8 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
         $query->bindParam(':to', $to);
     }
     if (isset($institution)) {
-        $query->bindParam(':institution', $institution);
+          $institution = strtolower($institution);
+          $query->bindParam(':institution', $institution);
     }
     $query->execute();
     $result = $query->fetchAll();

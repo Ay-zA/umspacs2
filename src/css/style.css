@@ -366,9 +366,12 @@ div#noresult div h1{
 
 
 #patient-table-div table{
-    position:absolute;
+    /*position:absolute;*/
 }
 
+#patient-table_length{
+  display: none;
+}
 
 @media (max-width: 767px) {
     table {
