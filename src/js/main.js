@@ -22,6 +22,14 @@ function openWeasis(e) {
     window.open(url);
 }
 
+function openPanel() {
+  var id = $(e.target).closest('tr').children('td[data-type="pat_id"]').text();
+  var hash = window.location.hash;
+  console.log(hash);
+    //again, do what you will here
+    document.location.search = s;
+}
+
 function searchByInput() {
     var id = $("#searchById").val();
     var name = $("#searchByName").val();
@@ -127,7 +135,7 @@ function printSeries(data) {
         output += '<td>' + obj.num_instances + '</td>';
         output += '<td>' + obj.series_desc + '</td>';
         var url = generateWeasisUrl('serie', obj.series_iuid);
-        output += '<td><a class="weasis-btn flat-btn" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button><td>';
+        output += '<td class="hidden-xs"><a class="weasis-btn flat-btn" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button><td>';
         output += '</tr>';
     });
     var pat_name = $("#patient-table tr.active td[data-type='pat_name']").text();

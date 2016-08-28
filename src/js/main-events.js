@@ -1,7 +1,7 @@
 $("#patient-table tbody").on("click", "tr", patientRowClicked);
 $("#patient-table tbody").on("click", "tr[loaded='false']", getSeriesData);
 $("#patient-table tbody").on("click", "tr[loaded='true']", loadSeriesData);
-$("#patient-table tbody").on("dblclick", "tr", openWeasis);
+$("#patient-table tbody").on("dblclick", "tr", openPanel);
 
 $("#series-table tbody").on("click", "tr", serieRowClicked);
 $("#series-table tbody").on("click", "tr[loaded='false']", getInstanceData);
