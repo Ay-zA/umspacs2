@@ -1,0 +1,38 @@
+{
+  "name": "umspacs",
+  "description": "",
+  "main": "index.php",
+  "authors": [
+    "Alireza Safairad"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-select": "^1.11.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js",
+        "less/bootstrap.less"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.min.css",
+        "less/font-awesome.less",
+        "scss/font-awesome.scss"
+      ]
+    }
+  }
+}

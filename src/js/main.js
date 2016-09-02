@@ -33,11 +33,12 @@ function openPanel() {
 function searchByInput() {
     var id = $("#searchById").val();
     var name = $("#searchByName").val();
-    var modality = $("#searchByModality").val();
     var institution = $("#searchByInstitution").val();
     var from_date = $("#searchByFrom").val();
     var to_date = $("#searchByTo").val();
-
+    var modality = $('#search-from span.filter-option').text();
+    modality = parseModality(modality);
+    console.log(modality);
     from_date = is_valid_date(from_date) ? to_gregorian_date(from_date) : "";
     to_date = is_valid_date(to_date) ? to_gregorian_date(to_date) : "";
 
@@ -221,6 +222,7 @@ function showResultSection() {
 
 function clearSearchInputs() {
     $('#search-from input').val("");
+    $('#search-from select').val('').selectpicker('refresh');
 }
 
 function hideSearchSection() {

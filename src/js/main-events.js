@@ -38,4 +38,8 @@ $('#search-from input[type="text"]').on('input', function() {
     delay(searchByInput, 500);
 });
 
+$('#search-from select').on('change', function(e) {
+  delay(searchByInput, 500);
+});
+
 $(document).click(closeNavbar);

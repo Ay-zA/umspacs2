@@ -154,7 +154,6 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
                     ORDER BY study.study_datetime DESC;';
 
     $query = $conn->prepare($query);
-
     if (isset($patient_id)) {
         $query->bindParam(':id', $patient_id);
     }
@@ -174,6 +173,7 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
           $institution = strtolower($institution);
           $query->bindParam(':institution', $institution);
     }
+    // var_dump($query);
     $query->execute();
     $result = $query->fetchAll();
 

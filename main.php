@@ -19,7 +19,8 @@
         <title>UMSPACS</title>
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 
-        <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
         <!-- <link href="css/jquery-ui/jquery-ui.min.css" rel="stylesheet"> -->
         <link href="src/css/pdp/css/persian-datepicker.min.css" rel="stylesheet">
         <link href="src/assets/slider/css/lightslider.min.css" rel="stylesheet">
@@ -53,6 +54,7 @@
         <script src="node_modules/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js"></script>
 
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
         <script src="src/assets/js/ie10-viewport-bug-workaround.js"></script>
 
         <script src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
@@ -75,6 +77,7 @@
                 });
 
                 loadAll();
+                // loadAllModalities();
                  /*var $slider = $('#imageGallery').lightSlider({
                     gallery: true,
                     item: 1,

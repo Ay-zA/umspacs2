@@ -89,6 +89,10 @@ function insertParam(key, value)
     document.location.search = kvp.join('&');
 }
 
+function parseModality(modality) {
+  return modality === 'Modality' ? '' :  modality.replace(', ' , '\\\\');
+}
+
 var delay = (function() {
   var timer = 0;
   return function(callback, ms) {
