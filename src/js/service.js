@@ -91,26 +91,12 @@ function generateWeasisUrl(type, id) {
     return url;
 }
 
-function getModalities() {
+function updateInsts() {
+  var url = 'src/components/php/api/service.php?action=getalldynamicinsts';
+  $.getJSON(url, console.log);
+}
+function updateMods() {
+  var url = 'src/components/php/api/service.php?action=getalldynamicmods';
+  $.getJSON(url, console.log);
 
 }
-// Help method
-
-/*
-var tableOffset = 20;
-var $header = $("#patient-table > thead").clone();
-var $fixedHeader = $(".header-fixed").append($header);
-console.log(tableOffset);
-
-$("#patient-table-div").bind("scroll", function() {
-    var offset = $(this).scrollTop();
-    console.log(offset);
-    console.log(tableOffset);
-    if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
-        $fixedHeader.show();
-    }
-    else if (offset <= tableOffset) {
-        $fixedHeader.hide();
-    }
-});
-*/

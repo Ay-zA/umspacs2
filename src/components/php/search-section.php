@@ -3,7 +3,7 @@
     <input id="searchById" type="search" class="form-control search-control" placeholder="Id">
     <input id="searchByName" type="search" class="form-control search-control" placeholder="Name">
     <!-- <input id="searchByModality" type="search" class="form-control search-control hidden-xs" placeholder="Modality"> -->
-    <select title="Modality" id="searchByModality" class="form-control search-control hidden-xs selectpicker" multiple >
+      <select title="Modality" id="searchByModality" class="form-control search-control hidden-xs selectpicker" multiple >
       <option>DX</option>
       <option>CT</option>
       <option>MR</option>

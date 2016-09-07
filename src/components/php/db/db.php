@@ -286,4 +286,15 @@ function updateAllModalities(){
     $query->execute();
   }
 }
+
+function getAllUsers()
+{
+  $conn = connect('dicom');
+  $query = "SELECT username, role, email FROM users";
+  $query = $conn->prepare($query);
+
+  $query->execute();
+  $result = $query->fetchAll();
+  return $result;
+}
 ?>

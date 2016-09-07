@@ -22,13 +22,13 @@
       </ul>
       <ul class="nav nav-xs visible-xs" style="float:right;">
         <li>
-          <button type="button" class="searchButton btn btn-default navbar-btn"><span class="glyphicon glyphicon-admin"></button>
+          <button type="button" class="searchButton btn btn-default navbar-btn" onclick="window.open('setting.php','_self')"><span class="glyphicon glyphicon-cog"></button>
         </li>
         <li>
           <button type="button" class="searchButton btn btn-default navbar-btn"><span class="glyphicon glyphicon-search"></button>
         </li>
         <li>
-          <button type="button" class="searchButton btn btn-default navbar-btn" onclick="window.open('src/components/php/logout.php');"><span class="glyphicon glyphicon-log-out"></button>
+          <button type="button" class="searchButton btn btn-default navbar-btn" onclick="window.open('src/components/php/logout.php','_self');"><span class="glyphicon glyphicon-log-out"></button>
         </li>
       </ul>
 
@@ -57,7 +57,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right hidden-xs">
       <li class="dropdown">
-        <a href="admin.php">Setting</a>
+        <a href="setting.php">Setting</a>
       </li>
       <li>
         <a class="searchButton" href="#">Search</a>

@@ -33,6 +33,6 @@ function get_age($dob){
 }
 
 function is_valid($var){
-  return isset($var) && !empty($var); 
+  return isset($var) && !empty($var);
 }
 ?>
