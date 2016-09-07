@@ -166,9 +166,9 @@
                 </tbody>
               </table>
             </div>
-            <div class="col-md-3 col-md-offset-7">
+            <!-- <div class="col-md-3 col-md-offset-7">
               <button class="btn btn-primary btn-block" type="button" name="button">Refresh</button>
-            </div>
+            </div> -->
 
           </div>
           <hr>
@@ -188,9 +188,9 @@
                 </tbody>
               </table>
             </div>
-            <div class="col-md-3 col-md-offset-7">
+            <!-- <div class="col-md-3 col-md-offset-7">
               <button class="btn btn-primary btn-block" type="button" name="button">Refresh</button>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="space">
@@ -214,68 +214,127 @@
           var instTabnle = $("#inst-table");
           var modTable = $("#mod-table");
           function loadAllInst() {
-
+            var url = 'src/components/php/api/service.php?action=getalldynamicinsts';
+            // $.getJSON(url, console.log);
           }
           function loadAllMod() {
+            var url = 'src/components/php/api/service.php?action=getalldynamicmods';
+            // $.getJSON(url, console.log);
 
           }
           loadAllInst();
           loadAllMod();
           $instDataTable = instTabnle.DataTable({
             "searching": false,
-            "paging": false,
-            "info": false
+            "info": false,
+            "ajax": {
+              "url": "src/components/php/api/service.php?action=getalldynamicinsts",
+              "dataSrc": function ( json ) {
+                var data = [];
+                for ( var i=0, ien=json.length ; i<ien ; i++ ) {
+                  if(json[i].name === '') continue;
+                  data.push({'0': fix_name(json[i].name), '1': 'Remove'});
+                }
+                console.log(data);
+                return data;
+              }
+            },
+            "bFilter": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "bLengthChange": false,
+            "sPaginationType": "full_numbers",
+            "fnDrawCallback": function() {
+              if (Math.ceil((this.fnSettings().fnRecordsDisplay()) / this.fnSettings()._iDisplayLength) > 1) {
+                $('.dataTables_paginate').css("display", "block");
+                $('.dataTables_length').css("display", "block");
+                $('.dataTables_filter').css("display", "block");
+              } else {
+                $('.dataTables_paginate').css("display", "none");
+                $('.dataTables_length').css("display", "none");
+                $('.dataTables_filter').css("display", "none");
+              }
+            },
+            "iDisplayLength": 5
           });
           $modDataTable = modTable.DataTable({
             "searching": false,
-            "paging": false,
-            "info": false
+            "info": false,
+            "ajax": {
+              "url": "src/components/php/api/service.php?action=getalldynamicmods",
+              "dataSrc": function ( json ) {
+                var data = [];
+                for ( var i=0, ien=json.length ; i<ien ; i++ ) {
+                  if(json[i].name === '') continue;
+                  data.push({'0': json[i].modality, '1': 'Info', '2': 'Remove'});
+                }
+                console.log(data);
+                return data;
+              }
+            },
+            "bFilter": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "bLengthChange": false,
+            "sPaginationType": "full_numbers",
+            "fnDrawCallback": function() {
+              if (Math.ceil((this.fnSettings().fnRecordsDisplay()) / this.fnSettings()._iDisplayLength) > 1) {
+                $('.dataTables_paginate').css("display", "block");
+                $('.dataTables_length').css("display", "block");
+                $('.dataTables_filter').css("display", "block");
+              } else {
+                $('.dataTables_paginate').css("display", "none");
+                $('.dataTables_length').css("display", "none");
+                $('.dataTables_filter').css("display", "none");
+              }
+            },
+            "iDisplayLength": 5
           });
         });
       </script>
       <script type="text/javascript">
-        $('#contact_form').bootstrapValidator({
-            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-            feedbackIcons: {
-              valid: 'glyphicon glyphicon-ok',
-              invalid: 'glyphicon glyphicon-remove',
-              validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-              passowrd: {
-                validators: {
-                  stringLength: {
-                    min: 6,
-                    message: 'must be greater than 6 charecter'
-                  }
-                  notEmpty: {
-                    message: 'Please enter your new password'
-                  }
-                }
-              },
-            }
-          })
-          .on('success.form.bv', function(e) {
-            $('#success_message').slideDown({
-                opacity: "show"
-              }, "slow") // Do something ...
-
-            $('#contact_form').data('bootstrapValidator').resetForm();
-
-            // Prevent form submission
-            e.preventDefault();
-
-            // Get the form instance
-            var $form = $(e.target);
-
-            // Get the BootstrapValidator instance
-            var bv = $form.data('bootstrapValidator');
-
-            // Use Ajax to submit form data
-            $.post($form.attr('action'), $form.serialize(), function(result) {
-              console.log(result);
-            }, 'json');
-          });
+        // $('#contact_form').bootstrapValidator({
+        //     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        //     feedbackIcons: {
+        //       valid: 'glyphicon glyphicon-ok',
+        //       invalid: 'glyphicon glyphicon-remove',
+        //       validating: 'glyphicon glyphicon-refresh'
+        //     },
+        //     fields: {
+        //       passowrd: {
+        //         validators: {
+        //           stringLength: {
+        //             min: 6,
+        //             message: 'must be greater than 6 charecter'
+        //           }
+        //           notEmpty: {
+        //             message: 'Please enter your new password'
+        //           }
+        //         }
+        //       },
+        //     }
+        //   })
+        //   .on('success.form.bv', function(e) {
+        //     $('#success_message').slideDown({
+        //         opacity: "show"
+        //       }, "slow") // Do something ...
+        //
+        //     $('#contact_form').data('bootstrapValidator').resetForm();
+        //
+        //     // Prevent form submission
+        //     e.preventDefault();
+        //
+        //     // Get the form instance
+        //     var $form = $(e.target);
+        //
+        //     // Get the BootstrapValidator instance
+        //     var bv = $form.data('bootstrapValidator');
+        //
+        //     // Use Ajax to submit form data
+        //     $.post($form.attr('action'), $form.serialize(), function(result) {
+        //       console.log(result);
+        //     }, 'json');
+        //   });
       </script>
       <script src="src/js/main.js"></script>
       <script src="src/js/service.js"></script>

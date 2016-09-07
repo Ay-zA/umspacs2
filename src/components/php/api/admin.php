@@ -1,6 +1,6 @@
 <?php
 function loadAllModalities(){
-  $allMoladities = getAllModalities(true);
+  $allMoladities = getAllModalities();
   foreach ($allMoladities as $key => $value) {
     echo modalityRow($value['modality'],'info', $value['id']);
   }

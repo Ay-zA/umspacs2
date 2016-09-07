@@ -487,6 +487,12 @@ tr.active .weasis-btn {
   height: 10px;
 }
 
+#inst-table_previous, #inst-table_next, #inst-table_first, #inst-table_last{
+  display: none;
+}
+#mod-table_previous, #mod-table_next, #mod-table_first, #mod-table_last{
+  display: none;
+}
 @media (max-width: 767px) {
   table {
     font-size: smaller;

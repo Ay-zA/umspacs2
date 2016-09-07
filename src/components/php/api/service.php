@@ -39,6 +39,12 @@
       case 'getallstudies':
         $response = returnAllStudies();
         break;
+      case 'getalldynamicmods':
+        $response = getAllModalities(true);
+        break;
+      case 'getalldynamicinsts':
+        $response = getAllInstitutions(true);
+        break;
       case 'searchstudies':
         // echo  $_GET['id'] . "<br>" . $_GET['name']. '<br> ' . $_GET['modality']. '<br> ' . $_GET['from']. '<br> ' . $_GET['to'];
         $id           = is_valid($_GET['id'])           ? $_GET['id']                 : NULL;
