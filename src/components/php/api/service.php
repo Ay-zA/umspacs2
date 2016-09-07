@@ -47,7 +47,13 @@
         $from         = is_valid($_GET['from'])         ? $_GET['from'] . ' 00:00:00' : NULL;
         $to           = is_valid($_GET['to'])           ? $_GET['to'] . ' 23:59:59'   : NULL;
         $institution  = is_valid($_GET['institution'])  ? $_GET['institution']        : NULL;
-
+        // $modality     = explode("\\", $modality);
+        // $arr = [];
+        // var_dump($modality);
+        // for ($i=0; $i < count($modality); $i++) {
+          // $arr["modality$i"] = $modality[$i];
+        // }
+        // var_dump($arr);
         $response = searchStudies($id, $name, $modality, $from, $to, $institution);
         break;
     }

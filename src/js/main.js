@@ -33,12 +33,14 @@ function openPanel() {
 function searchByInput() {
     var id = $("#searchById").val();
     var name = $("#searchByName").val();
-    var institution = $("#searchByInstitution").val();
+    var institution = $("#searchByInstitution").parent().children('button').children('span').text();
     var from_date = $("#searchByFrom").val();
     var to_date = $("#searchByTo").val();
-    var modality = $('#search-from span.filter-option').text();
+    var modality = $('#searchByModality').parent().children('button').children('span').text();
     modality = parseModality(modality);
+    institution = parseInstitution(institution);
     console.log(modality);
+    console.log(institution);
     from_date = is_valid_date(from_date) ? to_gregorian_date(from_date) : "";
     to_date = is_valid_date(to_date) ? to_gregorian_date(to_date) : "";
 

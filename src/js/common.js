@@ -92,6 +92,9 @@ function insertParam(key, value)
 function parseModality(modality) {
   return modality === 'Modality' ? '' :  modality.replace(', ' , '\\\\');
 }
+function parseInstitution(institution) {
+  return institution === 'Institution' ? '' :  institution;
+}
 
 var delay = (function() {
   var timer = 0;

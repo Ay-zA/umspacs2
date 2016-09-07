@@ -100,7 +100,7 @@ body {
   flex: 0 0 40px;
   background: #222;
   color: #fff;
-  box-shadow: 0px -1px 1px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .section-content {
@@ -201,11 +201,11 @@ tr.active td {
   background: #444;
   padding: 5px 10px;
   border: none;
-  box-shadow: 0;
+  box-shadow: none;
   color: #eee;
 }
 
-#search-from input:focus, #search-from input.used {
+#search-from input:focus, #search-from .used {
   border-bottom: 1px solid rgb(0, 161, 117) !important;
   box-shadow: none;
 }
@@ -232,7 +232,7 @@ tr.active td {
 
 .search-control {
   padding: 2px 12px;
-  height: 1.8em;
+  min-height: 1.8em;
 }
 
 #close-button {
@@ -251,8 +251,6 @@ tr.active td {
   top: 0;
   flex-flow: column;
   display: flex;
-  ex;
-  */
 }
 
 .header-fixed {
@@ -366,7 +364,6 @@ tr.active td {
 .modal-body {
   overflow-y: auto;
   flex: 1;
-  /* padding: 0; */
 }
 
 .modal-dialog {
@@ -403,10 +400,7 @@ tr.active .weasis-btn {
   text-align: center;
 }
 
-div#noresult {
-  /* width:100%; */
-  /* height:100%; */
-  /* position:fixed; */
+#noresult {
   flex: 1;
   display: flex;
   align-self: center;
@@ -417,12 +411,12 @@ div#noresult {
   display: none;
 }
 
-div#noresult div {
+#noresult div {
   align-self: center;
   flex: 1;
 }
 
-div#noresult div h1 {
+#noresult div h1 {
   opacity: .5;
   flex: 1;
 }
@@ -431,8 +425,7 @@ div#noresult div h1 {
   display: none;
 }
 
-.bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*=col-]{
-  flex: 1 0 200px;
+.bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*=col-] {
   margin-right: 1em;
   margin-bottom: .5em;
   flex: 1 200px;
@@ -440,15 +433,58 @@ div#noresult div h1 {
   height: auto;
   background: #444;
   border: none;
-  box-shadow: 0;
+  box-shadow: none;
   color: #eee;
 }
-.bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button{
+
+.bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button {
   background: #444;
 }
 
-.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default{
-  color:#eee;
+.btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
+  color: #eee;
+}
+
+.flex-container {
+  height: calc(100% - 51px);
+  height: -o-calc(100% - 51px);
+  height: -webkit-calc(100% - 51px);
+  height: -moz-calc(100% - 51px);
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+}
+
+.left-sider {
+  width: 200px;
+  background: #333;
+}
+
+.main-panel {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.nav-pills li a {
+  color: white;
+  border-radius: 0;
+}
+
+.nav-pills li a:focus {
+  background: transparent;
+}
+
+.nav-pills li a:hover, .nav-pills li a:active {
+  background: #444;
+}
+
+.alert{
+  border-radius: 0;
+  display: none;
+}
+
+.space{
+  height: 10px;
 }
 
 @media (max-width: 767px) {

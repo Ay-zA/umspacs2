@@ -192,4 +192,98 @@ function getInstitutionName($study_pk){
     return $result;
 }
 
+function getAllModalities($dynamic=false){
+  if ($dynamic) {
+    updateAllModalities();
+  }
+  $conn = connect('dicom');
+  $query = "SELECT * FROM modalities";
+  $query = $conn->prepare($query);
+
+  $query->execute();
+  $result = $query->fetchAll();
+  return $result;
+}
+
+function getAllInstitutions($dynamic=false){
+  if ($dynamic) {
+    updateInstituations();
+  }
+  $conn = connect('dicom');
+  $query = "SELECT * FROM institutions";
+  $query = $conn->prepare($query);
+
+  $query->execute();
+  $result = $query->fetchAll();
+  return $result;
+}
+
+function updateInstituations(){
+  // Get All Dynamic Insts
+  $conn = connect('pacsdb');
+  $query = "SELECT DISTINCT series.institution FROM `series`;";
+  $query = $conn->prepare($query);
+
+  $query->execute();
+  $allDynamicInsts = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+
+  // Get All Static Inst
+  $conn = connect('dicom');
+  $query = "SELECT `name` FROM `institutions`;";
+  $query = $conn->prepare($query);
+
+  $query->execute();
+  $allStaticInsts = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+
+  // Check if exixts
+  foreach ($allDynamicInsts as $key => $value) {
+    $instName = $value;
+    if(in_array($instName, $allStaticInsts)) continue;
+
+    $query = "INSERT INTO `institutions` (`name`) VALUES ('$instName');";
+
+    $query = $conn->prepare($query);
+    $query->execute();
+  }
+}
+
+function updateAllModalities(){
+  // Get All Dynamic Modalities
+  $conn = connect('pacsdb');
+  $query = "SELECT DISTINCT study.mods_in_study FROM `study`;";
+  $query = $conn->prepare($query);
+
+  $query->execute();
+  $allDynamicMods = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+  // var_dump($allDynamicMods);
+  $allMods = [];
+  foreach ($allDynamicMods as $key => $value) {
+    $values = explode( '\\',$value);
+    foreach ($values as $key2 => $value2) {
+      if (!in_array($value2, $allMods)) {
+        $allMods[] = $value2;
+      }
+    }
+  }
+  $allDynamicMods = $allMods;
+
+  // Get All Static Inst
+  $conn = connect('dicom');
+  $query = "SELECT `modality` FROM `modalities`;";
+  $query = $conn->prepare($query);
+
+  $query->execute();
+  $allStaticMods = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+
+  // Check if exixts
+  foreach ($allDynamicMods as $key => $value) {
+    $modName = $value;
+    if(in_array($modName, $allStaticMods)) continue;
+
+    $query = "INSERT INTO `modalities` (`modality`) VALUES ('$modName');";
+
+    $query = $conn->prepare($query);
+    $query->execute();
+  }
+}
 ?>

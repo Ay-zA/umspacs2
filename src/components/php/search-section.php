@@ -11,8 +11,16 @@
       <option>OT</option>
       <option>KO</option>
     </select>
+    <select title="Institution" id="searchByInstitution" class="form-control search-control hidden-xs selectpicker" data-live-search="true">
+      <option>Gonbad Payambar Azam</option>
+      <option>Gonbad Motahari Hospital</option>
+      <option>Al Jalil Agh Ghala</option>
+      <option>Torkaman Imam Khomeyni Hospital</option>
+      <option>Gorgan Taleghani Hospital</option>
+      <option>5th Azar Hospital</option>
+    </select>
     <!-- <input   placeholder="Modality"> -->
-    <input id="searchByInstitution" type="search" class="form-control search-control hidden-xs" placeholder="Institution">
+    <!-- <input id="searchByInstitution" type="search" class="form-control search-control hidden-xs" placeholder="Institution"> -->
     <input id="searchByFrom" type="text" class="form-control search-control hidden-xs" placeholder="From">
     <input id="searchByTo" type="text" class="form-control search-control hidden-xs" placeholder="To">
   </form>
