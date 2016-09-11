@@ -2,6 +2,7 @@
   require_once 'common.php';
 
   session_start();
+
   function createUser($username, $password, $email, $role){
     if(!is_valid($username) || !is_valid($password) || !is_valid($role)) return 403; // Null Param
     if(is_user_exist($username)) return 405; // Existed
@@ -16,6 +17,25 @@
     $query->bindParam(':username', $username);
     $query->bindParam(':email', $email);
     $query->bindParam(':role', $role);
+    $query->bindParam(':password', $password);
+
+    $query->execute();
+    return 400; // OK
+  }
+  function updateUser($username, $password, $email, $role){
+    if(!is_valid($username) || !is_valid($password)) return 403; // Null Param
+    if(!is_user_exist($username)) return 405; // Not Existed
+
+    $conn = connect("dicom");
+    if($conn == null)
+      return 404; //Connection failed
+
+    $query = "UPDATE `users` SET `password`=:password WHERE `username`=:username;";
+    $query = $conn->prepare($query);
+
+    // $query->bindParam(':email', $email);
+    // $query->bindParam(':role', $role);
+    $query->bindParam(':username', $username);
     $query->bindParam(':password', $password);
 
     $query->execute();
@@ -60,6 +80,7 @@
   function canAccess($username, $action){
     if(!is_valid($username) || !is_valid($action))
       return false;
+
   }
 
 ?>

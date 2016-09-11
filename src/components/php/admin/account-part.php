@@ -1,11 +1,21 @@
 <hr />
-<form class="form-horizontal" action="#" method="post">
+<form id="account-form" class="form-horizontal" action="src/components/php/admin/updateuser.php" method="post">
   <fieldset>
     <!-- Form Name -->
     <legend>Change Password</legend>
     <!-- Success message -->
-    <div class="alert alert-success col-md-7" role="alert" id="success_message">Your information has been updated. <i class="glyphicon glyphicon-thumbs-up"></i></div>
-    <div class="clearfix"></div>
+    <?php if(isset($_SESSION['user_success'])): ?>
+      <div class="alert alert-success col-md-12" role="alert" id="user_success_message"><?php echo $_SESSION['user_success'] ?> <i class="glyphicon glyphicon-thumbs-up"></i></div>
+      <div class="clearfix"></div>
+      <?php unset($_SESSION['user_success']); ?>
+    <?php endif ?>
+
+    <?php if(isset($_SESSION['user_error'])): ?>
+      <div class="alert alert-danger col-md-12" role="alert" id="user_error_message"><?php echo $_SESSION['user_error'] ?> <i class="glyphicon glyphicon-thumbs-up"></i></div>
+      <div class="clearfix"></div>
+      <?php unset($_SESSION['user_error']); ?>
+    <?php endif ?>
+
 
     <!-- Text input-->
     <div class="form-group">
@@ -13,7 +23,7 @@
       <div class="col-md-10 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input name="usernname" readonly placeholder="Username" class="form-control" type="text">
+          <input name="username" readonly placeholder="Username" class="form-control" type="text" value="<?php echo $_SESSION['dicom_username']; ?>">
         </div>
       </div>
     </div>
@@ -34,7 +44,7 @@
       <div class="col-md-10 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input name="repeat_password" placeholder="Repeat Password" class="form-control" type="text">
+          <input name="repeat_password" placeholder="Repeat Password" class="form-control" type="password">
         </div>
       </div>
     </div>

@@ -35,7 +35,8 @@
     <?php include('src/components/php/header-admin.php'); ?>
 
     <div class="flex-container">
-      <div class="left-sider green">
+      <div class="left-sider">
+        <h3 class="tabs-header">Setting</h3>
         <ul id="admin-tabs" class="nav nav-pills nav-stacked">
           <li class="active"><a id="account" href="#">Account</a></li>
           <li class=""><a id="inst-mod-info" href="#">Manage Institution</a></li>
@@ -61,12 +62,13 @@
       <script src="src/js/common.js"></script>
       <script src="src/components/js/admin.config.js"></script>
       <?php
-        $where2Go = (isset($_SESSION['adminTab']) ? 'user-manager' : 'account'); 
+        $where2Go = (isset($_SESSION['adminTab']) ? 'user-manager' : 'account');
         unset($_SESSION['adminTab']);
       ?>
       <script>
         $(document).ready(function() {
           var where2Go = "<?php echo $where2Go; ?>";
+          var username = "<?php echo $_SESSION['dicom_username']; ?>";
           changeAdminTabById(where2Go);
 
           var instTable = $("#inst-table");
@@ -99,10 +101,9 @@
             })
           }
           function clearInputs() {
-            $('input[type="text"]').val(".");
-            $('input[type="password"]').val(".");
             $('input[type="text"]').val("");
             $('input[type="password"]').val("");
+            $('#account-form input[name="username"]').val(username);
           }
           $instDataTable = instTable.DataTable(adminConfig.instTableOptions);
           $modDataTable = modTable.DataTable(adminConfig.modTableOptions);

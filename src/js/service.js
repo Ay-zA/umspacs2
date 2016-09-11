@@ -1,6 +1,5 @@
 var hostname = window.location.hostname;
 var baseURL = window.location.pathname.split('/')[1];
-var selected_study_uid;
 
 function getSeriesData() {
     var studyId = $(this).attr('data-study-id');
@@ -8,29 +7,18 @@ function getSeriesData() {
     $.getJSON(url, printSeries);
 }
 
-function getInstanceData() {
-
-    var seriePk = $(this).attr('data-id');
-    selected_serie_uid = $(this).attr('data-serie');
-
+function getInstanceData(seriePk, cb) {
     var url = "src/components/php/api/service.php?action=getallinstances&serie_pk=" + seriePk;
     // console.log(url);
-    $.getJSON(url, showInstance);
+    $.getJSON(url, cb);
 }
-
-function getInstitutionName(studyId) {
-  // TODO: getInstitutionName!
-  return "TODO";
-
-    // var url = "src/components/php/api/service.php?action=getInstitutionName&study_pk=" + studyId;
-    // var res = $.ajax({
-    //     url: url,
-    //     async: false,
-    //     dataType: 'json'
-    // });
-    // return $.parseJSON(res.responseText);
+function getInstanceDataPromise(seriePk) {
+    return new Promise(function(resolve, reject) {
+      var url = "src/components/php/api/service.php?action=getallinstances&serie_pk=" + seriePk;
+      // console.log(url);
+      $.getJSON(url, resolve);
+    });
 }
-
 
 function generateRequestURL(study_UID, serie_UID, instance_UID, frame) {
     frame = (typeof(frame) === 'undefined') ? 0 : frame;
@@ -59,7 +47,7 @@ function searchStudies(pat_id, pat_name, modality, from_date, to_date,institutio
     to_date = (typeof(to_date) === 'undefined') ? '' : to_date;
     institution = (typeof(institution) === 'undefined') ? '' : institution;
 
-    url = "src/components/php/api/service.php?action=searchstudies&id=" + pat_id +
+    var url = "src/components/php/api/service.php?action=searchstudies&id=" + pat_id +
         "&name=" + pat_name +
         "&modality=" + modality +
         "&from=" + from_date +
@@ -67,7 +55,63 @@ function searchStudies(pat_id, pat_name, modality, from_date, to_date,institutio
         "&institution=" + institution;
 
     console.log(url);
-
+    // $("#patient-table").DataTable({
+    //   "searching": false,
+    //   "iDisplayLength": 5,
+    //   "iTotalRecords": 5,
+    //   "iTotalDisplayRecords": 5,
+    //   // 'bserverSide': true,
+    //
+    //   "ajax": {
+    //     "url": url,
+    //     "dataSrc": function ( json ) {
+    //       var data = [];
+    //       for ( var i=0, ien=json.length ; i<ien ; i++ ) {
+    //         // output += '<tr loaded="false" data-iuid=' + data[i].study_iuid + ' data-study-id=' + data[i].study_pk + '>';
+    //         // output += '<td data-type="pat_id">' + data[i].pat_id + '</td>';
+    //         // output += '<td data-type="pat_name"><b>' + fix_name(data[i].pat_name) + '</b>/' + get_sex(data[i].pat_sex) + '/' + get_age(data[i].pat_birthdate) + '</td>';
+    //         // output += '<td data-type="institution">' + fix_name(data[i].institution) + '</td>';
+    //         // output += '<td data-type="modality">' + data[i].mods_in_study + '</td>';
+    //         // output += '<td data-type="study_date">' + to_persian_date(data[i].study_datetime) + '</td>';
+    //         // output += '<td data-type="study_time">' + get_time(data[i].study_datetime) + '</td>';
+    //         // output += '<td class="hidden-xs" data-type="num_series">' + data[i].num_series + '</td>';
+    //         // output += '<td class="hidden-xs" data-type="num_instances">' + data[i].num_instances + '</td>';
+    //         // var url = generateWeasisUrl('patient', data[i].pat_id);
+    //         // output += '<td><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>';
+    //         // output += '</tr>';
+    //         data.push(
+    //           {
+    //            '0': json[i].pat_id,
+    //            '1': json[i].pat_name,
+    //            '2': json[i].institution,
+    //            '3': json[i].mods_in_study,
+    //            '4': to_persian_date(json[i].study_datetime),
+    //            '5': get_time(json[i].study_datetime),
+    //            '6': json[i].num_series,
+    //            '7': json[i].num_instances,
+    //            '8': '<a class="weasis-btn flat-btn hidden-xs" href="' + generateWeasisUrl('patient', json[i].pat_id) + '"><span class="glyphicon glyphicon-eye-open"></span></a>'
+    //          });
+    //       }
+    //       return data;
+    //     }
+    //   },
+    //   "bFilter": false,
+    //   "bAutoWidth": false,
+    //   "bInfo": false,
+    //   "bLengthChange": false,
+    //   "sPaginationType": "full_numbers",
+    //   "fnDrawCallback": function() {
+    //     if (Math.ceil((this.fnSettings().fnRecordsDisplay()) / this.fnSettings()._iDisplayLength) > 1) {
+    //       $('.dataTables_paginate').css("display", "block");
+    //       $('.dataTables_length').css("display", "block");
+    //       $('.dataTables_filter').css("display", "block");
+    //     } else {
+    //       $('.dataTables_paginate').css("display", "none");
+    //       $('.dataTables_length').css("display", "none");
+    //       $('.dataTables_filter').css("display", "none");
+    //     }
+    //   },
+    // });
     $.getJSON(url, printStudies);
 }
 

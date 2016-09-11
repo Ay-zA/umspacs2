@@ -5,6 +5,7 @@ var patient_table = $("#patient-table tbody");
 var series_table = $("#series-table tbody");
 var result_section = $("#result-section");
 var seriesSectionHeader = $("#result-section .section-header h4");
+var selected_study_uid;
 var $dataTable = false;
 var series_data = {};
 var instance_data = {};
@@ -22,12 +23,9 @@ function openWeasis(e) {
     window.open(url);
 }
 
-function openPanel() {
-  var id = $(e.target).closest('tr').children('td[data-type="pat_id"]').text();
-  var hash = window.location.hash;
-  console.log(hash);
-    //again, do what you will here
-    document.location.search = s;
+function openPanel(e) {
+  var id = $(e.target).closest('tr').attr("data-study-id");
+  window.open('panel.php?pat_id='+ id);
 }
 
 function searchByInput() {
@@ -39,8 +37,6 @@ function searchByInput() {
     var modality = $('#searchByModality').parent().children('button').children('span').text();
     modality = parseModality(modality);
     institution = parseInstitution(institution);
-    console.log(modality);
-    console.log(institution);
     from_date = is_valid_date(from_date) ? to_gregorian_date(from_date) : "";
     to_date = is_valid_date(to_date) ? to_gregorian_date(to_date) : "";
 
@@ -92,6 +88,7 @@ function loadMonth() {
 
 
 function serieRowClicked() {
+    selected_serie_uid = $(this).attr('data-serie');
     var rows = $("#series-table tbody tr");
     rows.removeClass('active');
     $(this).addClass('active');
@@ -101,6 +98,7 @@ function serieRowClicked() {
 function showInstance(data) {
     var output = "";
     $.each(data, function(i, obj) {
+
         var request = generateRequestURL(selected_study_uid, selected_serie_uid, obj.sop_iuid);
         output += '<div class="col-sm-12 full-height"><img class="img-responsive thumb-img" src="' + request + '" /></div>';
     });
@@ -110,9 +108,7 @@ function showInstance(data) {
 
     $selected_serie.attr('loaded', 'true');
     var seried_id = $selected_serie.attr('data-id');
-    // console.log(seried_id);
     instance_data[seried_id] = output;
-    // console.log(instance_data);
     var rowoutput = '<div class="row">' + output + '</div>';
     modal.html(rowoutput);
 
@@ -121,7 +117,7 @@ function showInstance(data) {
 function loadInstanceData() {
     var $selected_serie = $('#series-table tbody tr.active');
     var serie_id = $selected_serie.attr('data-id');
-    // console.log(serie_id);
+
     thumb.html(instance_data[serie_id]);
 
     var rowoutput = '<div class="row">' + instance_data[serie_id] + '</div>';
@@ -167,7 +163,6 @@ function printStudies(data) {
     var output = "";
     for (var i = (page - 1) * page_size; i < page * page_size; i++) {
         if (!data[i]) break;
-        // console.log(i);
         output += '<tr loaded="false" data-iuid=' + data[i].study_iuid + ' data-study-id=' + data[i].study_pk + '>';
         output += '<td data-type="pat_id">' + data[i].pat_id + '</td>';
         output += '<td data-type="pat_name"><b>' + fix_name(data[i].pat_name) + '</b>/' + get_sex(data[i].pat_sex) + '/' + get_age(data[i].pat_birthdate) + '</td>';
@@ -192,7 +187,7 @@ function printStudies(data) {
     $("#patient-table").on('page.dt', function () {
       clearSearchInputs();
     });
-  }
+    }
  }
 
 function toggleModal(modalId) {

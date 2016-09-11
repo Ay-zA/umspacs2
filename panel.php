@@ -9,21 +9,28 @@
       header('location: main.php');
   }
 
-  $pat_id = $_GET['pat_id'];
-
-  $all_series = getAllSeries($pat_id);
-
-  public function generate_serie_view($value='')
-  {
-    # code...
+  function generateSerieRow($modality, $part, $img_num, $pk, $uid) {
+    echo '<li><a class="serie-link" data-serie-pk='. $pk . ' data-serie-uid='. $uid .' href="#">';
+    echo $modality;
+    echo ' | '. $part;
+    echo ' | '. $img_num;
+    echo '</a></li>';
   }
-  foreach ($all_series as $key => $value) {
-    $modality = $value['modality'] == null ? "N/A" : $value['modality'];
-    $part = $value['body_part'] == null ? "N/A" : $value['body_part'] ;
-    $img_num  = $value['num_instances'];
-    $serie_view = generate_serie_view();
-    echo '</br>';
+
+  function generateSeriesNav($series) {
+    foreach ($series as $key => $value) {
+      $modality = $value['modality'] == null ? "N/A" : $value['modality'];
+      $part = $value['body_part'] == null ? "N/A" : $value['body_part'] ;
+      $img_num  = $value['num_instances'];
+      $pk  = $value['pk'];
+      $uid = $value['series_iuid'];
+      generateSerieRow($modality, $part, $img_num, $pk , $uid);
+    }
   }
+
+  $study_id = $_GET['pat_id'];
+  $all_series = getAllSeries($study_id);
+  $studyUID = getStudyId($study_id)
 ?>
 
   <!DOCTYPE html>
@@ -34,10 +41,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UMSPACS - Panel</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="src/images/favicon.ico" />
 
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="src/assets/slider/css/lightslider.min.css" rel="stylesheet">
+    <link href="src/css/style.css" rel="stylesheet">
     <link href="src/css/panel.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -46,6 +54,17 @@
   </head>
 
   <body>
+    <?php include('src/components/php/header-admin.php'); ?>
+    <div class="flex-container">
+      <div class="left-sider">
+        <h3 class="tabs-header">Series</h3>
+        <ul id="viewer-serie-list" data-study-uid='<?php echo $studyUID ?>' class="nav nav-pills nav-stacked">
+          <?php generateSeriesNav($all_series);?>
+        </ul>
+      </div>
+      <?php include "src/components/php/panel/viewer.php"; ?>
+
+    </div>
 
 
     <!-- Scripts -->
@@ -62,7 +81,14 @@
 
     <script src="src/js/service.js"></script>
     <script src="src/js/panel.js"></script>
+    <?php
+      echo '<script type="text/javascript">
+  var study_uid ="' . $studyUID["study_iuid"] .'";
+</script>'
+    ?>
+    <script type="text/javascript">
 
+    </script>
   </body>
 
   </html>

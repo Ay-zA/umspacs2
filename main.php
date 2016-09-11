@@ -38,15 +38,6 @@
       <?php include('src/components/php/search-section.php'); ?>
       <?php include('src/components/php/study-section.php'); ?>
       <?php include('src/components/php/series-section.php'); ?>
-      <!-- <ul id="imageGallery">
-                <li data-thumb="img/cS-1.jpg" data-src="img/largeImage.jpg">
-                    <img src="img/cS-1.jpg" />
-                </li>
-                <li data-thumb="img/cS-2.jpg" data-src="img/largeImage1.jpg">
-                    <img src="img/cS-2.jpg" />
-                </li>
-            </ul>
-            <button type="button" name="button" id="play">Play</button> -->
     </div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -78,27 +69,6 @@
 
         loadAll();
         // loadAllModalities();
-        /*var $slider = $('#imageGallery').lightSlider({
-                    gallery: true,
-                    item: 1,
-                    loop: true,
-                    vertical:true,
-                    speed : 200,
-                    pause: 400,
-                    thumbItem: 9,
-                    slideMargin: 0,
-                    enableDrag: false,
-                    currentPagerPosition: 'left',
-                    onSliderLoad: function(el) {
-                        el.lightGallery({
-                            selector: '#imageGallery .lslide'
-                        });
-                    }
-                });
-
-                $('#play').click(function(){
-                    $slider.play();
-                });*/
       });
     </script>
 

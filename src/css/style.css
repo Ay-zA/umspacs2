@@ -457,7 +457,9 @@ tr.active .weasis-btn {
 
 .left-sider {
   width: 200px;
+  color:#eee;
   background: #333;
+  overflow-y: auto;
 }
 
 .main-panel {
@@ -486,12 +488,30 @@ tr.active .weasis-btn {
   height: 10px;
 }
 
+.viewer-panel{
+  background: black;
+  flex: 1;
+  overflow-y: auto;
+}
+
+#viewer #imageGallery img{
+  width: auto: ;
+  height: 50vh;
+}
+
 #inst-table_previous, #inst-table_next, #inst-table_first, #inst-table_last{
   display: none;
 }
 #mod-table_previous, #mod-table_next, #mod-table_first, #mod-table_last{
   display: none;
 }
+
+.tabs-header{
+  color: #eee;
+  margin-left: 5px;
+  margin-top:.8em;
+}
+
 @media (max-width: 767px) {
   table {
     font-size: smaller;
