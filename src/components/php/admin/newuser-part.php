@@ -1,6 +1,6 @@
 <h3>Create account:</h3>
 <hr/>
-<form class="form-horizontal" action="src/components/php/admin/createuser.php" method="post" autocomplete="off">
+<form id="newuser-form" class="form-horizontal" data-toggle="validator" action="src/components/php/admin/createuser.php" method="post" autocomplete="off">
   <fieldset>
     <!-- Success message -->
   <?php if(isset($_SESSION['newuser_success'])): ?>
@@ -14,13 +14,14 @@
     <div class="clearfix"></div>
     <?php unset($_SESSION['newuser_error']); ?>
   <?php endif ?>
-    <!-- Text input-->
+
+    <!-- Username-->
     <div class="form-group">
       <label class="col-md-2 control-label">Username</label>
       <div class="col-md-10 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input name="newuser_username" placeholder="Username" class="form-control" type="text" autocomplete="dontfillitdearchrome2">
+          <input name="newuser_username" placeholder="Username" class="form-control" type="text" autocomplete="dontfillitdearchrome2" required >
         </div>
       </div>
     </div>
@@ -31,8 +32,9 @@
       <div class="col-md-10 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input name="newuser_password" placeholder="Password" class="form-control" type="password" autocomplete="dontfillitdearchrome">
+          <input name="newuser_password" placeholder="Password" class="form-control" type="password" autocomplete="dontfillitdearchrome" data-minlength="6" required>
         </div>
+        <div class="help-block with-errors"></div>
       </div>
     </div>
     <!-- Text input-->
@@ -49,8 +51,8 @@
     <div class="form-group">
       <label class="col-md-2 control-label">Role</label>
       <div class="col-md-10 ">
-        <label class="radio-inline"><input type="radio" name="newuser_role" value="viewer" checked>Viewer</label>
-        <label class="radio-inline"><input type="radio" name="newuser_role" value="admin">Admin</label>
+        <label class="radio-inline"><input type="radio" name="newuser_role" value="viewer" checked required>Viewer</label>
+        <label class="radio-inline"><input type="radio" name="newuser_role" value="admin" required>Admin</label>
       </div>
     </div>
 
@@ -64,3 +66,18 @@
 
   </fieldset>
 </form>
+<script type="text/javascript">
+  $('#newuser-form').validator();
+
+  $('input[name="newuser_password"]').on('blur', function (e) {
+    if($(this).val() === ''){
+      console.log('e');
+      resetValidator('#newuser-form');
+    }
+  });
+  $('input[name="newuser_username"]').on('blur', function (e) {
+    if($(this).val() === ''){
+      resetValidator('#newuser-form');
+    }
+  });
+</script>

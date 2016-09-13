@@ -1,5 +1,5 @@
 <hr />
-<form id="account-form" class="form-horizontal" action="src/components/php/admin/updateuser.php" method="post">
+<form id="account-form" class="form-horizontal" data-toggle="validator" action="src/components/php/admin/updateuser.php" method="post">
   <fieldset>
     <!-- Form Name -->
     <legend>Change Password</legend>
@@ -27,27 +27,27 @@
         </div>
       </div>
     </div>
-    <!-- Text input-->
 
+    <!-- Passwords -->
     <div class="form-group">
       <label class="col-md-2 control-label">Password</label>
-      <div class="col-md-10 inputGroupContainer">
+      <div class="col-md-5 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input name="password" placeholder="Password" class="form-control" type="password">
+          <input id="account-password" name="password" placeholder="Password" class="form-control"  type="password" data-minlength="6" required>
         </div>
+        <div class="help-block with-errors"></div>
       </div>
-    </div>
-    <!-- Text input-->
-    <div class="form-group">
-      <label class="col-md-2 control-label">Confirm Passowrd</label>
-      <div class="col-md-10 inputGroupContainer">
+
+      <div class="col-md-5 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input name="repeat_password" placeholder="Repeat Password" class="form-control" type="password">
-        </div>
+          <input name="repeat_password" data-match="#account-password" data-match-error="Passwords don't match" data-minlength="6" placeholder="Confirm" required class="form-control" type="password">
+      </div>
+      <div class="help-block with-errors"></div>
       </div>
     </div>
+
     <!-- Text input-->
     <div class="form-group">
       <label class="col-md-2 control-label">Email</label>
@@ -69,3 +69,22 @@
 
   </fieldset>
 </form>
+<script src="bower_components/bootstrap-validator/dist/validator.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+  $('#account-form').validator();
+
+  function resetValidator(el) {
+    $(el).validator('destroy');
+    $(el).validator();
+  }
+  $('input[name="password"]').on('blur', function (e) {
+    if($(this).val() === ''){
+      resetValidator('#account-form');
+    }
+  });
+  $('input[name="repeat_password"]').on('blur', function (e) {
+    if($(this).val() === ''){
+      resetValidator('#account-form');
+    }
+  });
+</script>
