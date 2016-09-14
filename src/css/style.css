@@ -493,7 +493,9 @@ tr.active .weasis-btn {
   flex: 1;
   overflow-y: auto;
 }
-
+.pagination li a{
+  color: rgb(0, 161, 117);
+}
 #viewer #imageGallery img{
   width: auto: ;
   height: 50vh;

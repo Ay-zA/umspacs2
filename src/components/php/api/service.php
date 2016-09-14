@@ -45,6 +45,9 @@
       case 'getalldynamicinsts':
         $response = getAllInstitutions(true);
         break;
+      case 'getstudycount':
+        $response = getStudyCount();
+        break;
       case 'searchstudies':
         // echo  $_GET['id'] . "<br>" . $_GET['name']. '<br> ' . $_GET['modality']. '<br> ' . $_GET['from']. '<br> ' . $_GET['to'];
         $id           = is_valid($_GET['id'])           ? $_GET['id']                 : NULL;
@@ -53,14 +56,10 @@
         $from         = is_valid($_GET['from'])         ? $_GET['from'] . ' 00:00:00' : NULL;
         $to           = is_valid($_GET['to'])           ? $_GET['to'] . ' 23:59:59'   : NULL;
         $institution  = is_valid($_GET['institution'])  ? $_GET['institution']        : NULL;
-        // $modality     = explode("\\", $modality);
-        // $arr = [];
-        // var_dump($modality);
-        // for ($i=0; $i < count($modality); $i++) {
-          // $arr["modality$i"] = $modality[$i];
-        // }
-        // var_dump($arr);
-        $response = searchStudies($id, $name, $modality, $from, $to, $institution);
+        $page_index   = is_valid($_GET['page_index'])   ? $_GET['page_index']         : 0;
+        $page_size    = is_valid($_GET['page_size'])    ? $_GET['page_size']          : 20;
+
+        $response = searchStudies($id, $name, $modality, $from, $to, $institution, $page_index, $page_size);
         break;
     }
   }

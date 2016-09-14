@@ -44,8 +44,7 @@
 
   function is_session_exist(){
     if(isset($_SESSION['dicom_username']) && isset($_SESSION['dicom_password']) )
-     return is_user_exist($_SESSION['dicom_username'], $_SESSION['dicom_password']);
-
+     return is_valid_user($_SESSION['dicom_username'], $_SESSION['dicom_password']);
     return false;
   }
 
@@ -61,8 +60,22 @@
     return $query->rowCount() === 1;
   }
 
+  function is_valid_user($username, $password)
+  {
+    $conn = connect("dicom");
+    if($conn == null)
+      return;
+
+    $query = "SELECT * FROM users WHERE username = :username && password = :password;";
+    $query = $conn->prepare($query);
+    $query->bindParam(':username', $username);
+    $query->bindParam(':password', $password);
+    $query->execute();
+    return $query->rowCount() === 1;
+  }
+
   function login($user, $pass, $location){
-    if(is_user_exist($user, $pass)){
+    if(is_valid_user($user, $pass)){
       $_SESSION['dicom_username'] = $user;
       $_SESSION['dicom_password'] = $pass;
       header("location: $location");

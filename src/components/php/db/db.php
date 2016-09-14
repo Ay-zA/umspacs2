@@ -83,9 +83,13 @@ function getAllInstances($serie_pk)
     return $result;
 }
 
-function searchStudies($patient_id = null, $name = null, $modality = null, $from = null, $to = null, $institution = null)
+function searchStudies($patient_id = null, $name = null, $modality = null, $from = null, $to = null, $institution = null, $page_index = 1, $page_size = 20)
 {
     global $char_set;
+    $start_index = $page_index * $page_size;
+    $start_index = (int)$start_index;
+    $page_size = (int)$page_size;
+
     $conn = connect('pacsdb');
 
       $query = 'SELECT patient.pk, patient.pat_id , patient.pat_name, patient.pat_sex, study.num_series,
@@ -151,8 +155,8 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
                       study.study_datetime,
                       study.study_desc,
                       study.study_status
-                    ORDER BY study.study_datetime DESC;';
-
+                    ORDER BY study.study_datetime DESC
+                    LIMIT :start_index, :count;';
     $query = $conn->prepare($query);
     if (isset($patient_id)) {
         $query->bindParam(':id', $patient_id);
@@ -173,7 +177,10 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
           $institution = strtolower($institution);
           $query->bindParam(':institution', $institution);
     }
-    // var_dump($query);
+
+    $query->bindParam(':start_index', $start_index, PDO::PARAM_INT);
+    $query->bindParam(':count', $page_size, PDO::PARAM_INT);
+
     $query->execute();
     $result = $query->fetchAll();
 

@@ -57,6 +57,7 @@
     <script src="src/js/common.js"></script>
 
     <script>
+      var studyCount;
       $(function() {
         $("#search-from input[type='text']").persianDatepicker({
           observer: true,
@@ -66,6 +67,10 @@
             delay(searchByInput, 500);
           }
         });
+
+        function setStudyCount(data) {
+          studyCount = data.count;
+        }
 
         loadAll();
         // loadAllModalities();
