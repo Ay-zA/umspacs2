@@ -64,11 +64,9 @@ function loadSeriesData() {
 
 function printStudies(data) {
   totalStudy = data.total;
-  var page = 1;
-  var page_size = 1000;
   var output = "";
-  for (var i = (page - 1) * page_size; i < page * page_size; i++) {
-    if (!data[i]) break;
+  var i = 0;
+  while (data[i]) {
     output += '<tr loaded="false" data-iuid=' + data[i].study_iuid + ' data-study-id=' + data[i].study_pk + '>';
     output += '<td data-type="pat_id">' + data[i].pat_id + '</td>';
     output += '<td data-type="pat_name"><b>' + fix_name(data[i].pat_name) + '</b>/' + get_sex(data[i].pat_sex) + '/' + get_age(data[i].pat_birthdate) + '</td>';
@@ -79,9 +77,11 @@ function printStudies(data) {
     output += '<td class="hidden-xs" data-type="num_series">' + data[i].num_series + '</td>';
     output += '<td class="hidden-xs" data-type="num_instances">' + data[i].num_instances + '</td>';
     var url = generateWeasisUrl('patient', data[i].pat_id);
-    output += '<td><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
+    output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
     output += '</tr>';
+    i++;
   }
+
   $('#noresult').css('display', data.length === 0 ? 'flex' : 'none');
   $('#patient-table_wrapper').css('display', data.length === 0 ? 'none' : 'block ');
 
@@ -98,18 +98,26 @@ function initStudyDataTable() {
       'pageLength': defaultPageSize,
       'bPaginate': false,
       'info': false,
-      responsive: true
+      responsive: true,
+      'bSort': false
     });
 
     $('#patient-table').on('page.dt', function() {
       clearSearchInputs();
     });
-
-    $('#patient-table').on('order.dt', function() {
-      currentPageIndex = 1;
-      activeStudyPage();
-    });
+    //
+    // $('#patient-table').on('order.dt', function() {
+    //   // currentPageIndex = 1;
+    //   // activeStudyPage();
+    // });
   }
+}
+
+function resetStudyTable() {
+  console.log('Rec');
+  $dataTable.destroy();
+  $dataTable = false;
+  delay(initStudyDataTable, 500);
 }
 
 function initPagination() {
@@ -149,7 +157,6 @@ function generatePagination(pageCount) {
 function handleStudyPageClick(e) {
   var $el = $(e.target);
   var page2Go = $el.closest('li').attr('data-page-index');
-  console.log(page2Go);
   switch (page2Go) {
     case 'prev':
       page2Go = currentPageIndex - 1;
@@ -158,28 +165,26 @@ function handleStudyPageClick(e) {
       page2Go = currentPageIndex + 1;
       break;
   }
-  console.log(currentPageIndex);
-  console.log(page2Go);
-  console.log('----');
   changeStudyPageTo(page2Go);
 }
 
 function changeStudyPageTo(page) {
 
-  if(page < 1 )
+  if (page < 1)
     page = 1;
-  if(page > pageCount)
+  if (page > pageCount)
     page = pageCount;
 
   loadStudyPage(page);
   activeStudyPage(page);
+  resetStudyTable();
 }
 
 function activeStudyPage(page) {
   currentPageIndex = +page || currentPageIndex;
-  if(currentPageIndex < 1 )
+  if (currentPageIndex < 1)
     currentPageIndex = 1;
-  if(currentPageIndex > pageCount)
+  if (currentPageIndex > pageCount)
     currentPageIndex = pageCount;
 
   var prev = $paginationList.children('li:first');

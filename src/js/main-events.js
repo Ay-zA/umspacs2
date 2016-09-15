@@ -34,6 +34,7 @@ $(".searchButton").on('click', function() {
   toggleSearchSection();
 });
 
+
 $('#search-from input[type="search"]').on('input', function() {
   delay(searchByInput, 500);
 });
