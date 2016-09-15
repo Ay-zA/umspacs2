@@ -115,9 +115,7 @@
 
         });
       </script>
-      <script src="src/js/main.js"></script>
       <script src="src/js/service.js"></script>
-      <script src="src/js/main-events.js"></script>
 
   </body>
 

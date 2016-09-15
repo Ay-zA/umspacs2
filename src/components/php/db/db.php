@@ -155,9 +155,10 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
                       study.study_datetime,
                       study.study_desc,
                       study.study_status
-                    ORDER BY study.study_datetime DESC
-                    LIMIT :start_index, :count;';
+                    ORDER BY study.study_datetime DESC';
+
     $query = $conn->prepare($query);
+
     if (isset($patient_id)) {
         $query->bindParam(':id', $patient_id);
     }
@@ -177,13 +178,12 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
           $institution = strtolower($institution);
           $query->bindParam(':institution', $institution);
     }
-
-    $query->bindParam(':start_index', $start_index, PDO::PARAM_INT);
-    $query->bindParam(':count', $page_size, PDO::PARAM_INT);
-
     $query->execute();
     $result = $query->fetchAll();
+    $studyCount = sizeof($result);
 
+    $result = array_slice($result, $start_index , $page_size);
+    $result['total'] = $studyCount;
     return $result;
 }
 

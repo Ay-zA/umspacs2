@@ -49,7 +49,7 @@ function get_date(dateTime) {
 function get_time(dateTime) {
   return dateTime.slice(10, 16);
 }
-function is_valid_date(date) {
+function isValidDate(date) {
   return date_regex.test(date);
 }
 

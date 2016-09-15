@@ -1,6 +1,11 @@
 var hostname = window.location.hostname;
 var baseURL = window.location.pathname.split('/')[1];
-
+var ch_patId;
+var ch_patName;
+var ch_modality;
+var ch_fromDate;
+var ch_toDate;
+var ch_institution;
 function getSeriesData() {
   var studyId = $(this).attr('data-study-id');
   var url = 'src/components/php/api/service.php?action=getallseries&study_pk=' + studyId;
@@ -13,7 +18,7 @@ function getInstanceData(seriePk, cb) {
 }
 
 function getInstanceDataPromise(seriePk) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     var url = 'src/components/php/api/service.php?action=getallinstances&serie_pk=' + seriePk;
     $.getJSON(url, resolve);
   });
@@ -31,30 +36,44 @@ function generateRequestURL(studyUID, serieUID, instanceUID, frame) {
   return url;
 }
 
-function searchStudies(patId, patName, modality, fromDate, toDate, institution, pageIndex, pageSize) {
+function loadStudyPage(pageIndex, pageSize) {
+  pageIndex = pageIndex - 1 || 0;
+  pageSize = pageSize || defaultPageSize;
 
-  patId = (typeof patId === 'undefined') ? '' : patId;
-  patName = (typeof patName === 'undefined') ? '' : patName;
-  modality = (typeof modality === 'undefined') ? '' : modality;
-  fromDate = (typeof fromDate === 'undefined') ? '' : fromDate;
-  toDate = (typeof toDate === 'undefined') ? '' : toDate;
-  institution = (typeof institution === 'undefined') ? '' : institution;
-  pageIndex = (typeof pageIndex === 'undefined') ? 0 : pageIndex;
-  pageSize = (typeof pageSize === 'undefined') ? 10 : pageSize;
+  if(pageIndex < 0)
+    pageIndex = 0;
+  if(pageSize < 1)
+    pageSize = 1;
 
   var url = 'src/components/php/api/service.php?action=searchstudies' +
-    '&id=' + patId +
-    '&name=' + patName +
-    '&modality=' + modality +
-    '&from=' + fromDate +
-    '&to=' + toDate +
-    '&institution=' + institution +
+    '&id=' + ch_patId +
+    '&name=' + ch_patName +
+    '&modality=' + ch_modality +
+    '&from=' + ch_fromDate +
+    '&to=' + ch_toDate +
+    '&institution=' + ch_institution +
     '&page_index=' + pageIndex +
     '&page_size=' + pageSize;
 
-  console.log(url);
+  // console.log(url);
 
   $.getJSON(url, printStudies);
+
+}
+
+function searchStudies(patId, patName, modality, fromDate, toDate, institution, pageIndex, pageSize) {
+
+  ch_patId = patId || '';
+  ch_patName = patName || '';
+  ch_modality = modality || '';
+  ch_fromDate = fromDate || '';
+  ch_toDate = toDate || '';
+  ch_institution = institution || '';
+  pageIndex = pageIndex || 0;
+  pageSize = pageSize || defaultPageSize;
+
+  loadStudyPage(pageIndex, pageSize);
+
 }
 
 function searchStudyByDate(fromDate, toDate) {

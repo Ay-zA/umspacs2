@@ -52,12 +52,10 @@
     <script src="node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
     <script src="src/assets/slider/js/lightslider.min.js"></script>
 
-
     <script src="src/css/index.js"></script>
     <script src="src/js/common.js"></script>
 
     <script>
-      var studyCount;
       $(function() {
         $("#search-from input[type='text']").persianDatepicker({
           observer: true,
@@ -68,16 +66,12 @@
           }
         });
 
-        function setStudyCount(data) {
-          studyCount = data.count;
-        }
-
         loadAll();
-        // loadAllModalities();
       });
     </script>
 
     <script src="src/js/main.js"></script>
+    <script src="src/js/main-dom.js"></script>
     <script src="src/js/service.js"></script>
     <script src="src/js/main-events.js"></script>
   </body>
