@@ -6,25 +6,25 @@
       </div>
     </div>
     <!-- <table class="header-fixed table "></table> -->
-    <table id="patient-table" class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Institution</th>
-          <th>Modality</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th class="hidden-xs">Series</th>
-          <th class="hidden-xs">Images</th>
-          <th class="hidden-xs">Weasis</th>
-        </tr>
-      </thead>
+      <table id="patient-table" class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Institution</th>
+            <th>Modality</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th class="hidden-xs">Series</th>
+            <th class="hidden-xs">Images</th>
+            <th class="hidden-xs">Weasis</th>
+          </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
     <nav class="text-center" id="study-pagination" aria-label="Page navigation">
       <ul class="pagination">
         <li>

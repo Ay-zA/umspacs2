@@ -97,11 +97,17 @@ function initStudyDataTable() {
       'searching': false,
       'pageLength': defaultPageSize,
       'bPaginate': false,
-      'info': false
+      'info': false,
+      responsive: true
     });
 
     $('#patient-table').on('page.dt', function() {
       clearSearchInputs();
+    });
+
+    $('#patient-table').on('order.dt', function() {
+      currentPageIndex = 1;
+      activeStudyPage();
     });
   }
 }
@@ -115,20 +121,20 @@ function generatePagination(pageCount) {
   if (pageCount < 0)
     pageCount = 0;
   var output =
-    '<li>' +
+    '<li data-page-index="prev">' +
     ' <a href="#" aria-label="Previous">' +
     '   <span aria-hidden="true">&laquo;</span>' +
     ' </a>';
 
   var firstPage = currentPageIndex <= 5 ? 1 : (currentPageIndex - 5);
-  var lastPage = currentPageIndex  < (pageCount - 5) ? (currentPageIndex + 5) : pageCount;
+  var lastPage = currentPageIndex < (pageCount - 5) ? (currentPageIndex + 5) : pageCount;
 
-  for (var i = firstPage; i <= lastPage ; i++) {
+  for (var i = firstPage; i <= lastPage; i++) {
     output += '<li data-page-index="' + i + '"><a href="#">' + i + '</a></li>';
   }
 
   output +=
-    '<li>' +
+    '<li data-page-index="next">' +
     ' <a href="#" aria-label="Next">' +
     '  <span aria-hidden="true">&raquo;</span>' +
     ' </a>' +
@@ -141,17 +147,53 @@ function generatePagination(pageCount) {
 }
 
 function handleStudyPageClick(e) {
-  var page2Go = $(e.target).text();
+  var $el = $(e.target);
+  var page2Go = $el.closest('li').attr('data-page-index');
+  console.log(page2Go);
+  switch (page2Go) {
+    case 'prev':
+      page2Go = currentPageIndex - 1;
+      break;
+    case 'next':
+      page2Go = currentPageIndex + 1;
+      break;
+  }
+  console.log(currentPageIndex);
+  console.log(page2Go);
+  console.log('----');
   changeStudyPageTo(page2Go);
 }
 
 function changeStudyPageTo(page) {
+
+  if(page < 1 )
+    page = 1;
+  if(page > pageCount)
+    page = pageCount;
+
   loadStudyPage(page);
   activeStudyPage(page);
 }
 
 function activeStudyPage(page) {
   currentPageIndex = +page || currentPageIndex;
+  if(currentPageIndex < 1 )
+    currentPageIndex = 1;
+  if(currentPageIndex > pageCount)
+    currentPageIndex = pageCount;
+
+  var prev = $paginationList.children('li:first');
+  var next = $paginationList.children('li:last');
+
+  prev.removeClass('disabled');
+  if (currentPageIndex === 1)
+    prev.addClass('disabled');
+
+  next.removeClass('disabled');
+  if (currentPageIndex === pageCount)
+    next.addClass('disabled');
+
+  $paginationList.children('li').removeClass('active');
   $paginationList.children('li[data-page-index="' + currentPageIndex + '"]').addClass('active');
 
 }

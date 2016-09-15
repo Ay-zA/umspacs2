@@ -25,6 +25,7 @@
     <link href="src/css/pdp/css/persian-datepicker.min.css" rel="stylesheet">
     <link href="src/assets/slider/css/lightslider.min.css" rel="stylesheet">
     <link href="node_modules/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css" rel="stylesheet">
     <link href="src/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -50,6 +51,7 @@
 
     <script src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
     <script src="node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+    <script src="node_modules/datatables.net-responsive/js/dataTables.responsive.js"></script>
     <script src="src/assets/slider/js/lightslider.min.js"></script>
 
     <script src="src/css/index.js"></script>
