@@ -73,29 +73,7 @@
                 });
 
                 loadAll();
-
-                 /*var $slider = $('#imageGallery').lightSlider({
-                    gallery: true,
-                    item: 1,
-                    loop: true,
-                    vertical:true,
-                    speed : 200,
-                    pause: 400,
-                    thumbItem: 9,
-                    slideMargin: 0,
-                    enableDrag: false,
-                    currentPagerPosition: 'left',
-                    onSliderLoad: function(el) {
-                        el.lightGallery({
-                            selector: '#imageGallery .lslide'
-                        });
-                    }
-                });
-
-                $('#play').click(function(){
-                    $slider.play();
-                });*/
-            });
+          });
         </script>
 
         <script src="src/js/main.js"></script>
