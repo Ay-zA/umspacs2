@@ -40,14 +40,20 @@
         <h3 class="tabs-header">Setting</h3>
         <ul id="admin-tabs" class="nav nav-pills nav-stacked">
           <li class="active"><a id="account" href="#">Account</a></li>
+          <?php if($_SESSION['dicom_role'] == 'admin'): ?>
           <li class=""><a id="inst-mod-info" href="#">Manage Institution</a></li>
           <li class=""><a id="user-manager" href="#">Manage Users</a></li>
+        <?php endif ?>
+
         </ul>
       </div>
 
       <?php include "src/components/php/admin/account.php"; ?>
-      <?php include "src/components/php/admin/inst-mod-info.php"; ?>
-      <?php include "src/components/php/admin/user-manager.php"; ?>
+      <?php
+      if($_SESSION['dicom_role'] == 'admin'){
+        include "src/components/php/admin/inst-mod-info.php";
+        include "src/components/php/admin/user-manager.php";
+      }?>
 
 
       <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

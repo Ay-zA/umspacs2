@@ -1,7 +1,9 @@
+var $info = $('#result-information');
+
 function showInstance(data) {
   var output = "";
   $.each(data, function(i, obj) {
-
+    WADO(selected_study_uid, selected_serie_uid, obj.sop_iuid);
     var request = generateRequestURL(selected_study_uid, selected_serie_uid, obj.sop_iuid);
     output += '<div class="col-sm-12 full-height"><img class="img-responsive thumb-img" src="' + request + '" /></div>';
   });
@@ -63,7 +65,9 @@ function loadSeriesData() {
 }
 
 function printStudies(data) {
-  totalStudy = data.total;
+  totalStudy = data.studyCount;
+  totalSerie = data.serieCount;
+  totalInstance = data.instanceCount;
   var output = "";
   var i = 0;
   while (data[i]) {
@@ -89,6 +93,7 @@ function printStudies(data) {
 
   initStudyDataTable();
   initPagination();
+  generateInformation(totalStudy, totalSerie, totalInstance);
 }
 
 function initStudyDataTable() {
@@ -99,23 +104,18 @@ function initStudyDataTable() {
       'bPaginate': false,
       'info': false,
       responsive: true,
-      'bSort': false
+      'bSort': true
     });
 
     $('#patient-table').on('page.dt', function() {
       clearSearchInputs();
     });
-    //
-    // $('#patient-table').on('order.dt', function() {
-    //   // currentPageIndex = 1;
-    //   // activeStudyPage();
-    // });
   }
 }
 
 function resetStudyTable() {
-  console.log('Rec');
-  $dataTable.destroy();
+  if($dataTable)
+    $dataTable.destroy();
   $dataTable = false;
   delay(initStudyDataTable, 500);
 }
@@ -129,7 +129,7 @@ function generatePagination(pageCount) {
   if (pageCount < 0)
     pageCount = 0;
   var output =
-    '<li data-page-index="prev">' +
+    '<li data-page-index="first">' +
     ' <a href="#" aria-label="Previous">' +
     '   <span aria-hidden="true">&laquo;</span>' +
     ' </a>';
@@ -142,7 +142,7 @@ function generatePagination(pageCount) {
   }
 
   output +=
-    '<li data-page-index="next">' +
+    '<li data-page-index="last">' +
     ' <a href="#" aria-label="Next">' +
     '  <span aria-hidden="true">&raquo;</span>' +
     ' </a>' +
@@ -150,6 +150,7 @@ function generatePagination(pageCount) {
 
   $paginationList.html(output);
   $paginationList.css('display', pageCount === 0 ? 'none' : 'inline-block');
+  $info.css('display', pageCount === 0 ? 'none' : 'block');
   activeStudyPage();
   $paginationList.children('li').on('click', handleStudyPageClick);
 }
@@ -158,11 +159,11 @@ function handleStudyPageClick(e) {
   var $el = $(e.target);
   var page2Go = $el.closest('li').attr('data-page-index');
   switch (page2Go) {
-    case 'prev':
-      page2Go = currentPageIndex - 1;
+    case 'first':
+      page2Go = 1;
       break;
-    case 'next':
-      page2Go = currentPageIndex + 1;
+    case 'last':
+      page2Go = pageCount;
       break;
   }
   changeStudyPageTo(page2Go);
@@ -200,5 +201,16 @@ function activeStudyPage(page) {
 
   $paginationList.children('li').removeClass('active');
   $paginationList.children('li[data-page-index="' + currentPageIndex + '"]').addClass('active');
+
+}
+
+function generateInformation(totalStudy, totalSerie, totalInstance) {
+  var startResultIndex = (currentPageIndex-1) * defaultPageSize + 1;
+  var endResultIndex = startResultIndex + defaultPageSize -1;
+  if (endResultIndex > totalStudy) {
+    endResultIndex = totalStudy;
+  }
+  var output = '<p> showing result ' + startResultIndex + ' to ' + endResultIndex + '.<br />' + totalStudy + ' studies, ' + totalSerie + ' series, ' + totalInstance + ' images founded.';
+  $info.html(output);
 
 }

@@ -22,6 +22,7 @@ function patientRowClicked() {
   var rows = $('#patient-table tbody tr');
   rows.removeClass('active');
   $(this).addClass('active');
+  selected_study_uid = $(this).attr('data-iuid'); 
 }
 
 function openWeasis(e) {
@@ -36,6 +37,7 @@ function openPanel(e) {
 }
 
 function searchByInput() {
+  resetStudyTable();
   currentPageIndex = 1;
   var id = $('#searchById').val();
   var name = $('#searchByName').val();
@@ -53,6 +55,7 @@ function searchByInput() {
 }
 
 function loadAll(e) {
+  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#all');
   clearSearchInputs();
@@ -61,6 +64,7 @@ function loadAll(e) {
 }
 
 function loadToday() {
+  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#today');
   var today = new Date();
@@ -69,6 +73,7 @@ function loadToday() {
 }
 
 function loadYesterday() {
+  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#yesterday');
   var yesterday = new Date();
@@ -78,6 +83,7 @@ function loadYesterday() {
 }
 
 function loadWeek() {
+  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#last-week');
 
@@ -90,6 +96,7 @@ function loadWeek() {
 }
 
 function loadMonth() {
+  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#last-month');
   var curr = new Date();
@@ -119,7 +126,7 @@ function clearInstance() {
 }
 
 function changeTab(tab_id) {
-  $("nav li>a").parent().removeClass('active');
+  $("nav.navbar li>a").parent().removeClass('active');
   $(tab_id).parent().addClass('active');
   $(tab_id + '-xs').parent().addClass('active');
 }

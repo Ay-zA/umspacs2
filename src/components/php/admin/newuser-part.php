@@ -27,14 +27,23 @@
     </div>
     <!-- Text input-->
 
+    <!-- Passwords -->
     <div class="form-group">
       <label class="col-md-2 control-label">Password</label>
-      <div class="col-md-10 inputGroupContainer">
+      <div class="col-md-5 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input name="newuser_password" placeholder="Password" class="form-control" type="password" autocomplete="dontfillitdearchrome" data-minlength="6" required>
+          <input id="newuser_password" name="newuser_password" placeholder="Password" class="form-control"  type="password" required>
         </div>
         <div class="help-block with-errors"></div>
+      </div>
+
+      <div class="col-md-5 inputGroupContainer">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+          <input name="newuser_confirm" data-match="#newuser_password" data-match-error="Passwords don't match" placeholder="Confirm" required class="form-control" type="password">
+      </div>
+      <div class="help-block with-errors"></div>
       </div>
     </div>
     <!-- Text input-->

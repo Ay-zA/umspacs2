@@ -86,18 +86,21 @@ function getAllInstances($serie_pk)
 function searchStudies($patient_id = null, $name = null, $modality = null, $from = null, $to = null, $institution = null, $page_index = 1, $page_size = 20)
 {
     global $char_set;
+    $inQuery = null;
+    $modalities = null;
+
     $start_index = $page_index * $page_size;
     $start_index = (int)$start_index;
     $page_size = (int)$page_size;
 
+    if (isset($modality)) {
+      $modality = strtolower($modality);
+      $modalities = explode('\\\\',$modality);
+      $inQuery = implode(',', array_fill(0, count($modalities), '?'));
+    }
     $conn = connect('pacsdb');
 
-      $query = 'SELECT patient.pk, patient.pat_id , patient.pat_name, patient.pat_sex, study.num_series,
-                            study.pk AS study_pk, study.mods_in_study, study.num_instances, study.study_iuid,
-                            patient.pat_birthdate ,study.study_id, study.study_datetime, study.study_desc, study.study_status
-                            FROM patient INNER JOIN study ON patient.pk = study.patient_fk WHERE 1 = 1';
-
-    $query = 'SELECT
+    $querySelect = 'SELECT
                 patient.pk,
                 patient.pat_id,
                 patient.pat_name,
@@ -115,76 +118,116 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
                 series.institution
               FROM study
               LEFT JOIN patient ON patient.pk = study.patient_fk
-              LEFT JOIN series ON series.study_fk = study.pk
-              WHERE 1 = 1';
+              LEFT JOIN series ON series.study_fk = study.pk';
 
-    if (isset($patient_id)) {
-        $patient_id = strtolower($patient_id);
-        $query = $query.' AND LOWER(patient.pat_id) LIKE CONCAT (:id,"%")';
-    }
-    if (isset($name)) {
-        $name = strtolower($name);
-        $query = $query.' AND LOWER(patient.pat_name) LIKE CONCAT ("%",:name,"%")';
-    }
-    if (isset($modality)) {
-        $modality = strtolower($modality);
-        $query = $query.' AND LOWER(study.mods_in_study) LIKE CONCAT ("%",:modality,"%")';
-    }
-    if (isset($from)) {
-        $query = $query.' AND study.study_datetime >= :from';
-    }
-    if (isset($to)) {
-        $query = $query.' AND study.study_datetime <= :to';
-    }
-    if (isset($institution)) {
-        $query = $query.' AND LOWER(series.institution) LIKE CONCAT ("%",:institution,"%")';
-    }
+      $queryBase = ' WHERE 1 = 1';
 
-    $query = $query.' GROUP BY
-                      patient.pk,
-                      patient.pat_id,
-                      patient.pat_name,
-                      patient.pat_sex,
-                      patient.pat_birthdate,
-                      study.num_series,
-                      study_pk,
-                      study.mods_in_study,
-                      study.num_instances,
-                      study.study_iuid,
-                      study.study_id,
-                      study.study_datetime,
-                      study.study_desc,
-                      study.study_status
-                    ORDER BY study.study_datetime DESC';
+      if (isset($patient_id)) {
+          $patient_id = strtolower($patient_id);
+          $queryBase .= ' AND LOWER(patient.pat_id) LIKE CONCAT (?,"%")';
+      }
+      if (isset($name)) {
+          $name = strtolower($name);
+          $queryBase .= ' AND LOWER(patient.pat_name) LIKE CONCAT ("%",?,"%")';
+      }
+      if (isset($inQuery)) {
+          $queryBase .= ' AND LOWER(study.mods_in_study) IN(' . $inQuery . ')';
+      }
+      if (isset($from)) {
+          $queryBase .= ' AND study.study_datetime >= ?';
+      }
+      if (isset($to)) {
+          $queryBase .= ' AND study.study_datetime <= ?';
+      }
+      if (isset($institution)) {
+          $queryBase .= ' AND LOWER(series.institution) LIKE CONCAT ("%",?,"%")';
+      }
 
+      $queryGroup = ' GROUP BY
+              patient.pk,
+              patient.pat_id,
+              patient.pat_name,
+              patient.pat_sex,
+              patient.pat_birthdate,
+              study.num_series,
+              study_pk,
+              study.mods_in_study,
+              study.num_instances,
+              study.study_iuid,
+              study.study_id,
+              study.study_datetime,
+              study.study_desc,
+              study.study_status';
+
+    $queryOrder = ' ORDER BY study.study_datetime DESC';
+
+    $query = $querySelect . $queryBase . $queryGroup . $queryOrder;
     $query = $conn->prepare($query);
+    $i = 1;
 
     if (isset($patient_id)) {
-        $query->bindParam(':id', $patient_id);
+        $query->bindValue($i, $patient_id);
+        $i++;
     }
+
     if (isset($name)) {
-        $query->bindParam(':name', $name);
+        $query->bindValue($i, $name);
+        $i++;
     }
-    if (isset($modality)) {
-        $query->bindParam(':modality', $modality);
+
+    if (isset($modalities)) {
+      foreach ($modalities as $k => $modality)
+      {
+        $query->bindValue($i, $modality);
+        $i++;
+      }
     }
+
     if (isset($from)) {
-        $query->bindParam(':from', $from);
+      $query->bindValue($i, $from);
+      $i++;
     }
+
     if (isset($to)) {
-        $query->bindParam(':to', $to);
+      $query->bindValue($i, $to);
+      $i++;
     }
+
     if (isset($institution)) {
-          $institution = strtolower($institution);
-          $query->bindParam(':institution', $institution);
+      $institution = strtolower($institution);
+      $query->bindValue($i, $institution);
+      $i++;
     }
+
     $query->execute();
     $result = $query->fetchAll();
     $studyCount = sizeof($result);
 
+    $serieCount = getSerieCount($result);
+    $instanceCount = getInstanceCount($result);
+
     $result = array_slice($result, $start_index , $page_size);
-    $result['total'] = $studyCount;
+    $result['studyCount'] = $studyCount;
+    $result['serieCount'] = $serieCount;
+    $result['instanceCount'] = $instanceCount;
     return $result;
+}
+
+function getSerieCount($data){
+  $result = 0;
+  foreach ($data as $key => $value) {
+    $result += $value['num_series'];
+  }
+  return $result;
+}
+
+function getInstanceCount($data) {
+  $result = 0;
+  foreach ($data as $key => $value) {
+    $result += $value['num_instances'];
+  }
+
+  return $result;
 }
 
 function getInstitutionName($study_pk){
@@ -198,7 +241,6 @@ function getInstitutionName($study_pk){
     $result = $query->fetch(PDO::FETCH_ASSOC);
     return $result;
 }
-
 function getAllModalities($dynamic=false){
   if ($dynamic) {
     updateAllModalities();

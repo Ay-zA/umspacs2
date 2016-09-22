@@ -34,7 +34,7 @@
       <div class="col-md-5 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input id="account-password" name="password" placeholder="Password" class="form-control"  type="password" data-minlength="6" required>
+          <input id="account-password" name="password" placeholder="Password" class="form-control"  type="password" required>
         </div>
         <div class="help-block with-errors"></div>
       </div>
@@ -42,7 +42,7 @@
       <div class="col-md-5 inputGroupContainer">
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input name="repeat_password" data-match="#account-password" data-match-error="Passwords don't match" data-minlength="6" placeholder="Confirm" required class="form-control" type="password">
+          <input name="repeat_password" data-match="#account-password" data-match-error="Passwords don't match" placeholder="Confirm" required class="form-control" type="password">
       </div>
       <div class="help-block with-errors"></div>
       </div>

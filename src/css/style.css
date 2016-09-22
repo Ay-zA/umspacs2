@@ -2,6 +2,10 @@ li[data-dtr-index="8"] {
   display: none;
 }
 
+#patient-table{
+  width: 100% !important;
+}
+
 body, html {
   padding: 0;
   margin: 0;
@@ -501,7 +505,7 @@ tr.active .weasis-btn {
   color: rgb(0, 161, 117);
 }
 #viewer #imageGallery img{
-  width: auto: ;
+  width: auto ;
   height: 50vh;
 }
 
@@ -518,6 +522,13 @@ tr.active .weasis-btn {
   margin-top:.8em;
 }
 
+#result-information p{
+  margin:25px 0;
+}
+
+#study-pagination ul.pagination{
+  margin-bottom: -10px;
+}
 @media (max-width: 767px) {
   table {
     font-size: smaller;

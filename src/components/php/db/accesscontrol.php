@@ -78,6 +78,7 @@
     if(is_valid_user($user, $pass)){
       $_SESSION['dicom_username'] = $user;
       $_SESSION['dicom_password'] = $pass;
+      $_SESSION['dicom_role'] = getRole($user);
       header("location: $location");
       return true;
     }
@@ -88,6 +89,19 @@
     $_SESSION = array();
     session_destroy();
     header("location: ../../../index.php");
+  }
+  function getRole($username) {
+
+    $conn = connect("dicom");
+    if($conn == null)
+      return 404; //Connection failed
+
+    $query = "SELECT `role` FROM `users` WHERE `username`=:username";
+    $query = $conn->prepare($query);
+    $query->bindParam(':username', $username);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    return $result['role']; // OK
   }
 
   function canAccess($username, $action){

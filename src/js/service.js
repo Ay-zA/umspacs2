@@ -24,8 +24,27 @@ function getInstanceDataPromise(seriePk) {
   });
 }
 
+function WADO(studyUID, serieUID, instanceUID, frame) {
+  frame =  frame || 0;
+  var url = 'http://' + hostname + ':8080/wado?requestType=WADO' +
+    '&studyUID=' + studyUID +
+    '&seriesUID=' + serieUID +
+    '&objectUID=' + instanceUID +
+    '&frameNumber=' + frame;
+
+  $.ajax({
+    url: url,
+    Dattype: 'text/html',
+    success: function (data) {
+      console.log('HI');
+      console.log(data);
+    }
+  });
+
+}
+
 function generateRequestURL(studyUID, serieUID, instanceUID, frame) {
-  frame = (typeof frame === 'undefined') ? 0 : frame;
+  frame =  frame || 0;
 
   var url = 'http://' + hostname + ':8080/wado?requestType=WADO' +
     '&studyUID=' + studyUID +
@@ -55,7 +74,7 @@ function loadStudyPage(pageIndex, pageSize) {
     '&page_index=' + pageIndex +
     '&page_size=' + pageSize;
 
-  // console.log(url);
+  console.log(url);
 
   $.getJSON(url, printStudies);
 

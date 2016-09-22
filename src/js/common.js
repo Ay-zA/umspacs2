@@ -90,7 +90,9 @@ function insertParam(key, value)
 }
 
 function parseModality(modality) {
-  return modality === 'Modality' ? '' :  modality.replace(', ' , '\\\\');
+  var modalities = modality === 'Modality' ? '' :  modality.replace(/,\s/g , '\\\\');
+  console.log(modalities);
+  return modalities;
 }
 function parseInstitution(institution) {
   return institution === 'Institution' ? '' :  institution;
