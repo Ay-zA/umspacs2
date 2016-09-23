@@ -153,6 +153,20 @@ tr.active td {
   height: 100%;
 }
 
+.modal-dialog {
+    height: 100%;
+    margin: 0 auto;
+}
+
+.modal-dialog .row{
+  height: 100%;
+}
+
+.modal-dialog .row div{
+  display: flex;
+  justify-content: center;
+}
+
 .thumb-img {
   max-height: 100%;
   margin-left: 25%;
@@ -379,9 +393,8 @@ tr.active td {
 }
 
 .modal-body .thumb-img {
-  position: relative;
+  width: auto;
   margin: 0;
-  width: 100%;
 }
 
 tr.active .weasis-btn {

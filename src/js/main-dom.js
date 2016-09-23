@@ -3,7 +3,7 @@ var $info = $('#result-information');
 function showInstance(data) {
   var output = "";
   $.each(data, function(i, obj) {
-    WADO(selected_study_uid, selected_serie_uid, obj.sop_iuid);
+    // WADO(selected_study_uid, selected_serie_uid, obj.sop_iuid);
     var request = generateRequestURL(selected_study_uid, selected_serie_uid, obj.sop_iuid);
     output += '<div class="col-sm-12 full-height"><img class="img-responsive thumb-img" src="' + request + '" /></div>';
   });
