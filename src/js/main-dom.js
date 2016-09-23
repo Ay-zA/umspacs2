@@ -90,7 +90,7 @@ function printStudies(data) {
   $('#patient-table_wrapper').css('display', data.length === 0 ? 'none' : 'block ');
 
   $patient_table.html(output);
-
+  $loading.hide();
   initStudyDataTable();
   initPagination();
   generateInformation(totalStudy, totalSerie, totalInstance);
