@@ -37,6 +37,7 @@ function openPanel(e) {
 }
 
 function searchByInput() {
+  hideResultSection(false);
   resetStudyTable();
   currentPageIndex = 1;
   var id = $('#searchById').val();
@@ -129,12 +130,21 @@ function changeTab(tab_id) {
   $("nav.navbar li>a").parent().removeClass('active');
   $(tab_id).parent().addClass('active');
   $(tab_id + '-xs').parent().addClass('active');
+  hideResultSection(false);
 }
 
-function hideResultSection() {
-  $.when($resultSection.fadeOut()).done(function() {
-    $('#study-section').removeClass('under-result');
-  });
+function hideResultSection(animate) {
+  animate = (typeof animate === 'undefined') ? true : animate;
+
+  if (animate === true) {
+    $.when($resultSection.fadeOut()).done(function() {
+      $('#study-section').removeClass('under-result');
+    });
+  }
+  else {
+    $resultSection.hide();
+      $('#study-section').removeClass('under-result');
+  }
 }
 
 function showResultSection() {
