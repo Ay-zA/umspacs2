@@ -90,10 +90,10 @@ function printStudies(data) {
   $('#patient-table_wrapper').css('display', data.length === 0 ? 'none' : 'block ');
 
   $patient_table.html(output);
-  $loading.hide();
   initStudyDataTable();
   initPagination();
   generateInformation(totalStudy, totalSerie, totalInstance);
+  $loading.hide();
 }
 
 function initStudyDataTable() {
@@ -104,7 +104,8 @@ function initStudyDataTable() {
       'bPaginate': false,
       'info': false,
       responsive: true,
-      'bSort': true
+      'bSort': true,
+      "aaSorting": []
     });
 
     $('#patient-table').on('page.dt', function() {
@@ -156,6 +157,7 @@ function generatePagination(pageCount) {
 }
 
 function handleStudyPageClick(e) {
+  hideResultSection(false);
   var $el = $(e.target);
   var page2Go = $el.closest('li').attr('data-page-index');
   switch (page2Go) {

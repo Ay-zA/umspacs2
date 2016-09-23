@@ -57,6 +57,7 @@ function generateRequestURL(studyUID, serieUID, instanceUID, frame) {
 }
 
 function loadStudyPage(pageIndex, pageSize) {
+  $loading.show();
   pageIndex = pageIndex - 1 || 0;
   pageSize = pageSize || defaultPageSize;
 
@@ -82,7 +83,6 @@ function loadStudyPage(pageIndex, pageSize) {
 }
 
 function searchStudies(patId, patName, modality, fromDate, toDate, institution, pageIndex, pageSize) {
-  $loading.show();
   ch_patId = patId || '';
   ch_patName = patName || '';
   ch_modality = modality || '';
