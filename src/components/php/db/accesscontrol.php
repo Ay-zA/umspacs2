@@ -6,7 +6,7 @@
   function createUser($username, $password, $email, $role){
     if(!is_valid($username) || !is_valid($password) || !is_valid($role)) return 403; // Null Param
     if(is_user_exist($username)) return 405; // Existed
-
+    $password = md5($password);
     $conn = connect("dicom");
     if($conn == null)
       return 404; //Connection failed
@@ -25,6 +25,7 @@
   function updateUser($username, $password, $email, $role){
     if(!is_valid($username) || !is_valid($password)) return 403; // Null Param
     if(!is_user_exist($username)) return 405; // Not Existed
+    $password = md5($password);
 
     $conn = connect("dicom");
     if($conn == null)
@@ -65,6 +66,7 @@
     $conn = connect("dicom");
     if($conn == null)
       return;
+    $password = md5($password);
 
     $query = "SELECT * FROM users WHERE username = :username && password = :password;";
     $query = $conn->prepare($query);
@@ -108,6 +110,13 @@
     if(!is_valid($username) || !is_valid($action))
       return false;
 
+  }
+
+  function deleteUser($username)
+  {
+    if(getRole($username) != 'admin')
+      reutrn;
+    
   }
 
 ?>

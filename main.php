@@ -58,6 +58,8 @@
     <script src="src/js/common.js"></script>
 
     <script>
+      var $loading = $('#loadingDiv').hide();
+
       $(function() {
         $("#search-from input[type='text']").persianDatepicker({
           observer: true,

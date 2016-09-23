@@ -1,11 +1,11 @@
 <section id="study-section" class="row">
   <div id="patient-table-div" class="col-xs-12 full-height">
-    <div id="noresult">
+    <div id="loadingDiv">
       <div>
-        <h1 id="result-label">No Result Found</h1>
+        <img id="result-label" src="src/images/ring.svg"></img>
+        <h4>Loading...</h4>
       </div>
     </div>
-    <!-- <table class="header-fixed table "></table> -->
     <table id="patient-table" class="table table-striped table-hover">
       <thead>
         <tr>

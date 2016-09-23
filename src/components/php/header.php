@@ -48,7 +48,7 @@
     </li>
     <li>
       <a id="last-week" href="#">
-        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>lastweek</a>
+        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>Lastweek</a>
     </li>
     <li>
       <a id="last-month" href="#">

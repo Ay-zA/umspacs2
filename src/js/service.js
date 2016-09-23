@@ -6,6 +6,7 @@ var ch_modality;
 var ch_fromDate;
 var ch_toDate;
 var ch_institution;
+
 function getSeriesData() {
   var studyId = $(this).attr('data-study-id');
   var url = 'src/components/php/api/service.php?action=getallseries&study_pk=' + studyId;
@@ -81,7 +82,7 @@ function loadStudyPage(pageIndex, pageSize) {
 }
 
 function searchStudies(patId, patName, modality, fromDate, toDate, institution, pageIndex, pageSize) {
-
+  $loading.show();
   ch_patId = patId || '';
   ch_patName = patName || '';
   ch_modality = modality || '';

@@ -22,7 +22,7 @@ function patientRowClicked() {
   var rows = $('#patient-table tbody tr');
   rows.removeClass('active');
   $(this).addClass('active');
-  selected_study_uid = $(this).attr('data-iuid'); 
+  selected_study_uid = $(this).attr('data-iuid');
 }
 
 function openWeasis(e) {
