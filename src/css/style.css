@@ -14,12 +14,14 @@ body, html {
 }
 
 #main-container {
+  display: -webkit-box;
   display: flex;
   height: calc(100% - 51px);
   height: -o-calc(100% - 51px);
-  height: -webkit-calc(100% - 51px);
   height: -moz-calc(100% - 51px);
   flex-flow: column;
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
 }
 
 .navbar-inverse .navbar-nav>li>a {
@@ -32,7 +34,7 @@ body, html {
 
 .active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
   background: rgb(0, 161, 117) !important;
-  /*color: #333 !important;*/
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -64,6 +66,7 @@ body, html {
 
 .nav-xs li.active a {
   background: rgb(0, 161, 117) !important;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -105,6 +108,7 @@ body {
 
 .section-header {
   margin-top: -40px;
+  -webkit-box-flex: 0 0 40px;
   flex: 0 0 40px;
   background: #222;
   color: #fff;
@@ -112,6 +116,7 @@ body {
 }
 
 .section-content {
+  -webkit-box-flex: 1;
   flex: 1;
   max-height: 100%;
 }
@@ -153,20 +158,6 @@ tr.active td {
   height: 100%;
 }
 
-.modal-dialog {
-    height: 100%;
-    margin: 0 auto;
-}
-
-.modal-dialog .row{
-  height: 100%;
-}
-
-.modal-dialog .row div{
-  display: flex;
-  justify-content: center;
-}
-
 .thumb-img {
   max-height: 100%;
   margin-left: 25%;
@@ -174,11 +165,45 @@ tr.active td {
   top: 0;
 }
 
+.modal-dialog {
+  height: 100%;
+  margin: 0 auto;
+}
+
+.modal-dialog .row {
+  height: 100%;
+}
+
+.modal-dialog .row div {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.modal-body .thumb-img {
+  width: auto;
+  margin: 0;
+}
+
+@-moz-document url-prefix() {
+  .modal-body .thumb-img {
+    position: relative;
+  }
+}
+
+.selector:not(*:root) {
+  .modal-body .thumb-img {
+    position: relative;
+  }
+}
+
 #search-section {
   background: #eee;
 }
 
 #study-section {
+  -webkit-box-flex: 2;
   flex: 2;
   position: relative;
 }
@@ -186,8 +211,10 @@ tr.active td {
 #result-section {
   max-height: 33%;
   min-height: 33%;
+  -webkit-box-flex: 1;
   flex: 1 0 0;
   position: relative;
+  display: -webkit-box;
   display: flex;
   flex-flow: column;
   background: #eee;
@@ -207,16 +234,19 @@ tr.active td {
 }
 
 #search-from {
+  display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
   margin: 1em 0 0.5em 0;
   padding-right: -1em;
+  -webkit-box-pack: start;
   justify-content: flex-start;
 }
 
 #search-from input {
   margin-right: 1em;
   margin-bottom: .5em;
+  -webkit-box-flex: 1;
   flex: 1 200px;
   max-width: 200px;
   height: auto;
@@ -272,6 +302,7 @@ tr.active td {
   position: absolute;
   top: 0;
   flex-flow: column;
+  display: -webkit-box;
   display: flex;
 }
 
@@ -366,6 +397,7 @@ tr.active td {
 
 .modal-content {
   border-radius: 0;
+  display: -webkit-box;
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -385,16 +417,13 @@ tr.active td {
 
 .modal-body {
   overflow-y: auto;
+  -webkit-box-flex: 1;
   flex: 1;
+  background: black;
 }
 
 .modal-dialog {
   max-height: 100%
-}
-
-.modal-body .thumb-img {
-  width: auto;
-  margin: 0;
 }
 
 tr.active .weasis-btn {
@@ -422,11 +451,16 @@ tr.active .weasis-btn {
 }
 
 #noresult {
+  -webkit-box-flex: 1;
   flex: 1;
+  display: -webkit-box;
   display: flex;
   align-self: center;
   align-content: center;
+  -webkit-box-pack: center;
   justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
   flex-direction: row;
   z-index: 10;
   display: none;
@@ -434,11 +468,13 @@ tr.active .weasis-btn {
 
 #noresult div {
   align-self: center;
+  -webkit-box-flex: 1;
   flex: 1;
 }
 
 #noresult div h1 {
   opacity: .5;
+  -webkit-box-flex: 1;
   flex: 1;
 }
 
@@ -449,6 +485,7 @@ tr.active .weasis-btn {
 .bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*=col-] {
   margin-right: 1em;
   margin-bottom: .5em;
+  -webkit-box-flex: 1 200px;
   flex: 1 200px;
   max-width: 200px;
   height: auto;
@@ -469,9 +506,10 @@ tr.active .weasis-btn {
 .flex-container {
   height: calc(100% - 51px);
   height: -o-calc(100% - 51px);
-  height: -webkit-calc(100% - 51px);
   height: -moz-calc(100% - 51px);
   display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
   flex-flow: row;
   width: 100%;
 }
@@ -484,6 +522,7 @@ tr.active .weasis-btn {
 }
 
 .main-panel {
+  -webkit-box-flex: 1;
   flex: 1;
   overflow-y: auto;
 }
@@ -511,6 +550,7 @@ tr.active .weasis-btn {
 
 .viewer-panel {
   background: black;
+  -webkit-box-flex: 1;
   flex: 1;
   overflow-y: auto;
 }
@@ -526,9 +566,12 @@ tr.active .weasis-btn {
 
 #loadingDiv {
   background: #eee;
+  display: -webkit-box;
   display: flex;
+  -webkit-box-pack: center;
   justify-content: center;
   flex-flow: column;
+  -webkit-box-align: center;
   align-items: center;
   text-align: center;
   color: #00a175;
@@ -576,6 +619,7 @@ tr.active .weasis-btn {
     height: 100%
   }
   #search-from input {
+    -webkit-box-flex: 1;
     flex: 1;
     max-width: 1000px;
   }

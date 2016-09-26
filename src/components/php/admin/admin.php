@@ -1,7 +1,12 @@
 <?php
+$ignoreInsts = [''];
+$ignoreMods = ["","OT","SR"];
+
 function loadAllModalities(){
+  global $ignoreMods;
   $allMoladities = getAllModalities();
   foreach ($allMoladities as $key => $value) {
+    if(in_array($value['modality'], $ignoreMods)) continue;
     echo modalityRow($value['modality'],'info', $value['id']);
   }
 }
@@ -14,10 +19,10 @@ function modalityRow($name='', $info='', $id=''){
 }
 
 function loadAllInstitution(){
+  global $ignoreInsts;
   $allInstitution = getAllInstitutions();
-  // var_dump($allInstitution);
   foreach ($allInstitution as $key => $value) {
-    if($value['name'] == '') continue;
+    if(in_array( $value['name'], $ignoreInsts)) continue;
     echo institutionRow($bar = ucwords(strtolower($value['name'])), $value['id']);
   }
 }
