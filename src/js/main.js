@@ -122,12 +122,9 @@ function serieRowClicked() {
 
 function toggleModal(modalId) {
   $('#myModal').modal('toggle');
-  console.log('Modal');
-  var viewer = $('#viewer');
 
   // TODO: Scroll
   //FIXME: async func x__x
-  console.log(viewer);
   delay(function() {
     initCtViewer();
   }, 200);
@@ -135,11 +132,12 @@ function toggleModal(modalId) {
 }
 
 function initCtViewer() {
+  var viewer = $('#viewer');
   ctViewer = new CtViewer(viewer);
 
   if (isFirefox) {
 
-    $('#viewer').bind('DOMMouseScroll', function(e) {
+    viewer.bind('DOMMouseScroll', function(e) {
       if (e.originalEvent.detail > 0) {
         ctViewer.next();
       } else {
@@ -148,13 +146,13 @@ function initCtViewer() {
       return false;
     });
   } else {
-    $('#viewer').bind('mousewheel', function(e) {
+    viewer.bind('mousewheel', function(e) {
       if (e.originalEvent.wheelDelta < 0) {
         ctViewer.next();
       } else {
         ctViewer.prev();
       }
-       return false;
+      return false;
     });
   }
 }

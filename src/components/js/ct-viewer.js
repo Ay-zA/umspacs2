@@ -37,7 +37,8 @@ function CtViewer(element, option) {
 
   _this.prev = function() {
     if (!canSlide()) return;
-    activeCt = (activeCt - 1) % _this.cts.length;
+    activeCt =(activeCt < 1) ? _this.cts.length - 1 : activeCt - 1;
+ ;
     updateActive();
   }
 
