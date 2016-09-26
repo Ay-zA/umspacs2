@@ -5,7 +5,7 @@ function showInstance(data) {
   $.each(data, function(i, obj) {
     // WADO(selected_study_uid, selected_serie_uid, obj.sop_iuid);
     var request = generateRequestURL(selected_study_uid, selected_serie_uid, obj.sop_iuid);
-    output += '<div class="col-sm-12 full-height"><img class="img-responsive thumb-img" src="' + request + '" /></div>';
+    output += '<div class="col-sm-12 full-height ct"><img class="img-responsive thumb-img" src="' + request + '" /></div>';
   });
 
   $thumb.html(output);
@@ -14,7 +14,7 @@ function showInstance(data) {
   $selected_serie.attr('loaded', 'true');
   var seried_id = $selected_serie.attr('data-id');
   instance_data[seried_id] = output;
-  var rowoutput = '<div class="row">' + output + '</div>';
+  var rowoutput = '<div id="viewer" class="row">' + output + '</div>';
   $modal.html(rowoutput);
 
 }
@@ -25,7 +25,7 @@ function loadInstanceData() {
 
   $thumb.html(instance_data[serie_id]);
 
-  var rowoutput = '<div class="row">' + instance_data[serie_id] + '</div>';
+  var rowoutput = '<div id="viewer" class="row">' + instance_data[serie_id] + '</div>';
   $modal.html(rowoutput);
 
 }
@@ -75,6 +75,7 @@ function printStudies(data) {
     output += '<td data-type="pat_id">' + data[i].pat_id + '</td>';
     output += '<td data-type="pat_name"><b>' + fix_name(data[i].pat_name) + '</b>/' + get_sex(data[i].pat_sex) + '/' + get_age(data[i].pat_birthdate) + '</td>';
     output += '<td data-type="institution">' + fix_name(data[i].institution) + '</td>';
+    output += '<td data-type="accession">' + fix_name(data[i].accession_no) + '</td>';
     output += '<td data-type="modality">' + data[i].mods_in_study + '</td>';
     output += '<td data-type="study_date">' + to_persian_date(data[i].study_datetime) + '</td>';
     output += '<td data-type="study_time">' + get_time(data[i].study_datetime) + '</td>';
@@ -103,7 +104,7 @@ function initStudyDataTable() {
       'pageLength': defaultPageSize,
       'bPaginate': false,
       'info': false,
-      responsive: true,
+      'responsive': true,
       'bSort': true,
       "aaSorting": []
     });

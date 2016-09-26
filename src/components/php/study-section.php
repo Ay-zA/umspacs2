@@ -9,15 +9,16 @@
     <table id="patient-table" class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Id</th>
+          <th>Patient Id</th>
           <th>Name</th>
           <th>Institution</th>
-          <th>Modality</th>
+          <th>Accession No.</th>
+          <th>Mod</th>
           <th>Date</th>
           <th>Time</th>
           <th class="hidden-xs">Series</th>
           <th class="hidden-xs">Images</th>
-          <th class="hidden-xs">Weasis</th>
+          <th class="hidden-xs">DICOM Viewer</th>
         </tr>
       </thead>
 

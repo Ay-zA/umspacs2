@@ -83,7 +83,7 @@ function getAllInstances($serie_pk)
     return $result;
 }
 
-function searchStudies($patient_id = null, $name = null, $modality = null, $from = null, $to = null, $institution = null, $page_index = 1, $page_size = 20)
+function searchStudies($patient_id = null, $name = null, $accession = null, $modality = null, $from = null, $to = null, $institution = null, $page_index = 1, $page_size = 20)
 {
     global $char_set;
     $inQuery = null;
@@ -115,6 +115,7 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
                 study.study_datetime,
                 study.study_desc,
                 study.study_status,
+                study.accession_no,
                 series.institution
               FROM study
               LEFT JOIN patient ON patient.pk = study.patient_fk
@@ -129,6 +130,10 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
       if (isset($name)) {
           $name = strtolower($name);
           $queryBase .= ' AND LOWER(patient.pat_name) LIKE CONCAT ("%",?,"%")';
+      }
+      if (isset($accession)) {
+          $accession = strtolower($accession);
+          $queryBase .= ' AND LOWER(study.accession_no) LIKE CONCAT ("%",?,"%")';
       }
       if (isset($inQuery)) {
           $queryBase .= ' AND LOWER(study.mods_in_study) IN(' . $inQuery . ')';
@@ -157,6 +162,7 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
               study.study_id,
               study.study_datetime,
               study.study_desc,
+              study.accession_no,
               study.study_status';
 
     $queryOrder = ' ORDER BY study.study_datetime DESC';
@@ -172,6 +178,11 @@ function searchStudies($patient_id = null, $name = null, $modality = null, $from
 
     if (isset($name)) {
         $query->bindValue($i, $name);
+        $i++;
+    }
+
+    if (isset($accession)) {
+        $query->bindValue($i, $accession);
         $i++;
     }
 

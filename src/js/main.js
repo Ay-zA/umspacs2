@@ -17,6 +17,8 @@ var totalStudy = 0;
 var defaultPageSize = 10;
 var currentPageIndex = 1;
 
+var ctViewer;
+
 function patientRowClicked() {
   clearInstance();
   var rows = $('#patient-table tbody tr');
@@ -43,6 +45,7 @@ function searchByInput() {
   var id = $('#searchById').val();
   var name = $('#searchByName').val();
   var institution = $('#searchByInstitution').parent().children('button').children('span').text();
+  var accession = $('#searchByAccession').val();
   var from_date = $('#searchByFrom').val();
   var to_date = $('#searchByTo').val();
   var modality = $('#searchByModality').parent().children('button').children('span').text();
@@ -52,7 +55,7 @@ function searchByInput() {
   from_date = isValidDate(from_date) ? to_gregorian_date(from_date) : "";
   to_date = isValidDate(to_date) ? to_gregorian_date(to_date) : "";
 
-  searchStudies(id, name, modality, from_date, to_date, institution);
+  searchStudies(id, name, accession, modality, from_date, to_date, institution);
 }
 
 function loadAll(e) {
@@ -119,6 +122,41 @@ function serieRowClicked() {
 
 function toggleModal(modalId) {
   $('#myModal').modal('toggle');
+  console.log('Modal');
+  var viewer = $('#viewer');
+
+  // TODO: Scroll
+  //FIXME: async func x__x
+  console.log(viewer);
+  delay(function() {
+    initCtViewer();
+  }, 200);
+
+}
+
+function initCtViewer() {
+  ctViewer = new CtViewer(viewer);
+
+  if (isFirefox) {
+
+    $('#viewer').bind('DOMMouseScroll', function(e) {
+      if (e.originalEvent.detail > 0) {
+        ctViewer.next();
+      } else {
+        ctViewer.prev();
+      }
+      return false;
+    });
+  } else {
+    $('#viewer').bind('mousewheel', function(e) {
+      if (e.originalEvent.wheelDelta < 0) {
+        ctViewer.next();
+      } else {
+        ctViewer.prev();
+      }
+       return false;
+    });
+  }
 }
 
 function clearInstance() {
@@ -140,10 +178,9 @@ function hideResultSection(animate) {
     $.when($resultSection.fadeOut()).done(function() {
       $('#study-section').removeClass('under-result');
     });
-  }
-  else {
+  } else {
     $resultSection.hide();
-      $('#study-section').removeClass('under-result');
+    $('#study-section').removeClass('under-result');
   }
 }
 

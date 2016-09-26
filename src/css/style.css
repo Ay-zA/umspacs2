@@ -149,6 +149,10 @@ tr.active td {
   background-color: #333 !important;
 }
 
+td[data-type='weasis'] {
+  text-align: center;
+}
+
 #thumb-div {
   position: relative;
   background: #000;
@@ -247,14 +251,18 @@ tr.active td {
   margin-right: 1em;
   margin-bottom: .5em;
   -webkit-box-flex: 1;
-  flex: 1 200px;
-  max-width: 200px;
+  flex: 1 150px;
+  max-width: 150px;
   height: auto;
   background: #444;
   padding: 5px 10px;
   border: none;
   box-shadow: none;
   color: #eee;
+}
+
+#search-from .bs-searchbox input {
+  max-width: 100%;
 }
 
 #search-from input:focus, #search-from .used {
@@ -426,6 +434,15 @@ tr.active td {
   max-height: 100%
 }
 
+.modal-dialog .row .ct {
+  position: static;
+  display: none;
+}
+
+.modal-dialog .row .ct.active{
+  display: flex;
+}
+
 tr.active .weasis-btn {
   border: 1px solid #00ffde;
   color: #00ffde;
@@ -452,15 +469,21 @@ tr.active .weasis-btn {
 
 #noresult {
   -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  -moz-box-flex: 1;
   flex: 1;
-  display: -webkit-box;
-  display: flex;
   align-self: center;
   align-content: center;
   -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
   justify-content: center;
   -webkit-box-orient: horizontal;
+  -ms-box-orient: horizontal;
+  -moz-box-orient: horizontal;
   -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -ms-box-direction: normal;
   flex-direction: row;
   z-index: 10;
   display: none;
@@ -469,6 +492,8 @@ tr.active .weasis-btn {
 #noresult div {
   align-self: center;
   -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  -moz-box-flex: 1;
   flex: 1;
 }
 
@@ -485,9 +510,11 @@ tr.active .weasis-btn {
 .bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*=col-] {
   margin-right: 1em;
   margin-bottom: .5em;
-  -webkit-box-flex: 1 200px;
-  flex: 1 200px;
-  max-width: 200px;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  -moz-box-flex: 1;
+  flex: 1 150px;
+  max-width: 150px;
   height: auto;
   background: #444;
   border: none;
@@ -523,6 +550,8 @@ tr.active .weasis-btn {
 
 .main-panel {
   -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  -moz-box-flex: 1;
   flex: 1;
   overflow-y: auto;
 }
@@ -551,6 +580,8 @@ tr.active .weasis-btn {
 .viewer-panel {
   background: black;
   -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  -moz-box-flex: 1;
   flex: 1;
   overflow-y: auto;
 }
@@ -569,9 +600,13 @@ tr.active .weasis-btn {
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
   justify-content: center;
   flex-flow: column;
   -webkit-box-align: center;
+  -ms-box-align: center;
+  -moz-box-align: center;
   align-items: center;
   text-align: center;
   color: #00a175;
@@ -620,6 +655,8 @@ tr.active .weasis-btn {
   }
   #search-from input {
     -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -ms-box-flex: 1;
     flex: 1;
     max-width: 1000px;
   }

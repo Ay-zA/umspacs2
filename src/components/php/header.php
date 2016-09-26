@@ -22,9 +22,6 @@
       </ul>
       <ul class="nav nav-xs visible-xs" style="float:right;">
         <li>
-          <button type="button" class="searchButton btn btn-default navbar-btn" onclick="window.open('setting.php','_self')"><span class="glyphicon glyphicon-cog"></button>
-        </li>
-        <li>
           <button type="button" class="searchButton btn btn-default navbar-btn"><span class="glyphicon glyphicon-search"></button>
         </li>
         <li>

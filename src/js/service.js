@@ -2,6 +2,7 @@ var hostname = window.location.hostname;
 var baseURL = window.location.pathname.split('/')[1];
 var ch_patId;
 var ch_patName;
+var ch_accession;
 var ch_modality;
 var ch_fromDate;
 var ch_toDate;
@@ -26,7 +27,7 @@ function getInstanceDataPromise(seriePk) {
 }
 
 function WADO(studyUID, serieUID, instanceUID, frame) {
-  frame =  frame || 0;
+  frame = frame || 0;
   var url = 'http://' + hostname + ':8080/wado?requestType=WADO' +
     '&studyUID=' + studyUID +
     '&seriesUID=' + serieUID +
@@ -36,7 +37,7 @@ function WADO(studyUID, serieUID, instanceUID, frame) {
   $.ajax({
     url: url,
     Dattype: 'text/html',
-    success: function (data) {
+    success: function(data) {
       console.log('HI');
       console.log(data);
     }
@@ -45,7 +46,7 @@ function WADO(studyUID, serieUID, instanceUID, frame) {
 }
 
 function generateRequestURL(studyUID, serieUID, instanceUID, frame) {
-  frame =  frame || 0;
+  frame = frame || 0;
 
   var url = 'http://' + hostname + ':8080/wado?requestType=WADO' +
     '&studyUID=' + studyUID +
@@ -61,14 +62,15 @@ function loadStudyPage(pageIndex, pageSize) {
   pageIndex = pageIndex - 1 || 0;
   pageSize = pageSize || defaultPageSize;
 
-  if(pageIndex < 0)
+  if (pageIndex < 0)
     pageIndex = 0;
-  if(pageSize < 1)
+  if (pageSize < 1)
     pageSize = 1;
 
   var url = 'src/components/php/api/service.php?action=searchstudies' +
     '&id=' + ch_patId +
     '&name=' + ch_patName +
+    '&accession=' + ch_accession +
     '&modality=' + ch_modality +
     '&from=' + ch_fromDate +
     '&to=' + ch_toDate +
@@ -82,9 +84,10 @@ function loadStudyPage(pageIndex, pageSize) {
 
 }
 
-function searchStudies(patId, patName, modality, fromDate, toDate, institution, pageIndex, pageSize) {
+function searchStudies(patId, patName, accession, modality, fromDate, toDate, institution, pageIndex, pageSize) {
   ch_patId = patId || '';
   ch_patName = patName || '';
+  ch_accession = accession || '';
   ch_modality = modality || '';
   ch_fromDate = fromDate || '';
   ch_toDate = toDate || '';
@@ -92,12 +95,12 @@ function searchStudies(patId, patName, modality, fromDate, toDate, institution, 
   pageIndex = pageIndex || 0;
   pageSize = pageSize || defaultPageSize;
 
-  loadStudyPage(pageIndex, pageSize);
+    loadStudyPage(pageIndex, pageSize);
 
 }
 
 function searchStudyByDate(fromDate, toDate) {
-  searchStudies(undefined, undefined, undefined, fromDate, toDate, undefined);
+  searchStudies(undefined, undefined, undefined, undefined, fromDate, toDate, undefined);
 }
 
 function generateWeasisUrl(type, id) {

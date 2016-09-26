@@ -53,11 +53,14 @@
     <script src="node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
     <script src="node_modules/datatables.net-responsive/js/dataTables.responsive.js"></script>
     <script src="src/assets/slider/js/lightslider.min.js"></script>
+    <script src="src/components/js/ct-viewer.js"></script>
 
     <script src="src/css/index.js"></script>
     <script src="src/js/common.js"></script>
 
     <script>
+      var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
       var $loading = $('#loadingDiv').hide();
 
       $(function() {
@@ -71,13 +74,13 @@
         });
 
         loadAll();
-      });
+    });
     </script>
 
     <script src="src/js/main.js"></script>
     <script src="src/js/main-dom.js"></script>
     <script src="src/js/service.js"></script>
     <script src="src/js/main-events.js"></script>
-  </body>
+    </body>
 
   </html>
