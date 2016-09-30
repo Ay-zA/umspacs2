@@ -3,26 +3,30 @@
     <h4>Series</h4>
     <button id="close-button" type="button" name="button" onclick="hideResultSection();">X</button>
   </div>
-  <div class="section-content">
-    <div class="col-xs-12 col-sm-6 full-height">
+    <div class="section-content">
+    <div id="serie-table-container" class="col-xs-12 col-sm-6 full-height">
       <table id="series-table" class="table table-striped table-hover">
         <thead>
           <tr>
-            <th>Part</th>
+            <th>Body Part</th>
             <th>Images</th>
             <th>Description</th>
+            <th class="hidden-xs">Viewer</th>
+            <th class="visible-xs">Show</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </div>
-    <div class="full-height col-xs-6 hidden-xs">
+    <div id="viewer-mini" class="full-height col-xs-12 col-sm-6">
       <div id="thumb-div" class="row full-height"></div>
     </div>
   </div>
-  <div id="myModal" class="modal fade" role="dialog">
+
+
+
+  <div id="viewer-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>

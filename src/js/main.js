@@ -1,6 +1,6 @@
 var $thumb = $('#thumb-div');
-var $modal = $('#myModal .modal-body');
-var $modalHeader = $('#myModal .modal-title');
+var $modal = $('#viewer-modal .modal-body');
+var $modalHeader = $('#viewer-modal .modal-title');
 var $patient_table = $('#patient-table tbody');
 var $seriesTable = $('#series-table tbody');
 var $resultSection = $('#result-section');
@@ -22,9 +22,18 @@ var ctViewer;
 function patientRowClicked() {
   clearInstance();
   var rows = $('#patient-table tbody tr');
+  var loaded = $(this).attr('loaded');
+  var studyId = $(this).attr('data-study-id');
+  selected_study_uid = $(this).attr('data-iuid');
+
   rows.removeClass('active');
   $(this).addClass('active');
-  selected_study_uid = $(this).attr('data-iuid');
+
+  if (loaded === true) {
+    loadSeriesData();
+  } else {
+    getSeriesData(studyId, printSeries);
+  }
 }
 
 function openWeasis(e) {
@@ -114,14 +123,32 @@ function loadMonth() {
 
 function serieRowClicked() {
   selected_serie_uid = $(this).attr('data-serie');
+  var seriePk = $(this).attr('data-id');
+  var loaded = $(this).attr('loaded');
   var rows = $('#series-table tbody tr');
   rows.removeClass('active');
   $(this).addClass('active');
+  if (loaded === true) {
+    loadInstanceData();
+  } else {
+    getInstanceData(seriePk, showInstance);
+  }
 
 }
 
-function toggleModal(modalId) {
-  $('#myModal').modal('toggle');
+function showSerie(series_iuid) {
+  selected_serie_uid = series_iuid;
+  toggleModal();
+}
+
+function handelSerieDoubleClick(e) {
+  e.preventDefault();
+  toggleModal();
+}
+
+function toggleModal() {
+
+  $('#viewer-modal').modal('toggle');
 
   // TODO: Scroll
   //FIXME: async func x__x

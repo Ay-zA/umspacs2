@@ -9,6 +9,5 @@
     </tr>
   </thead>
   <tbody>
-    <?php loadAllModalities(); ?>
   </tbody>
 </table>

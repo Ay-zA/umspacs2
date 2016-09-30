@@ -1,12 +1,17 @@
 <?php
   require_once 'common.php';
+  require_once 'db.php';
+  include 'access.config.php';
 
   session_start();
 
   function createUser($username, $password, $email, $role){
-    if(!is_valid($username) || !is_valid($password) || !is_valid($role)) return 403; // Null Param
+    if(!canAccess(NULL,'CREATE_USER')) return 403;
+
     if(is_user_exist($username)) return 405; // Existed
+    $username = strtolower($username);
     $password = md5($password);
+
     $conn = connect("dicom");
     if($conn == null)
       return 404; //Connection failed
@@ -20,27 +25,61 @@
     $query->bindParam(':password', $password);
 
     $query->execute();
-    return 400; // OK
+    return 200; // OK
   }
-  function updateUser($username, $password, $email, $role){
-    if(!is_valid($username) || !is_valid($password)) return 403; // Null Param
+  function updateUser($username = NULL, $password = NULL, $email = NULL, $role = NULL){
+
+    if(!is_valid($username)) return 403; // Null Username
+    $username = strtolower($username);
+
+    $currentRole = getRole($username);
+    if($role == $currentRole)
+      $role = NULL;
+
+    if(!is_valid($password) && !is_valid($email) && !is_valid($role)) return 406; // No change needed
+
+    if(isset($email) && !is_valid($email)) return 407; //invalid
+
     if(!is_user_exist($username)) return 405; // Not Existed
-    $password = md5($password);
 
     $conn = connect("dicom");
     if($conn == null)
       return 404; //Connection failed
 
-    $query = "UPDATE `users` SET `password`=:password WHERE `username`=:username;";
+    $queryCommand = "UPDATE `users` SET";
+
+    $queryParams = "`username` = :username";
+
+    if(is_valid($password))
+      $queryParams .= ", `password`=:password";
+
+    if(is_valid($email))
+      $queryParams .= ", `email`=:email";
+
+    if(is_valid($role))
+      $queryParams .= ", `role`=:role";
+
+    $queryCondition = " WHERE `username`=:username;";
+
+    $query = $queryCommand . $queryParams . $queryCondition;
+
     $query = $conn->prepare($query);
 
-    // $query->bindParam(':email', $email);
-    // $query->bindParam(':role', $role);
+    if(is_valid($password)){
+      $password = md5($password);
+      $query->bindParam(':password', $password);
+    }
+
+    if(is_valid($email))
+      $query->bindParam(':email', $email);
+
+    if(is_valid($role))
+      $query->bindParam(':role', $role);
+
     $query->bindParam(':username', $username);
-    $query->bindParam(':password', $password);
 
     $query->execute();
-    return 400; // OK
+    return 200; // OK
   }
 
   function is_session_exist(){
@@ -106,17 +145,43 @@
     return $result['role']; // OK
   }
 
-  function canAccess($username, $action){
-    if(!is_valid($username) || !is_valid($action))
+  function canAccess($username , $action){
+    global $accessList;
+    if($username == NULL){
+      $username = $_SESSION['dicom_username'];
+      $role = $_SESSION['dicom_role'];
+    } else {
+      $role = getRole($username);
+    }
+    if(!is_valid($username) || !is_valid($action) || !is_valid($role))
       return false;
 
+    if(!in_array($action,$accessList[$role]))
+      return false;
+
+    return true;
   }
 
   function deleteUser($username)
   {
-    if(getRole($username) != 'admin')
-      reutrn;
-    
+    if(!canAccess(NULL, 'DELETE_USER'))
+      return 403;
+    if(!is_user_exist($username))
+      return 400; // NotExisted
+    if($username == $_SESSION['dicom_username'])
+      return 406; // Can't remove yourself
+
+    $conn = connect("dicom");
+    if($conn == NULL)
+      return 404; //Connection failed
+
+    $query = "DELETE FROM `users` WHERE `users`.`username` = :username;";
+    $query = $conn->prepare($query);
+
+    $query->bindParam(':username', $username);
+
+    $query->execute();
+    return 200; // OK
   }
 
 ?>

@@ -8,14 +8,17 @@ var ch_fromDate;
 var ch_toDate;
 var ch_institution;
 
-function getSeriesData() {
-  var studyId = $(this).attr('data-study-id');
+function getSeriesData(studyId, cb) {
+  if (typeof studyId === 'undefined') console.error('StudyId is not defiend');
+  var studyId = studyId;
   var url = 'src/components/php/api/service.php?action=getallseries&study_pk=' + studyId;
-  $.getJSON(url, printSeries);
+  $.getJSON(url, cb);
 }
 
 function getInstanceData(seriePk, cb) {
+  if (typeof seriePk === 'undefined') console.error('Undefiend Series Pk');
   var url = 'src/components/php/api/service.php?action=getallinstances&serie_pk=' + seriePk;
+  console.log(url);
   $.getJSON(url, cb);
 }
 
@@ -53,7 +56,6 @@ function generateRequestURL(studyUID, serieUID, instanceUID, frame) {
     '&seriesUID=' + serieUID +
     '&objectUID=' + instanceUID +
     '&frameNumber=' + frame;
-
   return url;
 }
 
@@ -95,7 +97,7 @@ function searchStudies(patId, patName, accession, modality, fromDate, toDate, in
   pageIndex = pageIndex || 0;
   pageSize = pageSize || defaultPageSize;
 
-    loadStudyPage(pageIndex, pageSize);
+  loadStudyPage(pageIndex, pageSize);
 
 }
 

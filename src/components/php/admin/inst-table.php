@@ -8,6 +8,5 @@
     </tr>
   </thead>
   <tbody>
-    <?php loadAllInstitution(); ?>
   </tbody>
 </table>

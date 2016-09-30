@@ -50,7 +50,6 @@ body, html {
 .nav-xs li {
   display: inline-block;
   margin-right: -4px;
-  padding: 0;
 }
 
 .nav-xs a {
@@ -670,39 +669,5 @@ tr.active .weasis-btn {
     -ms-box-flex: 1;
     flex: 1;
     max-width: 1000px;
-  }
-
-  .under-result{
-    display:none;
-  }
-
-  #result-section{
-    margin-top:40px;
-    max-height:100%;
-  }
-
-  .section-header{
-    text-align:center;
-  }
-  .section-header h4{
-    font-size:1.1em;
-  }
-  #result-section .section-content{
-    display:flex;
-    flex-flow: column nowrap;
-  }
-  #serie-table-container{
-    flex:1;
-  }
-  #viewer-mini {
-    flex:1;
-  }
-  .navbar-brand{
-    font-size: 1em;
-    font-weight: bold;
-  }
-  #loadingDiv {
-    width:100%;
-    position:fixed;
   }
 }

@@ -4,13 +4,13 @@
   <fieldset>
     <!-- Success message -->
   <?php if(isset($_SESSION['newuser_success'])): ?>
-    <div class="alert alert-success col-md-12" role="alert" id="newuser_success_message"><?php echo $_SESSION['newuser_success'] ?> <i class="glyphicon glyphicon-thumbs-up"></i></div>
+    <div class="alert alert-success col-md-12" role="alert" id="newuser_success_message"><?php echo $_SESSION['newuser_success'] ?></div>
     <div class="clearfix"></div>
     <?php unset($_SESSION['newuser_success']); ?>
   <?php endif ?>
 
   <?php if(isset($_SESSION['newuser_error'])): ?>
-    <div class="alert alert-danger col-md-12" role="alert" id="newuser_error_message"><?php echo $_SESSION['newuser_error'] ?> <i class="glyphicon glyphicon-thumbs-up"></i></div>
+    <div class="alert alert-danger col-md-12" role="alert" id="newuser_error_message"><?php echo $_SESSION['newuser_error'] ?></div>
     <div class="clearfix"></div>
     <?php unset($_SESSION['newuser_error']); ?>
   <?php endif ?>

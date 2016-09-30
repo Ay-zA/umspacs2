@@ -1,0 +1,33 @@
+#edit-user-modal .modal-dialog {
+  margin-top: 20vh;
+  height: auto;
+}
+
+#edit-user-modal .modal-body {
+  padding: 2em 3em 0 3em;
+}
+
+.form-flex .input-group span {
+  min-width: 80px;
+  max-width: 120px;
+  text-align: left;
+  font-style: normal;
+  line-height: 1.9em;
+  border-radius: 0;
+  font-size: .8em;
+}
+
+.form-flex .input-group input {
+  flex: 1;
+  padding: 1.4em 10px 1.2em 10px;
+  font-size: .9em;
+}
+
+@media (max-width: 767px) {
+  #edit-user-modal {
+    padding: 0!important;
+  }
+  #edit-user-modal .modal-dialog {
+    margin: 0;
+  }
+}

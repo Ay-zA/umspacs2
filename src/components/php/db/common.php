@@ -33,6 +33,10 @@ function get_age($dob){
 }
 
 function is_valid($var){
-  return isset($var) && !empty($var);
+  return isset($var) && !empty(trim($var));
+}
+
+function fixDICOMName($name) {
+  //TODO: Regex to fix name invalid character
 }
 ?>

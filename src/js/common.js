@@ -105,3 +105,9 @@ var delay = (function() {
     timer = setTimeout(callback, ms);
   };
 })();
+
+function hideMessageAfter(el, time) {
+  setTimeout(function () {
+    el.fadeOut();
+  }, time);
+}

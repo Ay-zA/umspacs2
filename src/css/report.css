@@ -1,0 +1,91 @@
+.form-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-flex legend {
+  margin: 1em 1em;
+}
+
+.form-flex .input-group {
+  flex: 1 300px;
+  margin: .5em 1em;
+  /*max-width: 400px;*/
+  display: flex;
+}
+
+.form-flex .inline {
+  flex: 1;
+}
+
+.form-flex .input {
+  flex: 1;
+  margin: .5em 1.5em;
+  width: 100%;
+}
+
+.form-flex .input textarea {
+  width: 100%;
+}
+
+.form-flex button {
+  flex: 0;
+  min-width: 100%;
+}
+
+.form-flex .input-group span {
+  flex: 1;
+  max-width: 120px;
+  text-align: left;
+  font-style: normal;
+  line-height: 2em;
+  border-radius: 0;
+  font-size: .8em;
+}
+
+.form-flex .inline span {
+  width: 85px;
+}
+
+.form-flex .input-group input {
+  flex: 1;
+  padding: 1.4em 10px;
+  font-size: .9em;
+}
+
+#report-section {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#template-section {
+  overflow-y: auto;
+  color: #eee;
+  background: #333;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.panel {
+  background-color: transparent;
+  border-radius: 0;
+  margin: 0;
+}
+.panel-default > .panel-heading {
+  border-radius: 0;
+  background-color: transparent;
+  border: 0;
+  color: white;
+}
+.panel-title {
+  font-size: 24px;
+
+}
+.panel-default{
+  border: none;
+}
+@media (max-width: 767px) {
+  .form-flex .inline {
+    flex: 1 250px;
+  }
+}

@@ -8,6 +8,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <?php include "users-part.php"; ?>
+        <?php include "edit-user-modal.php"; ?>
       </div>
     </div>
   </div>

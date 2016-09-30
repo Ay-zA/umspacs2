@@ -2,11 +2,10 @@
   require_once 'src/components/php/db/db.php';
   require_once 'src/components/php/db/accesscontrol.php';
   require_once 'src/components/php/admin/admin.php';
-
   if (!is_session_exist()) {
       header('location: index.php');
   }
-
+  canAccess(NULL,'CREATE_USER')
 ?>
 
   <!DOCTYPE html>
@@ -25,6 +24,7 @@
     <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="node_modules/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
     <link href="src/css/style.css" rel="stylesheet">
+    <link href="src/css/setting.css" rel="stylesheet">
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -43,7 +43,7 @@
           <?php if($_SESSION['dicom_role'] == 'admin'): ?>
           <li class=""><a id="inst-mod-info" href="#">Manage Institution</a></li>
           <li class=""><a id="user-manager" href="#">Manage Users</a></li>
-        <?php endif ?>
+          <?php endif ?>
 
         </ul>
       </div>
@@ -54,75 +54,47 @@
         include "src/components/php/admin/inst-mod-info.php";
         include "src/components/php/admin/user-manager.php";
       }?>
+    </div>
 
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-      <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <script src="src/assets/js/ie10-viewport-bug-workaround.js"></script>
 
-      <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
-      <script src="src/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
 
-      <script src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
-      <script src="node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
-
-      <script src="src/css/index.js"></script>
-      <script src="src/js/common.js"></script>
-      <script src="src/components/js/admin.config.js"></script>
-      <?php
+    <script src="src/css/index.js"></script>
+    <script src="src/js/common.js"></script>
+    <script src="src/components/js/admin.config.js"></script>
+    <?php
         $where2Go = (isset($_SESSION['adminTab']) ? 'user-manager' : 'account');
         unset($_SESSION['adminTab']);
-      ?>
+    ?>
+
+      <script src="src/components/js/setting.js" charset="utf-8"></script>
       <script>
+        var where2Go = "<?php echo $where2Go; ?>";
+        var username = "<?php echo $_SESSION['dicom_username']; ?>";
+        var $editUserModal = $('#edit-user-modal');
+        var $editUserUsername = $('#edit-user-modal #edit-user-username');
+        var $editUserPassword = $('#edit-user-modal #edit-user-password');
+        var $editUserEmail = $('#edit-user-modal #edit-user-email');
+        var $editUserRole = $('#edit-user-modal input[name="role"]');
         $(document).ready(function() {
-          var where2Go = "<?php echo $where2Go; ?>";
-          var username = "<?php echo $_SESSION['dicom_username']; ?>";
-          changeAdminTabById(where2Go);
+          // changeAdminTabById(where2Go);
+          changeAdminTabById('user-manager');
 
-          var instTable = $("#inst-table");
-          var modTable = $("#mod-table");
-          function changeAdminTab(e) {
-            var id = e.target.id;
-            changeAdminTabById(id,true);
-          }
+          var $instTable = $("#inst-table");
+          var $modTable = $("#mod-table");
 
-          function changeAdminTabById(id,messages){
-            id = '#'+id;
-            $('#admin-tabs li').each(function () {
-              $(this).removeClass('active');
-            });
-            $(id).parent('li').addClass('active');
-
-            $("div[id$=panel]").each(function () {
-              $(this).hide();
-            });
-
-            var panelId =id+'-panel';
-            $(panelId).show();
-            clearInputs();
-            if(messages)
-              removeMessages();
-          }
-          function removeMessages() {
-            $('.alert').each(function () {
-              $(this).hide();
-            })
-          }
-          function clearInputs() {
-            $('input[type="text"]').val("");
-            $('input[type="password"]').val("");
-            $('#account-form input[name="username"]').val(username);
-          }
-          $instDataTable = instTable.DataTable(adminConfig.instTableOptions);
-          $modDataTable = modTable.DataTable(adminConfig.modTableOptions);
-
-          $('#admin-tabs #account').on('click', changeAdminTab);
-          $('#admin-tabs #inst-mod-info').on('click', changeAdminTab);
-          $('#admin-tabs #user-manager').on('click', changeAdminTab);
-
-
+          $instDataTable = $instTable.DataTable(adminConfig.instTableOptions);
+          $modDataTable = $modTable.DataTable(adminConfig.modTableOptions);
         });
       </script>
-      <script src="src/js/service.js"></script>
 
+      <script src="src/components/js/setting-event.js"></script>
+      <script src="src/js/service.js"></script>
   </body>
 
   </html>

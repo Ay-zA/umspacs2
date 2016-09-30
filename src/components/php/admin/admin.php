@@ -4,8 +4,8 @@ $ignoreMods = ["","OT","SR"];
 
 function loadAllModalities(){
   global $ignoreMods;
-  $allMoladities = getAllModalities();
-  foreach ($allMoladities as $key => $value) {
+  $allModalities = getAllModalities();
+  foreach ($allModalities as $key => $value) {
     if(in_array($value['modality'], $ignoreMods)) continue;
     echo modalityRow($value['modality'],'info', $value['id']);
   }
@@ -45,11 +45,14 @@ function loadAllUsers()
 
 function userRow($name='',$email='N/A',$role=''){
   if($email == '') $email = 'N/A';
-  return "<tr>
-            <td>$name</td>
-            <td>$email</td>
-            <td>$role</td>
-            <td>Remove</td>
-          <tr>";
+  return '<tr>
+            <td data-type="username">'.$name.'</td>
+            <td data-type="email">'.$email.'</td>
+            <td data-type="role">'.$role.'</td>
+            <td>
+              <button class="btn btn-default edit-user" data-username="'. strtolower($name) .'" >Edit</button>
+              <button class="btn btn-default delete-user" data-username="'. strtolower($name) .'" >Remove</button>
+            </td>
+          <tr>';
 }
 ?>

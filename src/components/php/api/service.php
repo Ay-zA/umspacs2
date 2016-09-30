@@ -2,6 +2,7 @@
   // header('Content-Type: application/json');
   require_once "../db/db.php";
   require_once "../db/common.php";
+  require_once "../db/accesscontrol.php";
   $response = "";
 
   function returnAllStudies(){
@@ -22,6 +23,17 @@
   function returnInstitutionName($study_pk){
     $result = getInstitutionName($study_pk);
     return $result;
+  }
+
+  function returnUpdateUser() {
+
+    $username = (isset($_GET['username']) && is_valid($_GET['username'])) ?  $_GET['username']  : NULL;
+    $password = (isset($_GET['password']) && is_valid($_GET['password'])) ?  $_GET['password']  : NULL;
+    $email = (isset($_GET['email']) && is_valid($_GET['email'])) ?  $_GET['email']   : NULL;
+    $role =  (isset($_GET['role']) && is_valid($_GET['role'])) ?  $_GET['role']   : NULL;
+
+    $reuslt = updateUser($username, $password, $email, $role);
+    return $reuslt;
   }
 
   if(isset($_GET['action'])){
@@ -47,6 +59,15 @@
         break;
       case 'getstudycount':
         $response = getStudyCount();
+        break;
+      case 'getpatientinfo':
+        $response = getPatientInfo($_GET['pat_id']);
+        break;
+      case 'deleteuser':
+        $response = deleteUser($_GET['username']);
+        break;
+      case 'updateuser':
+        $response = returnUpdateUser();
         break;
       case 'searchstudies':
         // echo  $_GET['id'] . "<br>" . $_GET['name']. '<br> ' . $_GET['modality']. '<br> ' . $_GET['from']. '<br> ' . $_GET['to'];

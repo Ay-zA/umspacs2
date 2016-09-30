@@ -3,7 +3,7 @@
   <form id="search-from" class="col-xs-12" role="form">
     <input id="searchById" type="search" class="form-control search-control" placeholder="Id">
     <input id="searchByName" type="search" class="form-control search-control" placeholder="Name">
-    <input id="searchByAccession" type="search" class="form-control search-control" placeholder="Accession No.">
+    <input id="searchByAccession" type="search" class="form-control search-control hidden-xs" placeholder="Accession No.">
       <select title="Modality" id="searchByModality" class="form-control search-control hidden-xs selectpicker" multiple >
         <?php loadAllModalities($pritnModOption) ?>
       </select>

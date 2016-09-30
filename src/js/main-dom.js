@@ -10,7 +10,6 @@ function showInstance(data) {
 
   $thumb.html(output);
   var $selected_serie = $('#series-table tbody tr.active');
-
   $selected_serie.attr('loaded', 'true');
   var seried_id = $selected_serie.attr('data-id');
   instance_data[seried_id] = output;
@@ -32,14 +31,15 @@ function loadInstanceData() {
 
 function printSeries(data) {
   var output = "";
-
   $.each(data, function(i, obj) {
+    //console.log(obj);
     output += '<tr loaded="false" data-id=' + obj.pk + ' data-serie=' + obj.series_iuid + '>';
     output += '<td>' + ((obj.body_part !== null) ? obj.body_part : 'N/A') + '</td>';
     output += '<td>' + obj.num_instances + '</td>';
     output += '<td>' + obj.series_desc + '</td>';
     var url = generateWeasisUrl('serie', obj.series_iuid);
-    output += '<td class="hidden-xs"><a class="weasis-btn flat-btn" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button><td>';
+    output += '<td class="hidden-xs"><a class="weasis-btn flat-btn" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
+    output += '<td class="visible-xs"><a class="weasis-btn flat-btn" onclick="showSerie(\'' + obj.series_iuid + '\')"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
     output += '</tr>';
   });
   var patName = $('#patient-table tr.active td[data-type="pat_name"]').text();
@@ -82,7 +82,7 @@ function printStudies(data) {
     output += '<td class="hidden-xs" data-type="num_series">' + data[i].num_series + '</td>';
     output += '<td class="hidden-xs" data-type="num_instances">' + data[i].num_instances + '</td>';
     var url = generateWeasisUrl('patient', data[i].pat_id);
-    output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
+    output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a><a class="weasis-btn flat-btn hidden-xs" href="report.php?study_id=' + data[i].study_id + '"><span class="">Report</span></a></td>';
     output += '</tr>';
     i++;
   }
@@ -112,11 +112,12 @@ function initStudyDataTable() {
     $('#patient-table').on('page.dt', function() {
       clearSearchInputs();
     });
+    $('#patient-table_wrapper #patient-table').closest('div').addClass('table-responsive');
   }
 }
 
 function resetStudyTable() {
-  if($dataTable)
+  if ($dataTable)
     $dataTable.destroy();
   $dataTable = false;
   delay(initStudyDataTable, 500);
@@ -208,8 +209,8 @@ function activeStudyPage(page) {
 }
 
 function generateInformation(totalStudy, totalSerie, totalInstance) {
-  var startResultIndex = (currentPageIndex-1) * defaultPageSize + 1;
-  var endResultIndex = startResultIndex + defaultPageSize -1;
+  var startResultIndex = (currentPageIndex - 1) * defaultPageSize + 1;
+  var endResultIndex = startResultIndex + defaultPageSize - 1;
   if (endResultIndex > totalStudy) {
     endResultIndex = totalStudy;
   }

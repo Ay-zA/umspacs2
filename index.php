@@ -1,6 +1,7 @@
 <?php
   require_once 'src/components/php/db/db.php';
   require_once 'src/components/php/db/accesscontrol.php';
+  echo md5('admin');
 
   if (is_session_exist()) {
       header('location: main.php');
@@ -56,13 +57,13 @@
     </footer>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="css/index.js"></script>
+    <script src="src/css/index.js"></script>
 
     <script>
       $("form").slideDown(1000);
     </script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="src/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 
   </html>
