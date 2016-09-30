@@ -65,7 +65,7 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Patient Id</span>
-                <input type="text" class="form-control" placeholder="Patient Id" value="<?php echo $reportInfo['pat_id']; ?>">
+                <input type="text" class="form-control" placeholder="Patient Id" readonly value="<?php echo $reportInfo['pat_id']; ?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
@@ -77,19 +77,19 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">DOB</span>
-                <input type="text" class="form-control" placeholder="DOB" value="<?php echo $reportInfo['pat_birthdate'];?>">
+                <input type="text" class="form-control" placeholder="DOB" readonly value="<?php echo $reportInfo['pat_birthdate'];?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Age</span>
-                <input type="text" class="form-control" placeholder="Age" value="<?php echo get_age($reportInfo['pat_birthdate']);?>">
+                <input type="text" class="form-control" placeholder="Age" readonly value="<?php echo get_age($reportInfo['pat_birthdate']);?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Sex</span>
-                <input type="text" class="form-control" placeholder="Sex" value="<?php echo $reportInfo['pat_sex'];?>">
+                <input type="text" class="form-control" placeholder="Sex" readonly value="<?php echo $reportInfo['pat_sex'];?>">
               </div>
             </div>
           </div>
@@ -103,35 +103,35 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Modality</span>
-                <input type="text" class="form-control" placeholder="Modality" value="<?php echo $reportInfo['mods_in_study'];?>">
+                <input type="text" class="form-control" placeholder="Modality" readonly value="<?php echo $reportInfo['mods_in_study'];?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Body Part</span>
-                <input type="text" class="form-control" placeholder="Body Part" value="<?php printBodyParts($reportInfo);?>">
+                <input type="text" class="form-control" placeholder="Body Part" readonly value="<?php printBodyParts($reportInfo);?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Study Date</span>
-                <input type="text" class="form-control" placeholder="Study Date" value="<?php echo $reportInfo['study_datetime'];?>">
+                <input type="text" class="form-control" placeholder="Study Date" readonly value="<?php echo $reportInfo['study_datetime'];?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Accession No</span>
-                <input type="text" class="form-control" placeholder="Accession No" value="<?php echo $reportInfo['accession_no'];?>">
+                <input type="text" class="form-control" placeholder="Accession No" readonly value="<?php echo $reportInfo['accession_no'];?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Study Discription</span>
-                <input type="text" class="form-control" placeholder="Study Discription" value="<?php echo $reportInfo['study_desc'];?>">
+                <input type="text" class="form-control" placeholder="Study Discription" readonly value="<?php echo $reportInfo['study_desc'];?>">
               </div>
             </div>
 

@@ -90,12 +90,10 @@ function insertParam(key, value)
 }
 
 function parseModality(modality) {
-  var modalities = modality === 'Modality' ? '' :  modality.replace(/,\s/g , '\\\\');
-  console.log(modalities);
-  return modalities;
+  return (modality === 'Modality' || modality === 'All') ? '' :  modality.replace(/,\s/g , '\\\\');
 }
 function parseInstitution(institution) {
-  return institution === 'Institution' ? '' :  institution;
+  return (institution === 'Institution' || institution === 'All') ? '' :  institution;
 }
 
 var delay = (function() {
