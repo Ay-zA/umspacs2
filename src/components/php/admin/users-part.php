@@ -12,6 +12,5 @@
     </tr>
   </thead>
   <tbody>
-    <?php loadAllUsers(); ?>
   </tbody>
 </table>

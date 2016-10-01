@@ -81,8 +81,8 @@ function printStudies(data) {
     output += '<td data-type="study_time">' + get_time(data[i].study_datetime) + '</td>';
     output += '<td class="hidden-xs" data-type="num_series">' + data[i].num_series + '</td>';
     output += '<td class="hidden-xs" data-type="num_instances">' + data[i].num_instances + '</td>';
-    var url = generateWeasisUrl('patient', data[i].pat_id);
-    output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a><a class="weasis-btn flat-btn hidden-xs" href="report.php?study_id=' + data[i].study_id + '"><span class="">Report</span></a></td>';
+    var url = generateWeasisUrl('study', data[i].study_iuid);
+    output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a><a class="weasis-btn flat-btn hidden-xs" href="report.php?study_id=' + data[i].study_id + '"><span class="glyphicon glyphicon-list-alt"></span></a></td>';
     output += '</tr>';
     i++;
   }

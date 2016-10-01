@@ -10,7 +10,6 @@ var ch_institution;
 
 function getSeriesData(studyId, cb) {
   if (typeof studyId === 'undefined') console.error('StudyId is not defiend');
-  var studyId = studyId;
   var url = 'src/components/php/api/service.php?action=getallseries&study_pk=' + studyId;
   $.getJSON(url, cb);
 }
@@ -111,6 +110,9 @@ function generateWeasisUrl(type, id) {
   switch (type) {
     case 'patient':
       url += 'patientID=' + id;
+      break;
+    case 'study':
+      url += 'studyUID=' + id;
       break;
     case 'serie':
       url += 'seriesUID=' + id;

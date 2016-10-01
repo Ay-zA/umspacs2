@@ -37,8 +37,9 @@ function patientRowClicked() {
 }
 
 function openWeasis(e) {
-  var id = $(e.target).closest('tr').children('td[data-type="pat_id"]').text();
-  var url = generateWeasisUrl('patient', id);
+  console.log("ERR");
+  var id = $(e.target).closest('tr').attr('data-uid').text();
+  var url = generateWeasisUrl('study', id);
   window.open(url);
 }
 
@@ -150,8 +151,8 @@ function toggleModal() {
 
   $('#viewer-modal').modal('toggle');
 
-  // TODO: Scroll
-  //FIXME: async func x__x
+  // TODO:0 Scroll
+  //FIXME:0 async func x__x
   delay(function() {
     initCtViewer();
   }, 200);

@@ -87,9 +87,11 @@
 
           var $instTable = $("#inst-table");
           var $modTable = $("#mod-table");
+          var $userTable = $("#users-table");
 
           $instDataTable = $instTable.DataTable(adminConfig.instTableOptions);
           $modDataTable = $modTable.DataTable(adminConfig.modTableOptions);
+          $userDataTable = $userTable.DataTable(adminConfig.userTableOption);
         });
       </script>
 

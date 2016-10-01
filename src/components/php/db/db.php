@@ -378,6 +378,7 @@ function clearStaticMods() {
   $query = $conn->prepare($query);
   $query->execute();
 }
+
 function getAllUsers()
 {
   $conn = connect('dicom');

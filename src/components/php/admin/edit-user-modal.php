@@ -10,7 +10,7 @@
       </div>
 
       <div class="modal-body">
-        <form class="form-flex">
+        <form id="edit-user-form" class="form-flex">
 
           <div class="form-group">
             <div class="row">
@@ -28,15 +28,16 @@
               <div class="col-xs-6">
                 <div class="input-group">
                   <span class="input-group-addon">Password</span>
-                  <input id="edit-user-password" type="text" class="form-control" placeholder="Password">
+                  <input id="edit-user-password" type="password" class="form-control" placeholder="Password">
                 </div>
               </div>
               <div class="col-xs-6">
                 <div class="input-group">
                   <span class="input-group-addon">Confirm</span>
-                  <input id="edit-user-confirm" type="text" class="form-control" placeholder="Confirm">
+                  <input id="edit-user-confirm" type="password" data-match="#edit-user-password" data-match-error="Passwords don't match" class="form-control" placeholder="Confirm">
                 </div>
-              </div>
+                <div class="help-block with-errors"></div>
+                </div>
             </div>
           </div>
 
@@ -45,7 +46,7 @@
               <div class="col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon">Email</span>
-                  <input id="edit-user-email" type="text" class="form-control" placeholder="Email">
+                  <input id="edit-user-email" type="email" class="form-control" placeholder="Email">
                 </div>
               </div>
             </div>
@@ -76,5 +77,9 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+<script>
+  $('#edit-user-form').validator();
+</script>
+
 
 <!-- /.modal -->

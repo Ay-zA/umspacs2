@@ -1,5 +1,5 @@
 <?php
-  // header('Content-Type: application/json');
+  header('Content-Type: application/json');
   require_once "../db/db.php";
   require_once "../db/common.php";
   require_once "../db/accesscontrol.php";
@@ -36,6 +36,10 @@
     return $reuslt;
   }
 
+  function returnAllUsers() {
+    return getAllUsers();
+  }
+
   if(isset($_GET['action'])){
     $action = strtolower($_GET['action']);
     switch($action){
@@ -65,6 +69,9 @@
         break;
       case 'deleteuser':
         $response = deleteUser($_GET['username']);
+        break;
+      case 'getallusers':
+        $response = returnAllUsers();
         break;
       case 'updateuser':
         $response = returnUpdateUser();

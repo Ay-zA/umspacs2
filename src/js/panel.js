@@ -38,7 +38,7 @@ function showInPanel(data) {
     var request = generateRequestURL(study_uid, selected_serie_uid, obj.sop_iuid);
     output += '<li data-thumb="' + request + '">' +
       '<img src="' + request + '" />' +
-      +'</li>';
+      '</li>';
   });
 
   output += '</ul>';
@@ -47,7 +47,7 @@ function showInPanel(data) {
   var $selected_serie = $('#viewer-serie-list li.active');
   $selected_serie.attr('loaded', 'true');
 
-  // TODO: WHEN DATA LOADED COMPELETE
+  // TODO:60 WHEN DATA LOADED COMPELETE
   delay(createSlider, 10)
 
   function createSlider() {

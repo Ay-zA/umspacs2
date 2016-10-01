@@ -80,7 +80,6 @@
 
   $('input[name="newuser_password"]').on('blur', function (e) {
     if($(this).val() === ''){
-      console.log('e');
       resetValidator('#newuser-form');
     }
   });
