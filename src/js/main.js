@@ -9,8 +9,8 @@ var $paginationList = $('#study-pagination .pagination');
 
 var $idSearchInput = $('#searchById');
 var $nameSearchInput = $('#searchByName');
-var $institutionSearchInput = $('#searchByInstitution').parent().children('button').children('span');
-var $modalitySearchInput = $('#searchByModality').parent().children('button').children('span');
+var $institutionSearchInput;
+var $modalitySearchInput;
 var $accessionSearchInput = $('#searchByAccession');
 var $fromDateSearchInput = $('#searchByFrom');
 var $toDateSearchInput = $('#searchByTo');
@@ -58,6 +58,9 @@ function openPanel(e) {
 }
 
 function searchByInput() {
+  $institutionSearchInput = $('#searchByInstitution').parent().children('button').children('span');
+  $modalitySearchInput = $('#searchByModality').parent().children('button').children('span');
+
   hideResultSection(false);
   resetStudyTable();
   currentPageIndex = 1;

@@ -41,20 +41,20 @@
       <?php include('src/components/php/series-section.php'); ?>
     </div>
 
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/persian-date/dist/0.1.8b/persian-date-0.1.8b.min.js"></script>
-    <script src="node_modules/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
     <script src="src/assets/js/ie10-viewport-bug-workaround.js"></script>
 
+    <script src="node_modules/persian-date/dist/0.1.8b/persian-date-0.1.8b.min.js"></script>
+    <script src="node_modules/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js"></script>
     <script src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
     <script src="node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
     <script src="node_modules/datatables.net-responsive/js/dataTables.responsive.js"></script>
+
     <script src="src/assets/slider/js/lightslider.min.js"></script>
     <script src="src/components/js/ct-viewer.js"></script>
-
     <script src="src/css/index.js"></script>
     <script src="src/js/common.js"></script>
 

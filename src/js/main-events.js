@@ -41,7 +41,6 @@ $('#search-from #searchByTo').on('change', function(e) {
   changeTab('#all');
 });
 $('#search-from #searchByFrom').on('change', function(e) {
-  console.log('a');
   changeTab('#all');
 });
 

@@ -56,7 +56,7 @@
     <footer>
     </footer>
 
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="src/css/index.js"></script>
 
     <script>

@@ -631,11 +631,10 @@ tr.active .weasis-btn {
   align-items: center;
   text-align: center;
   color: #00a175;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: 100000;
-  margin: 0;
   margin: 0 -15px;
 }
 

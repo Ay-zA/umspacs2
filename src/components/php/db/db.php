@@ -168,7 +168,7 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
       }
       if (isset($accession)) {
           $accession = strtolower($accession);
-          $queryBase .= ' AND LOWER(study.accession_no) LIKE CONCAT ("%",?,"%")';
+          $queryBase .= ' AND study.accession_no LIKE CONCAT (?,"%")';
       }
       if (isset($inQuery)) {
           $queryBase .= ' AND LOWER(study.mods_in_study) IN(' . $inQuery . ')';
