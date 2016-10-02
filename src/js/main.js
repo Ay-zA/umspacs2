@@ -7,6 +7,15 @@ var $resultSection = $('#result-section');
 var $seriesSectionHeader = $('#result-section .section-header h4');
 var $paginationList = $('#study-pagination .pagination');
 
+var $idSearchInput = $('#searchById');
+var $nameSearchInput = $('#searchByName');
+var $institutionSearchInput = $('#searchByInstitution').parent().children('button').children('span');
+var $modalitySearchInput = $('#searchByModality').parent().children('button').children('span');
+var $accessionSearchInput = $('#searchByAccession');
+var $fromDateSearchInput = $('#searchByFrom');
+var $toDateSearchInput = $('#searchByTo');
+
+
 var $dataTable = false;
 var selected_study_uid;
 
@@ -52,73 +61,100 @@ function searchByInput() {
   hideResultSection(false);
   resetStudyTable();
   currentPageIndex = 1;
-  var id = $('#searchById').val();
-  var name = $('#searchByName').val();
-  var institution = $('#searchByInstitution').parent().children('button').children('span').text();
-  var accession = $('#searchByAccession').val();
-  var from_date = $('#searchByFrom').val();
-  var to_date = $('#searchByTo').val();
-  var modality = $('#searchByModality').parent().children('button').children('span').text();
+
+  var id = $idSearchInput.val();
+  var name = $nameSearchInput.val();
+  var institution = $institutionSearchInput.text();
+  var modality = $modalitySearchInput.text();
+  var accession = $accessionSearchInput.val();
+  var fromDate = $fromDateSearchInput.val();
+  var toDate = $toDateSearchInput.val();
 
   modality = parseModality(modality);
   institution = parseInstitution(institution);
-  from_date = isValidDate(from_date) ? to_gregorian_date(from_date) : "";
-  to_date = isValidDate(to_date) ? to_gregorian_date(to_date) : "";
+  fromDate = isValidDate(fromDate) ? to_gregorian_date(fromDate) : "";
+  toDate = isValidDate(toDate) ? to_gregorian_date(toDate) : "";
 
-  searchStudies(id, name, accession, modality, from_date, to_date, institution);
+  searchStudies(id, name, accession, modality, fromDate, toDate, institution);
 }
 
 function loadAll(e) {
-  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#all');
   clearSearchInputs();
   clearInstance();
   searchStudies();
+  resetStudyTable();
 }
 
 function loadToday() {
-  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#today');
-  var today = new Date();
-  today = get_date(today);
-  searchStudyByDate(today, today);
+
+  var today = format_date(new Date());
+  today = to_persian_date(today);
+
+  $toDateSearchInput.val(today);
+  $fromDateSearchInput.val(today);
+
+  searchByInput();
+  resetStudyTable();
 }
 
 function loadYesterday() {
-  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#yesterday');
+  var today = format_date(new Date());
+  today = to_persian_date(today);
+
   var yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  yesterday = get_date(yesterday);
-  searchStudyByDate(yesterday, yesterday);
+  yesterday = format_date(yesterday);
+  yesterday = to_persian_date(yesterday);
+
+  $toDateSearchInput.val(yesterday);
+  $fromDateSearchInput.val(yesterday);
+
+  searchByInput();
+  resetStudyTable();
 }
 
 function loadWeek() {
-  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#last-week');
 
-  var curr = new Date();
+  var today = format_date(new Date());
+  today = to_persian_date(today);
+
   var lastweek = new Date();
-  lastweek.setDate(curr.getDate() - 7);
-  curr = get_date(curr);
-  lastweek = get_date(lastweek);
-  searchStudyByDate(lastweek, curr);
+  lastweek.setDate(lastweek.getDate() - 7);
+  lastweek = format_date(lastweek);
+  lastweek = to_persian_date(lastweek);
+
+  $toDateSearchInput.val(today);
+  $fromDateSearchInput.val(lastweek);
+
+  searchByInput();
+  resetStudyTable();
 }
 
 function loadMonth() {
-  resetStudyTable();
   currentPageIndex = 1;
   changeTab('#last-month');
-  var curr = new Date();
-  var lastmonth = new Date();
-  lastmonth.setDate(curr.getDate() - 30);
-  curr = get_date(curr);
-  lastmonth = get_date(lastmonth);
-  searchStudyByDate(lastmonth, curr);
+
+  var today = format_date(new Date());
+  today = to_persian_date(today);
+
+  var lastMonth = new Date();
+  lastMonth.setDate(lastMonth.getDate() - 30);
+  lastMonth = format_date(lastMonth);
+  lastMonth = to_persian_date(lastMonth);
+
+  $toDateSearchInput.val(today);
+  $fromDateSearchInput.val(lastMonth);
+
+  searchByInput();
+  resetStudyTable();
 }
 
 

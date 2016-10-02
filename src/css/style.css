@@ -460,9 +460,13 @@ tr.active .weasis-btn {
 .weasis-btn {
   background: transparent;
   border: 1px solid #00a175;
-  padding: 3px 5px;
+  padding: 4px 6px 4px 5px;
   color: #00a175;
   margin-left: 5px;
+
+}
+.weasis-btn .glyphicon {
+  top: 3px;
 }
 
 .weasis-btn:first-child {

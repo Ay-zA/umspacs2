@@ -18,7 +18,7 @@ function get_age($dob){
 }
 
 function is_valid($var){
-  return isset($var) && !empty(trim($var));
+  return isset($var) && !is_null($var) && $var != '';
 }
 
 function fixDICOMName($name) {

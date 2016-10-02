@@ -73,7 +73,7 @@
           }
         });
 
-        loadAll();
+        loadToday();
     });
     </script>
 

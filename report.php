@@ -1,4 +1,5 @@
 <?php
+  require_once 'src/components/php/db/common.php';
   require_once 'src/components/php/db/db.php';
   require_once 'src/components/php/db/accesscontrol.php';
   require_once 'src/components/php/admin/admin.php';

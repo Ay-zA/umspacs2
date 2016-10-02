@@ -87,7 +87,7 @@ var adminConfig = {
             '0': json[i].username,
             '1': json[i].email,
             '2': json[i].role,
-            '3': '<button class="btn btn-default edit-user" onclick="handelEditUser(); return false;" data-username="'+ json[i].username +'" >Edit</button><button class="btn btn-default delete-user"  onclick="handelDeleteUser(); return false;" data-username="'+ json[i].username +'" >Remove</button>'
+            '3': '<button class="weasis-btn flat-btn edit-user" onclick="handelEditUser(); return false;" data-username="'+ json[i].username +'" ><i class="glyphicon glyphicon-pencil"></i></button><button class="weasis-btn flat-btn delete-user"  onclick="handelDeleteUser(); return false;" data-username="'+ json[i].username +'" ><i class="glyphicon glyphicon-trash"></i></button>'
           });
         }
 

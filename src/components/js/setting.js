@@ -35,7 +35,8 @@ function clearInputs() {
 
 function handelDeleteUser() {
   var _this = event.target;
-  var $user = $(_this).attr('data-username');
+  var $user = $($(_this).closest('tr').children('td')[0]).text();
+  console.log($user);
   deleteUser($user, updateTable);
 
   function updateTable(data) {
@@ -44,6 +45,7 @@ function handelDeleteUser() {
       return;
     }
     $(_this).closest('tr').remove();
+    showEditMessage('User ' + $user + ' has been successfuly deleted.', 1);
   }
 }
 
@@ -115,12 +117,14 @@ function handelEditUserSave() {
   userInfo.username = selectedUser.username;
   userInfo.password = $editUserPassword.val();
   userInfo.email = $editUserEmail.val();
-  //TODO:10 CHECKED AND ROLE
-  //TODO:20 How determine checked ?
-  userInfo.role = $('#edit-user-modal input[name="role"]').val();
 
+  userInfo.role = $('#edit-user-modal input[name="role"]:checked').val();
+  console.log(userInfo.role);
   updateUser(userInfo, onUserUpdated);
-  //TODO:50 Update Data-Table
+  setTimeout(function() {
+    $userDataTable.ajax.reload();
+  }, 500);
+
 }
 
 function updateUser(userInfo, cb) {

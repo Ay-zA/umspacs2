@@ -1,7 +1,7 @@
 <?php
   require_once 'src/components/php/db/db.php';
   require_once 'src/components/php/db/accesscontrol.php';
-  echo md5('admin');
+  // echo md5('admin');
 
   if (is_session_exist()) {
       header('location: main.php');

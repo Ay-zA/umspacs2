@@ -39,8 +39,9 @@ function updateUser($username = NULL, $password = NULL, $email = NULL, $role = N
   $username = strtolower($username);
   $currentRole = getRole($username);
 
-  if ($role == $currentRole)
-    $role = NULL;
+  if ($role == $currentRole){
+      $role = NULL;
+  }
 
   if (!isset($password) && !is_valid($email) && !is_valid($role))
     return 406; // No change needed

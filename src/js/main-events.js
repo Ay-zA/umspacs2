@@ -3,7 +3,6 @@ $('#patient-table tbody').on('click', 'tr',  patientRowClicked);
 
 $('#series-table tbody').on('click', 'tr', serieRowClicked);
 $('#series-table tbody').on('dblclick', "tr", handelSerieDoubleClick);
-$('#series-table tbody').on('touch', "tr", handelSerieDoubleClick);
 
 $('#today').on('click', loadToday);
 $('#today-xs').on('click', loadToday);
@@ -13,15 +12,14 @@ $('#yesterday').on('click', loadYesterday);
 $('#last-week').on('click', loadWeek);
 $('#last-month').on('click', loadMonth);
 
-$('#today').on('click', hideSearchSection);
-$('#today-xs').on('click', hideSearchSection);
-$('#yesterday').on('click', hideSearchSection);
-$('#last-week').on('click', hideSearchSection);
-$('#last-month').on('click', hideSearchSection);
+// $('#today').on('click', hideSearchSection);
+// $('#today-xs').on('click', hideSearchSection);
+// $('#yesterday').on('click', hideSearchSection);
+// $('#last-week').on('click', hideSearchSection);
+// $('#last-month').on('click', hideSearchSection);
 
 $('#all').on('click', showSearchSection);
 $(".searchButton").on('click', function() {
-  changeTab('#all');
   toggleSearchSection();
 });
 
@@ -37,6 +35,14 @@ $('#search-from input[type="text"]').on('input', function() {
 
 $('#search-from select').on('change', function(e) {
   delay(searchByInput, 500);
+});
+
+$('#search-from #searchByTo').on('change', function(e) {
+  changeTab('#all');
+});
+$('#search-from #searchByFrom').on('change', function(e) {
+  console.log('a');
+  changeTab('#all');
 });
 
 $(document).click(closeNavbar);

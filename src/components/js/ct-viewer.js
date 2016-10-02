@@ -1,19 +1,19 @@
 function CtViewer(element, option) {
   var _this = this;
-  var option = option || {};
+  option = option || {};
   var activeCt = option.StartIndex || 0;
 
-  var canSlide = function () {
+  var canSlide = function() {
     var canSlide = true;
 
-    if(_this.cts.length < 2)
+    if (_this.cts.length < 2)
       canSlide = false;
 
     return canSlide;
-  }
+  };
 
-  var updateActive = function () {
-    _this.cts.each(function (index) {
+  var updateActive = function() {
+    _this.cts.each(function(index) {
       $(this).removeClass('active');
     });
     console.log(activeCt);
@@ -37,10 +37,9 @@ function CtViewer(element, option) {
 
   _this.prev = function() {
     if (!canSlide()) return;
-    activeCt =(activeCt < 1) ? _this.cts.length - 1 : activeCt - 1;
- ;
+    activeCt = (activeCt < 1) ? _this.cts.length - 1 : activeCt - 1;
     updateActive();
-  }
+  };
 
   updateActive();
 }
