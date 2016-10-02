@@ -82,9 +82,10 @@
     <script src="src/js/service.js"></script>
     <script src="src/js/panel.js"></script>
     <?php
-      echo '<script type="text/javascript">
-  var study_uid ="' . $studyUID["study_iuid"] .'";
-</script>'
+      echo
+      '<script type="text/javascript">
+        var study_uid ="' . $studyUID["study_iuid"] .'";
+      </script>'
     ?>
     <script type="text/javascript">
 

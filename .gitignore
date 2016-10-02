@@ -1,8 +1,5 @@
 *.psd
 TODO.txt
-node_modules/**/*
-bower_components/**/*
-bower_components
-node_modules
-.imdone
-.imdone/*.*
+bower_components/
+node_modules/
+.imdone/
