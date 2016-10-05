@@ -55,10 +55,26 @@ function getReportInfo($studyId='') {
 function getAllPatient()
 {
     $conn = connect('pacsdb');
-    $query = $conn->prepare('SELECT patient.pk, patient.pat_id , patient.pat_name, patient.pat_sex, study.num_series,
-                          study.pk AS study_pk, study.mods_in_study, study.num_instances, study.study_iuid,
-                          patient.pat_birthdate ,study.study_id, study.study_datetime, study.study_desc, study.study_status
-                          FROM patient INNER JOIN study ON patient.pk = study.patient_fk ORDER BY study.study_datetime DESC;');
+    $query = 'SELECT
+                patient.pk,
+                patient.pat_id ,
+                patient.pat_name,
+                patient.pat_sex,
+                study.num_series,
+                study.pk AS study_pk,
+                study.mods_in_study,
+                study.num_instances,
+                study.study_iuid,
+                patient.pat_birthdate,
+                study.study_id,
+                study.study_datetime,
+                study.study_desc,
+                study.study_status
+              FROM patient
+              INNER JOIN study
+              ON patient.pk = study.patient_fk
+              ORDER BY study.study_datetime DESC;';
+    $query = $conn->prepare($query);
     $query->execute();
     $result = $query->fetchAll();
 
@@ -68,10 +84,20 @@ function getAllPatient()
 function searchByStudyId($studyId)
 {
     $conn = connect('pacsdb');
-    $query = $conn->prepare('SELECT patient.pk AS pat_pk, patient.pat_id, patient.pat_name, patient.pat_sex, study.pk AS study_pk,
-                  study.study_id, study.study_datetime, study.study_desc, study.study_status
-                  FROM patient INNER JOIN study ON patient.pk = study.patient_fk
-                  WHERE  study.study_id = :study_id;');
+    $query = 'SELECT
+                patient.pk AS pat_pk,
+                patient.pat_id,
+                patient.pat_name,
+                patient.pat_sex,
+                study.pk AS study_pk,
+                study.study_id,
+                study.study_datetime,
+                study.study_desc,
+                study.study_status
+              FROM patient
+              INNER JOIN study ON patient.pk = study.patient_fk
+              WHERE study.study_id = :study_id;';
+    $query = $conn->prepare($query);
     $query->bindParam(':study_id', $studyId);
     $query->execute();
 
@@ -95,10 +121,19 @@ function getStudyId($studyPk)
 function getAllSeries($study_pk)
 {
     $conn = connect('pacsdb');
-    $query = $conn->prepare('SELECT series.pk, series.modality, series.body_part,
-                                    series.num_instances, series.series_no, series.series_desc,
-                                    series.study_fk, series.series_iuid
-                           FROM series WHERE series.study_fk = :study_pk ORDER BY series.series_no;');
+    $query = 'SELECT
+                series.pk,
+                series.modality,
+                series.body_part,
+                series.num_instances,
+                series.series_no,
+                series.series_desc,
+                series.study_fk,
+                series.series_iuid
+             FROM series
+             WHERE series.study_fk = :study_pk
+             ORDER BY series.series_no;';
+    $query = $conn->prepare($query);
     $query->bindParam(':study_pk', $study_pk);
     $query->execute();
     $result = $query->fetchAll();

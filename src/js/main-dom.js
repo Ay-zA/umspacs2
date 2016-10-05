@@ -73,14 +73,13 @@ function printStudies(data) {
   while (data[i]) {
     output += '<tr loaded="false" data-iuid=' + data[i].study_iuid + ' data-study-id=' + data[i].study_pk + '>';
     output += '<td data-type="pat_id">' + data[i].pat_id + '</td>';
-    output += '<td data-type="pat_name"><b>' + fix_name(data[i].pat_name) + '</b>/' + get_sex(data[i].pat_sex) + '/' + get_age(data[i].pat_birthdate) + '</td>';
+    output += '<td data-type="pat_name"><b>' + fix_name(data[i].pat_name) + '</b> <div class="personal-info"><span class="gender gender-' + getSex(data[i].pat_sex, true) + ' label label-default">' + getSex(data[i].pat_sex, true) + '</span><span class="label label-default">' + get_age(data[i].study_datetime) + ' Year</span></div></td>';
     output += '<td data-type="institution">' + fix_name(data[i].institution) + '</td>';
     output += '<td data-type="accession">' + fix_name(data[i].accession_no) + '</td>';
     output += '<td data-type="modality">' + data[i].mods_in_study + '</td>';
-    output += '<td data-type="study_date">' + to_persian_date(data[i].study_datetime) + '</td>';
-    output += '<td data-type="study_time">' + get_time(data[i].study_datetime) + '</td>';
-    output += '<td class="hidden-xs" data-type="num_series">' + data[i].num_series + '</td>';
-    output += '<td class="hidden-xs" data-type="num_instances">' + data[i].num_instances + '</td>';
+    //TODO : READABLE DATE
+    output += '<td data-type="study_date">' + to_persian_date(data[i].study_datetime) + ' ' + get_time(data[i].study_datetime) + '</td>';
+    output += '<td class="hidden-xs" data-type="num_series"><span class="label label-default" style="margin-right:2px;">' + data[i].num_series + ' Series </span><span class="label label-default">' + data[i].num_instances + ' Images </span>' + '</td>';
     var url = generateWeasisUrl('study', data[i].study_iuid);
     output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a><a class="weasis-btn flat-btn hidden-xs" href="report.php?study_id=' + data[i].study_id + '"><span class="glyphicon glyphicon-list-alt"></span></a></td>';
     output += '</tr>';
@@ -131,16 +130,30 @@ function initPagination() {
 function generatePagination(pageCount) {
   if (pageCount < 0)
     pageCount = 0;
+
+  var maxPageCount = 5;
+  var startPageIndex;
+  var endPageIndex;
+  var trigger = (maxPageCount + 1) / 2;
+
+  if (currentPageIndex <= trigger) {
+    startPageIndex = 1;
+    endPageIndex = maxPageCount;
+  } else if (currentPageIndex > pageCount - trigger) {
+    startPageIndex = pageCount - maxPageCount + 1;
+    endPageIndex = pageCount;
+  } else {
+    startPageIndex = currentPageIndex - trigger + 1;
+    endPageIndex = currentPageIndex + trigger - 1;
+  }
   var output =
     '<li data-page-index="first">' +
     ' <a href="#" aria-label="Previous">' +
     '   <span aria-hidden="true">&laquo;</span>' +
     ' </a>';
 
-  var firstPage = currentPageIndex <= 5 ? 1 : (currentPageIndex - 5);
-  var lastPage = currentPageIndex < (pageCount - 5) ? (currentPageIndex + 5) : pageCount;
 
-  for (var i = firstPage; i <= lastPage; i++) {
+  for (var i = startPageIndex; i <= endPageIndex; i++) {
     output += '<li data-page-index="' + i + '"><a href="#">' + i + '</a></li>';
   }
 

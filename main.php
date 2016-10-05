@@ -72,8 +72,8 @@
             delay(searchByInput, 500);
           }
         });
-
-        loadToday();
+        loadAll();
+        // loadToday();
     });
     </script>
 

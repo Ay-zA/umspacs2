@@ -10,6 +10,9 @@ function fix_name(name) {
   return output.trim();
 }
 
+function toReadableDate(datetime) {
+  var date = datetime.substr(0, 10);
+}
 function to_persian_date(datetime) {
   var date = datetime.substr(0, 10);
   date = new Date(date);
@@ -53,8 +56,11 @@ function isValidDate(date) {
   return date_regex.test(date);
 }
 
-function get_sex(sex) {
-  return ( (sex !== "M" && sex !== "F") ? "N/A" : (sex == "M") ? "Male" : "Female" );
+function getSex(sex, minify) {
+  sex = sex.toLowerCase();
+  if(minify)
+    return (sex !== "m" && sex !== "f") ? "N/A" : sex.toUpperCase();
+  return ( (sex !== "m" && sex !== "f") ? "N" : (sex == "M") ? "Male" : "Female" );
 }
 
 function get_age(date) {

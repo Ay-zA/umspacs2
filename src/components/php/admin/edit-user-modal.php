@@ -66,11 +66,11 @@
             </div>
           </div>
 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="edit-user-save" type="submit" class="btn btn-primary">Save changes</button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="edit-user-save" type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -78,7 +78,10 @@
   <!-- /.modal-dialog -->
 </div>
 <script>
-  $('#edit-user-form').validator();
+  $('#edit-user-form').on('submit', function (e) {
+    e.preventDefault();
+  });
+  $editFormValidator = $('#edit-user-form').validator();
 </script>
 
 

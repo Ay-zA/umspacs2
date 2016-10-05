@@ -12,6 +12,7 @@ $('#yesterday').on('click', loadYesterday);
 $('#last-week').on('click', loadWeek);
 $('#last-month').on('click', loadMonth);
 
+$('.reset-search').on('click', handelResetSearchInput);
 // $('#today').on('click', hideSearchSection);
 // $('#today-xs').on('click', hideSearchSection);
 // $('#yesterday').on('click', hideSearchSection);

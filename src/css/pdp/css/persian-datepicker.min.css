@@ -46,9 +46,9 @@
     -moz-border-radius-bottomleft: 6px
 }
 .big-curve, .datepicker-plot-area, .datepicker-plot-area .datepicker-time-view>div.time-segment {
-    -webkit-border-radius: 0 0 6px 6px;
+/*     -webkit-border-radius: 0 0 6px 6px;
     -moz-border-radius: 0 0 6px 6px;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px; */
 }
 .date-item, .datepicker-plot-area .datepicker-day-view .table-days td span, .datepicker-plot-area .datepicker-month-view .month-item, .datepicker-plot-area .datepicker-year-view .year-item, .small-curve {
     /* -webkit-border-radius: 3px; */
@@ -82,17 +82,17 @@
     color: #000;
     text-shadow: none;
 }
-.date-item-numb, .datepicker-plot-area .datepicker-day-view .table-days td span.other-month {
-    background-color: "";
+.date-item-numb,
+.datepicker-plot-area .datepicker-day-view .table-days td span.other-month {
+    background-color: #eee;
     color: #ccc;
-    border: none;
     text-shadow: none
 }
+
 .date-item-selected, .datepicker-plot-area .datepicker-day-view .table-days td span.selected, .datepicker-plot-area .datepicker-month-view .month-item.selected, .datepicker-plot-area .datepicker-year-view .year-item.selected {
-    background-color: #333!important;
+    background-color: #00a175!important;
     color: #fff;
-    border: none;
-    /* text-shadow: 1px 1px 1px #000; */
+    border:none;
 }
 .date-item-hover, .datepicker-plot-area .datepicker-day-view .table-days td span:hover, .datepicker-plot-area .datepicker-month-view .month-item:hover, .datepicker-plot-area .datepicker-year-view .year-item:hover {
     background-color: #eee;
@@ -106,11 +106,11 @@
     min-height: 70px;
     display: block;
     width: 200px;
-    padding: 0 5px;
+    /* padding: 0 5px; */
     position: absolute;
     top: 100px;
     font: 12px tahoma;
-    border: 1px solid #ccc;
+    border-top: 1px solid #00a175;
     background-color: #fff;
     margin-top: -1px;
 }
@@ -120,7 +120,7 @@
 }
 .datepicker-plot-area * {
     text-align: center;
-    color: #333
+    color: #333;
 }
 .datepicker-plot-area-inline-view {
     display: block!important;
@@ -130,10 +130,10 @@
 }
 .datepicker-plot-area .datepicker-day-view, .datepicker-plot-area .datepicker-month-view, .datepicker-plot-area .datepicker-year-view {
     display: block;
-    width: 98%;
+    width: 100%;
     float: left;
     /* min-height:200px!important; */
-    margin: 0 1%;
+    /* margin: 0 1%; */
 }
 .datepicker-plot-area .datepicker-time-view {
     display: block;
@@ -190,12 +190,19 @@
     direction: rtl
 }
 .datepicker-plot-area .datepicker-day-view .table-days tr {
-    width: 300px
+    width: 300px;
+/*     border-bottom: 1px solid #eee; */
+    border-bottom: none;
+}
+
+.datepicker-plot-area .datepicker-day-view .table-days tr:last-child {
+    border-bottom:none;
 }
 .datepicker-plot-area .datepicker-day-view .table-days td {
     height: 26px;
     padding: 0;
     margin: 0
+ 
 }
 .datepicker-plot-area .datepicker-day-view .table-days td span {
     display: block;
@@ -203,7 +210,12 @@
     height: 26px;
     line-height: 26px;
     padding: 0;
-    margin: 0
+    margin: 0;
+   border-left: 1px solid #eee;
+}
+
+.datepicker-plot-area .datepicker-day-view .table-days td:last-child span {
+    border-left:none;
 }
 .datepicker-plot-area .datepicker-day-view .month-grid-box {
     display: block;
@@ -211,9 +223,10 @@
     float: right;
     min-width: 150px;
     height: 180px;
-    margin: 10px 1% 5px
+    margin: 0;
 }
 .datepicker-plot-area .datepicker-day-view .month-grid-box .header .header-row {
+    background-color: #00a175;
     display: block;
     width: 100%;
     height: 25px;
@@ -224,11 +237,9 @@
     width: 14%;
     height: 25px;
     float: right;
-    line-height: 25px;
-    text-indent: 6px;
-    /* font:14px tahoma; */
-    font-weight: 700;
-    color: #333;
+    line-height: 20px;
+    color: white;
+    font-size: 1.2em;
 }
 .datepicker-plot-area .datepicker-month-view .month-item{
   display: block;
@@ -254,18 +265,16 @@
     margin: 0px -5px;
 }
 .datepicker-plot-area .toolbox .btn-today {
-    display: block;
-    width: 100%;
-    height: 24px;
-    line-height: 23px;
+    height: 28px;
+    line-height: 25px;
+    font-size: 1.2em;
     margin: 0 auto;
-    font-weight: 700;
-    background-color: #fff;
-    /* padding: 10px 0; */
-    border-radius:  0 0 5px 5px;
+    background-color: #333;
+    /* border-radius:  0 0 5px 5px; */
+    color: #eee;
 }
 .datepicker-plot-area .toolbox .btn-today:hover {
-    background-color: #eee
+    background-color: #00a175;
 }
 .datepicker-plot-area .datepicker-header {
     display: block;

@@ -282,3 +282,17 @@ function closeNavbar(event) {
   if (_opened === true && !clickover.hasClass("navbar-toggle"))
     $("button.navbar-toggle").click();
 }
+
+function handelResetSearchInput() {
+  var $searchInput = $(this).parent().children('input');
+  var oldVal = $searchInput.val();
+  //TODO: Clear Value
+  $searchInput.val('');
+  var newVal = $searchInput.val();
+  // TODO: flan inja bashe
+  if(oldVal !== newVal)
+    searchByInput();
+
+  // console.log(oldVal);
+  // console.log(newVal);
+}

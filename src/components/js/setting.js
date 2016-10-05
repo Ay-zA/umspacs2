@@ -67,7 +67,9 @@ function handelEditUser() {
   $editUserUsername.val(selectedUser.username);
   $editUserEmail.val(selectedUser.email);
   $editUserPassword.val('');
-
+  $editUserConfirm.val('');
+  // Todo Validate form!
+  $('#edit-user-modal #edit-user-save').addClass('disabled');
   if (selectedUser.role === 'admin')
     $($editUserRole[1]).attr('checked', 'checked');
   else
@@ -113,11 +115,12 @@ function showEditMessage(message, success) {
 
 
 function handelEditUserSave() {
+  if($(this).hasClass('disabled'))
+    return;
   var userInfo = {};
   userInfo.username = selectedUser.username;
   userInfo.password = $editUserPassword.val();
   userInfo.email = $editUserEmail.val();
-
   userInfo.role = $('#edit-user-modal input[name="role"]:checked').val();
   console.log(userInfo.role);
   updateUser(userInfo, onUserUpdated);

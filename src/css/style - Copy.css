@@ -6,6 +6,24 @@ li[data-dtr-index="8"] {
   width: 100% !important;
 }
 
+.personal-info{
+  float: right;
+}
+.personal-info .gender{
+  min-width: 5em;
+  margin-right: 2px;
+}
+
+.personal-info .gender-M{
+  background: #493296;
+}
+
+.personal-info .gender-F{
+  background: #be4141;
+  padding-left: .7em;
+  padding-right: .7em;
+}
+
 body, html {
   padding: 0;
   margin: 0;
@@ -13,6 +31,9 @@ body, html {
   height: 100%;
 }
 
+.label {
+  border-radius:0;
+}
 #main-container {
   display: -webkit-box;
   display: flex;
@@ -50,6 +71,7 @@ body, html {
 .nav-xs li {
   display: inline-block;
   margin-right: -4px;
+  padding: 0;
 }
 
 .nav-xs a {
@@ -270,7 +292,7 @@ td[data-type='weasis'] {
 }
 
 #search-from input:focus, #search-from .used {
-  border-bottom: 1px solid rgb(0, 161, 117) !important;
+  border-bottom: 1px solid #00a175 !important;
   box-shadow: none;
 }
 
@@ -403,6 +425,12 @@ td[data-type='weasis'] {
   }
 }
 
+.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus{
+  color: #eee;
+}
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default{
+  color: #eee;
+}
 .modal-content {
   border-radius: 0;
 }
@@ -455,11 +483,32 @@ tr.active .weasis-btn {
   color: #00ffde;
 }
 
+
 .weasis-btn {
   background: transparent;
-  border: 1px solid #00a175;
-  padding: 3px 5px;
-  color: #00a175;
+  border: 1px solid #666;
+  padding: 4px 6px 4px 5px;
+  color: #666;
+  margin-left: 5px;
+
+}
+.weasis-btn .glyphicon-list-alt{
+  top: 2px;
+  left: 1px;
+}
+
+.weasis-btn .glyphicon-eye-open {
+  top: 2px;
+  left:1px;
+}
+
+.weasis-btn:hover{
+  color: #00ccbb;
+  border-color: #00ccbb;
+}
+
+.weasis-btn:first-child {
+  margin-left: 0;
 }
 
 .lSSlideOuter {
@@ -532,13 +581,12 @@ tr.active .weasis-btn {
   color: #eee;
 }
 
-.bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button {
-  background: #444;
-}
+
 
 .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
   color: #eee;
 }
+
 
 .flex-container {
   height: calc(100% - 51px);
@@ -620,11 +668,10 @@ tr.active .weasis-btn {
   align-items: center;
   text-align: center;
   color: #00a175;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: 100000;
-  margin: 0;
   margin: 0 -15px;
 }
 
@@ -649,6 +696,27 @@ tr.active .weasis-btn {
 #study-pagination ul.pagination {
   margin-bottom: -10px;
 }
+.bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button ,
+.bootstrap-select.btn-group:not(.input-group-btn) button:hover, .bootstrap-select.btn-group[class*=col-] button:hover{
+  background: #444;
+}
+
+.bootstrap-select.btn-group:not(.input-group-btn) button:focus, .bootstrap-select.btn-group[class*=col-] button:focus{
+  color: white;
+  outline: none !important;
+}
+
+.bootstrap-select.btn-group:not(.input-group-btn) button[title="Modality"],
+.bootstrap-select.btn-group:not(.input-group-btn) button[title="Institution"]{
+  color: #aaa;
+}
+
+
+.bootstrap-select.open button{
+  background: #444 !important;
+  border: 0;
+  border-bottom: 1px solid #00a175 !important;
+}
 
 @media (max-width: 767px) {
   table {
@@ -669,5 +737,39 @@ tr.active .weasis-btn {
     -ms-box-flex: 1;
     flex: 1;
     max-width: 1000px;
+  }
+
+  .under-result{
+    display:none;
+  }
+
+  #result-section{
+    margin-top:40px;
+    max-height:100%;
+  }
+
+  .section-header{
+    text-align:center;
+  }
+  .section-header h4{
+    font-size:1.1em;
+  }
+  #result-section .section-content{
+    display:flex;
+    flex-flow: column nowrap;
+  }
+  #serie-table-container{
+    flex:1;
+  }
+  #viewer-mini {
+    flex:1;
+  }
+  .navbar-brand{
+    font-size: 1em;
+    font-weight: bold;
+  }
+  #loadingDiv {
+    width:100%;
+    position:fixed;
   }
 }

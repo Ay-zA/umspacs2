@@ -1,9 +1,31 @@
+button, a {
+  transition: all 0.3s;
+}
+
 li[data-dtr-index="8"] {
   display: none;
 }
 
 #patient-table {
   width: 100% !important;
+}
+
+.personal-info{
+  float: right;
+}
+.personal-info .gender{
+  min-width: 5em;
+  margin-right: 2px;
+}
+
+.personal-info .gender-M{
+  background: #493296;
+}
+
+.personal-info .gender-F{
+  background: #be4141;
+  padding-left: .7em;
+  padding-right: .7em;
 }
 
 body, html {
@@ -13,6 +35,9 @@ body, html {
   height: 100%;
 }
 
+.label {
+  border-radius:0;
+}
 #main-container {
   display: -webkit-box;
   display: flex;
@@ -247,22 +272,20 @@ td[data-type='weasis'] {
   display: flex;
   flex-wrap: wrap;
   margin: 1em 0 0.5em 0;
-  padding-right: -1em;
+  padding-right: 35px;
   -webkit-box-pack: start;
   justify-content: flex-start;
 }
-
-#search-from input {
+#search-from div{
   margin-right: 1em;
-  margin-bottom: .5em;
   -webkit-box-flex: 1;
   flex: 1 150px;
   max-width: 150px;
-  height: auto;
+}
+
+#search-from input {
   background: #444;
-  padding: 5px 10px;
   border: none;
-  box-shadow: none;
   color: #eee;
 }
 
@@ -271,7 +294,7 @@ td[data-type='weasis'] {
 }
 
 #search-from input:focus, #search-from .used {
-  border-bottom: 1px solid rgb(0, 161, 117) !important;
+  border-bottom: 1px solid #00a175 !important;
   box-shadow: none;
 }
 
@@ -291,6 +314,44 @@ td[data-type='weasis'] {
   color: #bbb;
 }
 
+#search-section {
+  position:relative;
+}
+
+#search-toggle {
+  position:absolute;
+  right:0;
+  bottom:0;
+  background: transparent;
+  padding:3px 15px 3px 20px;
+  border-radius: 10px 0 0 0;
+  border:1px solid #00a175;
+  border-right: none;
+  color: #00a175;
+  z-index:100;
+  font-size:small;
+}
+
+#search-toggle:hover{
+  background: #00a175;
+  color: #333;
+}
+#search-toggle:focus{
+  outline:none;
+}
+
+/* #search-toggle:before{
+  content:"";
+  transform: rotate(15deg);
+  background:red;
+  left:-5px;
+  position:absolute;
+  top:0;
+  width:10px;
+  height:100%;
+  z-index:0;
+}
+ */
 .upper-inputgroup {
   margin-bottom: .5em;
 }
@@ -404,6 +465,12 @@ td[data-type='weasis'] {
   }
 }
 
+.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus{
+  color: #eee;
+}
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default{
+  color: #eee;
+}
 .modal-content {
   border-radius: 0;
 }
@@ -459,14 +526,25 @@ tr.active .weasis-btn {
 
 .weasis-btn {
   background: transparent;
-  border: 1px solid #00a175;
+  border: 1px solid #666;
   padding: 4px 6px 4px 5px;
-  color: #00a175;
+  color: #666;
   margin-left: 5px;
 
 }
-.weasis-btn .glyphicon {
-  top: 3px;
+.weasis-btn .glyphicon-list-alt{
+  top: 2px;
+  left: 1px;
+}
+
+.weasis-btn .glyphicon-eye-open {
+  top: 2px;
+  left:1px;
+}
+
+.weasis-btn:hover{
+  color: #00ccbb;
+  border-color: #00ccbb;
 }
 
 .weasis-btn:first-child {
@@ -543,13 +621,12 @@ tr.active .weasis-btn {
   color: #eee;
 }
 
-.bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button {
-  background: #444;
-}
+
 
 .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
   color: #eee;
 }
+
 
 .flex-container {
   height: calc(100% - 51px);
@@ -659,6 +736,51 @@ tr.active .weasis-btn {
 #study-pagination ul.pagination {
   margin-bottom: -10px;
 }
+.bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button ,
+.bootstrap-select.btn-group:not(.input-group-btn) button:hover, .bootstrap-select.btn-group[class*=col-] button:hover{
+  background: #444;
+}
+
+.bootstrap-select.btn-group:not(.input-group-btn) button:focus, .bootstrap-select.btn-group[class*=col-] button:focus{
+  color: white;
+  outline: none !important;
+}
+
+.bootstrap-select.btn-group:not(.input-group-btn) button[title="Modality"],
+.bootstrap-select.btn-group:not(.input-group-btn) button[title="Institution"]{
+  color: #aaa;
+}
+
+
+.bootstrap-select.open button{
+  background: #444 !important;
+  border: 0;
+  border-bottom: 1px solid #00a175 !important;
+}
+
+.search-input-group{
+  position:relative;
+}
+
+.reset-search{
+  position: absolute;
+  top:0;
+  right:5px;
+  height:30px;
+  background:none;
+  border:none;
+  color: #aaa;
+}
+
+.reset-search:hover {
+  color: #00a175;
+}
+
+.reset-search:focus{
+  outline:none;
+}
+
+
 
 @media (max-width: 767px) {
   table {
@@ -673,12 +795,12 @@ tr.active .weasis-btn {
   .modal-dialog {
     height: 100%
   }
-  #search-from input {
+  #search-from div {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -ms-box-flex: 1;
     flex: 1;
-    max-width: 1000px;
+    max-width: none;
   }
 
   .under-result{

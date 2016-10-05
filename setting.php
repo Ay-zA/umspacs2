@@ -79,6 +79,7 @@
         var $editUserModal = $('#edit-user-modal');
         var $editUserUsername = $('#edit-user-modal #edit-user-username');
         var $editUserPassword = $('#edit-user-modal #edit-user-password');
+        var $editUserConfirm = $('#edit-user-modal #edit-user-confirm');
         var $editUserEmail = $('#edit-user-modal #edit-user-email');
         var $editUserRole = $('#edit-user-modal input[name="role"]');
         $(document).ready(function() {

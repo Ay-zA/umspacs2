@@ -16,6 +16,12 @@
     }
   }
   // var_dump($reportInfo);
+  // TODO: Save Data to database
+  // TODO: Editor component
+  // TODO: Template
+  // TODO: Check for farsi name
+  // TODO: Attach file
+  // TODO: Print
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,10 +160,6 @@
         </div>
 
         <legend>Report Info</legend>
-        <div class="input-group inline">
-          <span class="input-group-addon">Doctor Id</span>
-          <input type="text" class="form-control" placeholder="Doctor Id">
-        </div>
 
         <div class="input-group inline">
           <span class="input-group-addon">Doctor Name</span>
@@ -169,6 +171,9 @@
           <input type="text" class="form-control" placeholder="Report Date">
         </div>
 
+        <div class="input-group inline">
+          <input type="button" class="btn btn-block" value="Submit">
+        </div>
       </form>
     </div>
   </div>
