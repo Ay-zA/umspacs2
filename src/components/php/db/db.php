@@ -1,3 +1,4 @@
+
 <?php
 static $char_set;
 function connect($dbname)
@@ -6,6 +7,7 @@ function connect($dbname)
     $servername = 'localhost';
     $username = 'root';
     $password = 'A1l2i3 !@#';
+    // $password = '';
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

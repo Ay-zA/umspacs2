@@ -233,7 +233,7 @@ td[data-type='weasis'] {
 }
 
 #search-section {
-  background: #eee;
+  z-index: 1000000;
 }
 
 #study-section {
@@ -325,7 +325,7 @@ td[data-type='weasis'] {
   right:0;
   bottom:0;
   background: transparent;
-  padding:3px 15px 3px 20px;
+  padding: 4px 15px 0px 20px;
   border-radius: 10px 0 0 0;
   border:1px solid #00a175;
   border-right: none;
@@ -714,7 +714,7 @@ tr.active .weasis-btn {
   width: 100%;
   height: 100%;
   z-index: 100000;
-  margin: 0 -15px;
+  margin: -15px;
 }
 
 #inst-table_previous, #inst-table_next, #inst-table_first, #inst-table_last {
@@ -741,6 +741,7 @@ tr.active .weasis-btn {
 .bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button ,
 .bootstrap-select.btn-group:not(.input-group-btn) button:hover, .bootstrap-select.btn-group[class*=col-] button:hover{
   background: #444;
+  padding: 4px .7em;
 }
 
 .bootstrap-select.btn-group:not(.input-group-btn) button:focus, .bootstrap-select.btn-group[class*=col-] button:focus{

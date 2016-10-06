@@ -75,7 +75,6 @@ function searchByInput() {
 
   modality = parseModality(modality);
   institution = parseInstitution(institution);
-  console.log('Date: ' + fromDate + ' | Gregorian: ' + to_gregorian_date(fromDate));
   fromDate = isValidDate(fromDate) ? to_gregorian_date(fromDate) : "";
   toDate = isValidDate(toDate) ? to_gregorian_date(toDate) : "";
 
@@ -97,7 +96,7 @@ function loadToday() {
 
   var today = formatDate(new Date());
   today = to_persian_date(today);
-  
+
   $toDateSearchInput.val(today);
   $fromDateSearchInput.val(today);
 

@@ -39,6 +39,6 @@
 
   </form>
   <div class="test">
-    <button id="close-search" type="button" name="button"><span class="glyphicon glyphicon-arrow-up"></span></button>
+    <button id="close-search" type="button" name="button"><span class="glyphicon glyphicon-menu-up"></span></button>
   </div>
 </section>

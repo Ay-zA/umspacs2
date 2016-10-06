@@ -59,7 +59,7 @@ function generateRequestURL(studyUID, serieUID, instanceUID, frame) {
 }
 
 function loadStudyPage(pageIndex, pageSize) {
-  $loading.show();
+  $loading.css('display', 'flex');
   pageIndex = pageIndex - 1 || 0;
   pageSize = pageSize || defaultPageSize;
 

@@ -92,6 +92,7 @@ function isValidDate(date) {
 }
 
 function getSex(sex, minify) {
+  sex = sex || 'N/A';
   sex = sex.toLowerCase();
   if (minify)
     return (sex !== "m" && sex !== "f") ? "N/A" : sex.toUpperCase();
