@@ -142,16 +142,18 @@
     var startPageIndex;
     var endPageIndex;
     var trigger = (maxPageCount + 1) / 2;
-
     if (currentPageIndex <= trigger) {
       startPageIndex = 1;
-      endPageIndex = maxPageCount;
+      endPageIndex = maxPageCount < pageCount ? maxPageCount : pageCount;
+
     } else if (currentPageIndex > pageCount - trigger) {
       startPageIndex = pageCount - maxPageCount + 1;
       endPageIndex = pageCount;
+
     } else {
       startPageIndex = currentPageIndex - trigger + 1;
       endPageIndex = currentPageIndex + trigger - 1;
+      endPageIndex = endPageIndex < pageCount ? endPageIndex : pageCount;
     }
     var output =
       '<li data-page-index="first">' +

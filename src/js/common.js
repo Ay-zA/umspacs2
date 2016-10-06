@@ -26,7 +26,7 @@ function toReadableDate(MMDD, isPersian) {
   tomorrow.setHours(0, 0, 0, 0);
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  console.log(MMDD.getTime(), today.getTime(), MMDD.getTime() == today.getTime());
+  // console.log(MMDD.getTime(), today.getTime(), MMDD.getTime() == today.getTime());
 
   if (today.getTime() == MMDD.getTime()) {
     strDate = "Today";
@@ -99,7 +99,7 @@ function getSex(sex, minify) {
 }
 
 function convertStringDateToDate(date) {
-  if (typeof(date) === 'undefined') {
+  if (typeof date == 'undefined' || !date) {
     return;
   }
   if (date.indexOf('-') !== -1) {
@@ -121,6 +121,12 @@ function convertStringDateToDate(date) {
 }
 
 function getAge(date, fromDate) {
+  if (!date || !fromDate) {
+    return {
+      age: 'N/A',
+      type: ''
+    };
+  }
   // Year or Month or Day
   var type = "Year";
   var age = getYearDiffer(date, fromDate);
@@ -145,8 +151,7 @@ function getAge(date, fromDate) {
 
 function getYearDiffer(date, fromDate) {
   date = date || "N/A";
-  fromDate = fromDate || formatDate(new Date());
-
+  fromDate = fromDate || new Date();
   var fromYear = fromDate.getFullYear();
   var dateYear = date.getFullYear();
   return dateYear - fromYear;
@@ -154,7 +159,7 @@ function getYearDiffer(date, fromDate) {
 
 function getMonthDiffer(date, fromDate) {
   date = date || "N/A";
-  fromDate = fromDate || formatDate(new Date());
+  fromDate = fromDate || new Date();
 
   var fromMonth = fromDate.getMonth();
   var dateMonth = date.getMonth();
@@ -163,7 +168,7 @@ function getMonthDiffer(date, fromDate) {
 
 function getDayDiffer(date, fromDate) {
   date = date || "N/A";
-  fromDate = fromDate || formatDate(new Date());
+  fromDate = fromDate || new Date();
 
   var fromDay = fromDate.getDate();
   var dateDay = date.getDate();
