@@ -20,9 +20,9 @@ $('.reset-search').on('click', handelResetSearchInput);
 // $('#last-month').on('click', hideSearchSection);
 
 $('#all').on('click', showSearchSection);
-$(".searchButton").on('click', function() {
-  toggleSearchSection();
-});
+
+$(".searchButton").on('click', toggleSearchSection);
+$("#close-search").on('click', closeSearchSection);
 
 
 $('#search-from input[type="search"]').on('input', function() {

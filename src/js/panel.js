@@ -48,7 +48,7 @@ function showInPanel(data) {
   $selected_serie.attr('loaded', 'true');
 
   // TODO:60 WHEN DATA LOADED COMPELETE
-  delay(createSlider, 10)
+  delay(createSlider, 10);
 
   function createSlider() {
     $slider = $('#imageGallery').lightSlider({

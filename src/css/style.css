@@ -15,7 +15,7 @@ li[data-dtr-index="8"] {
 }
 .personal-info .gender{
   min-width: 5em;
-  margin-right: 2px;
+  margin-left: 2px;
 }
 
 .personal-info .gender-M{
@@ -272,7 +272,7 @@ td[data-type='weasis'] {
   display: flex;
   flex-wrap: wrap;
   margin: 1em 0 0.5em 0;
-  padding-right: 35px;
+  padding-right: 45px;
   -webkit-box-pack: start;
   justify-content: flex-start;
 }
@@ -286,6 +286,8 @@ td[data-type='weasis'] {
 #search-from input {
   background: #444;
   border: none;
+  font-size: smaller;
+  height: 2.5em;
   color: #eee;
 }
 
@@ -318,7 +320,7 @@ td[data-type='weasis'] {
   position:relative;
 }
 
-#search-toggle {
+#close-search {
   position:absolute;
   right:0;
   bottom:0;
@@ -332,11 +334,11 @@ td[data-type='weasis'] {
   font-size:small;
 }
 
-#search-toggle:hover{
+#close-search:hover{
   background: #00a175;
   color: #333;
 }
-#search-toggle:focus{
+#close-search:focus{
   outline:none;
 }
 
@@ -749,6 +751,7 @@ tr.active .weasis-btn {
 .bootstrap-select.btn-group:not(.input-group-btn) button[title="Modality"],
 .bootstrap-select.btn-group:not(.input-group-btn) button[title="Institution"]{
   color: #aaa;
+  padding: .3em 1em;
 }
 
 
@@ -764,8 +767,8 @@ tr.active .weasis-btn {
 
 .reset-search{
   position: absolute;
-  top:0;
-  right:5px;
+  top: -1px;
+  right: 5px;
   height:30px;
   background:none;
   border:none;

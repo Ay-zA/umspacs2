@@ -75,6 +75,7 @@ function searchByInput() {
 
   modality = parseModality(modality);
   institution = parseInstitution(institution);
+  console.log('Date: ' + fromDate + ' | Gregorian: ' + to_gregorian_date(fromDate));
   fromDate = isValidDate(fromDate) ? to_gregorian_date(fromDate) : "";
   toDate = isValidDate(toDate) ? to_gregorian_date(toDate) : "";
 
@@ -94,9 +95,9 @@ function loadToday() {
   currentPageIndex = 1;
   changeTab('#today');
 
-  var today = format_date(new Date());
+  var today = formatDate(new Date());
   today = to_persian_date(today);
-
+  
   $toDateSearchInput.val(today);
   $fromDateSearchInput.val(today);
 
@@ -107,12 +108,12 @@ function loadToday() {
 function loadYesterday() {
   currentPageIndex = 1;
   changeTab('#yesterday');
-  var today = format_date(new Date());
+  var today = formatDate(new Date());
   today = to_persian_date(today);
 
   var yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  yesterday = format_date(yesterday);
+  yesterday = formatDate(yesterday);
   yesterday = to_persian_date(yesterday);
 
   $toDateSearchInput.val(yesterday);
@@ -126,12 +127,12 @@ function loadWeek() {
   currentPageIndex = 1;
   changeTab('#last-week');
 
-  var today = format_date(new Date());
+  var today = formatDate(new Date());
   today = to_persian_date(today);
 
   var lastweek = new Date();
   lastweek.setDate(lastweek.getDate() - 7);
-  lastweek = format_date(lastweek);
+  lastweek = formatDate(lastweek);
   lastweek = to_persian_date(lastweek);
 
   $toDateSearchInput.val(today);
@@ -145,12 +146,12 @@ function loadMonth() {
   currentPageIndex = 1;
   changeTab('#last-month');
 
-  var today = format_date(new Date());
+  var today = formatDate(new Date());
   today = to_persian_date(today);
 
   var lastMonth = new Date();
   lastMonth.setDate(lastMonth.getDate() - 30);
-  lastMonth = format_date(lastMonth);
+  lastMonth = formatDate(lastMonth);
   lastMonth = to_persian_date(lastMonth);
 
   $toDateSearchInput.val(today);
@@ -272,6 +273,10 @@ function toggleSearchSection() {
   $('#search-section').slideToggle();
 }
 
+function closeSearchSection() {
+  $('#search-section').slideUp();
+}
+
 function selectFirstSerie() {
   $('#series-table tbody tr:first').click();
 }
@@ -292,7 +297,4 @@ function handelResetSearchInput() {
   // TODO: flan inja bashe
   if(oldVal !== newVal)
     searchByInput();
-
-  // console.log(oldVal);
-  // console.log(newVal);
 }

@@ -77,8 +77,6 @@ function handelEditUser() {
 }
 
 function onUserUpdated(data) {
-  //TODO:40 Responde to other data
-  console.log(data);
   switch (data) {
     case 407:
       showEditMessage('Invalid Email Address.', 0);
