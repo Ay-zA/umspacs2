@@ -1,4 +1,5 @@
 var dateRegex = /^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])$/;
+var persianRegex = /^[\u0600-\u06FF\s]+$/;
 
 function fix_name(name) {
   if (name === null || typeof(name) === 'undefined') return "N/A";
@@ -8,6 +9,10 @@ function fix_name(name) {
     output += string.charAt(0).toUpperCase() + string.slice(1).toLowerCase() + ' ';
   });
   return output.trim();
+}
+
+function isPersian(value) {
+  return persianRegex.test(value);
 }
 
 function toReadableDate(MMDD, isPersian) {
@@ -95,8 +100,8 @@ function getSex(sex, minify) {
   sex = sex || 'N/A';
   sex = sex.toLowerCase();
   if (minify)
-    return (sex !== "m" && sex !== "f") ? "N/A" : sex.toUpperCase();
-  return ((sex !== "m" && sex !== "f") ? "N" : (sex == "M") ? "Male" : "Female");
+    return (sex !== "m" && sex !== "f") ? "N" : sex.toUpperCase();
+  return ((sex !== "m" && sex !== "f") ? "N/A" : (sex === "m") ? "Male" : "Female");
 }
 
 function convertStringDateToDate(date) {
@@ -222,4 +227,12 @@ function hideMessageAfter(el, time) {
   setTimeout(function() {
     el.fadeOut();
   }, time);
+}
+
+function removeFromArray(array, item) {
+  var index = array.indexOf(item);
+  if (index > -1) {
+      array.splice(index, 1);
+  }
+  return array;
 }

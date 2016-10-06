@@ -120,7 +120,7 @@ function handelEditUserSave() {
   userInfo.password = $editUserPassword.val();
   userInfo.email = $editUserEmail.val();
   userInfo.role = $('#edit-user-modal input[name="role"]:checked').val();
-  console.log(userInfo.role);
+  // console.log(userInfo.role);
   updateUser(userInfo, onUserUpdated);
   setTimeout(function() {
     $userDataTable.ajax.reload();
@@ -136,4 +136,26 @@ function updateUser(userInfo, cb) {
     '&role=' + userInfo.role;
   console.log(url);
   $.getJSON(url, cb);
+}
+
+function refreshMods(e) {
+  var url = 'src/components/php/api/service.php?action=getalldynamicmods';
+  $.getJSON(url, showModTableSuccessMessage);
+}
+
+function refreshInsts(e) {
+  var url = 'src/components/php/api/service.php?action=getalldynamicinsts';
+  $.getJSON(url, showInstTableSuccessMessage);
+}
+
+function showModTableSuccessMessage(data) {
+  var $modTableMessage = $('#mod-table-success-message');
+  $modTableMessage.show();
+  hideMessageAfter($modTableMessage, 3000);
+}
+
+function showInstTableSuccessMessage(data) {
+  var $instTableMessage = $('#inst-table-success-message');
+  $instTableMessage.show();
+  hideMessageAfter($instTableMessage, 3000);
 }

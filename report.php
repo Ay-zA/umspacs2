@@ -16,12 +16,12 @@
     }
   }
   // var_dump($reportInfo);
-  // TODO: Save Data to database
-  // TODO: Editor component
-  // TODO: Template
-  // TODO: Check for farsi name
-  // TODO: Attach file
-  // TODO: Print
+  // TODO:50 Save Data to database
+  // TODO:30 Editor component
+  // TODO:70 Template
+  // TODO:10 Check for farsi name
+  // TODO:0 Attach file
+  // TODO:40 Print
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,31 +72,31 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Patient Id</span>
-                <input type="text" class="form-control" placeholder="Patient Id" readonly value="<?php echo $reportInfo['pat_id']; ?>">
+                <input id="patient-id" type="text" class="form-control" placeholder="Patient Id" readonly value="<?php echo $reportInfo['pat_id']; ?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Name</span>
-                <input type="text" class="form-control" placeholder="Name" value="<?php echo $reportInfo['pat_name']; ?>">
+                <input id="patient-name" type="text" class="form-control" placeholder="Name" value="<?php echo $reportInfo['pat_name']; ?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">DOB</span>
-                <input type="text" class="form-control" placeholder="DOB" readonly value="<?php echo $reportInfo['pat_birthdate'];?>">
+                <input id="patient-dob" type="text" class="form-control" placeholder="DOB" readonly value="<?php echo $reportInfo['pat_birthdate'];?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Age</span>
-                <input type="text" class="form-control" placeholder="Age" readonly value="<?php echo get_age($reportInfo['pat_birthdate']);?>">
+                <input id="patient-age" type="text" class="form-control" placeholder="Age" readonly>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Sex</span>
-                <input type="text" class="form-control" placeholder="Sex" readonly value="<?php echo $reportInfo['pat_sex'];?>">
+                <input id="patient-sex" type="text" class="form-control" placeholder="Sex" readonly value="<?php echo $reportInfo['pat_sex'];?>">
               </div>
             </div>
           </div>
@@ -110,21 +110,21 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Modality</span>
-                <input type="text" class="form-control" placeholder="Modality" readonly value="<?php echo $reportInfo['mods_in_study'];?>">
+                <input id="study-mod" type="text" class="form-control" placeholder="Modality" readonly value="<?php echo $reportInfo['mods_in_study'];?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Body Part</span>
-                <input type="text" class="form-control" placeholder="Body Part" readonly value="<?php printBodyParts($reportInfo);?>">
+                <input id="study-part" type="text" class="form-control" placeholder="Body Part" readonly value="<?php printBodyParts($reportInfo);?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Study Date</span>
-                <input type="text" class="form-control" placeholder="Study Date" readonly value="<?php echo $reportInfo['study_datetime'];?>">
+                <input id="study-datetime" type="text" class="form-control" placeholder="Study Date" readonly value="<?php echo $reportInfo['study_datetime'];?>">
               </div>
             </div>
 
@@ -163,22 +163,32 @@
 
         <div class="input-group inline">
           <span class="input-group-addon">Doctor Name</span>
-          <input type="text" class="form-control" placeholder="Doctor Name">
+          <input id="doctor-name" type="text" class="form-control" placeholder="Doctor Name">
         </div>
 
         <div class="input-group inline">
           <span class="input-group-addon">Report Date</span>
-          <input type="text" class="form-control" placeholder="Report Date">
+          <input id="report-date" type="text" class="form-control" placeholder="Report Date">
         </div>
 
         <div class="input-group inline">
-          <input type="button" class="btn btn-block" value="Submit">
+          <input id="submit-report" type="button" class="btn btn-block" value="Submit">
         </div>
       </form>
     </div>
   </div>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="node_modules/persian-date/dist/0.1.8b/persian-date-0.1.8b.min.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      initForm();
+      validateInputs();
+    })
+  </script>
+  <script src="src/js/common.js"></script>
+  <script src="src/components/js/report.js"></script>
 
 </body>
 

@@ -22,6 +22,6 @@ function is_valid($var){
 }
 
 function fixDICOMName($name) {
-  //TODO:30 Regex to fix name invalid character
+  //TODO:90 Regex to fix name invalid character
 }
 ?>

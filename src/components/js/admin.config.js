@@ -22,7 +22,7 @@ var adminConfig = {
     },
     "bFilter": false,
     "bAutoWidth": false,
-    "bInfo": false,
+    "bInfo": true,
     "bLengthChange": false,
     "sPaginationType": "full_numbers",
     "fnDrawCallback": function() {
@@ -35,6 +35,10 @@ var adminConfig = {
         $('#inst-table_paginate.dataTables_length').css("display", "none");
         $('#inst-table_paginate.dataTables_filter').css("display", "none");
       }
+    },
+    "initComplete": function(settings, json) {
+      var refreshInstButton = '<button class="btn" onclick="refreshInsts();">Refresh</button>';
+      $('#inst-table_info').html(refreshInstButton);
     },
     "iDisplayLength": 5
   },
@@ -58,7 +62,7 @@ var adminConfig = {
     },
     "bFilter": false,
     "bAutoWidth": false,
-    "bInfo": false,
+    "bInfo": true,
     "bLengthChange": false,
     "sPaginationType": "full_numbers",
     "fnDrawCallback": function() {
@@ -71,6 +75,10 @@ var adminConfig = {
         $('#mod-table_paginate.dataTables_length').css("display", "none");
         $('#mod-table_paginate.dataTables_filter').css("display", "none");
       }
+    },
+    "initComplete": function(settings, json) {
+      var refreshInstButton = '<button class="btn" onclick="refreshMods();">Refresh</button>';
+      $('#mod-table_info').html(refreshInstButton);
     },
     "iDisplayLength": 5
   },
@@ -87,7 +95,7 @@ var adminConfig = {
             '0': json[i].username,
             '1': json[i].email,
             '2': json[i].role,
-            '3': '<button class="weasis-btn flat-btn edit-user" onclick="handelEditUser(); return false;" data-username="'+ json[i].username +'" ><i class="glyphicon glyphicon-pencil"></i></button><button class="weasis-btn flat-btn delete-user"  onclick="handelDeleteUser(); return false;" data-username="'+ json[i].username +'" ><i class="glyphicon glyphicon-trash"></i></button>'
+            '3': '<button class="weasis-btn flat-btn edit-user" onclick="handelEditUser(); return false;" data-username="' + json[i].username + '" ><i class="glyphicon glyphicon-pencil"></i></button><button class="weasis-btn flat-btn delete-user"  onclick="handelDeleteUser(); return false;" data-username="' + json[i].username + '" ><i class="glyphicon glyphicon-trash"></i></button>'
           });
         }
 

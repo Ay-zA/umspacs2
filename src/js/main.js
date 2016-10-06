@@ -190,7 +190,7 @@ function toggleModal() {
 
   $('#viewer-modal').modal('toggle');
 
-  // TODO:0 Scroll
+  // TODO:60 Scroll
   //FIXME:0 async func x__x
   delay(function() {
     initCtViewer();
@@ -290,10 +290,7 @@ function closeNavbar(event) {
 function handelResetSearchInput() {
   var $searchInput = $(this).parent().children('input');
   var oldVal = $searchInput.val();
-  //TODO: Clear Value
-  $searchInput.val('');
-  var newVal = $searchInput.val();
-  // TODO: flan inja bashe
-  if(oldVal !== newVal)
-    searchByInput();
+  if(!oldVal) return;
+  $searchInput.removeClass('used');
+  $searchInput.val('').trigger('input');
 }

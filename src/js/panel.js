@@ -47,7 +47,7 @@ function showInPanel(data) {
   var $selected_serie = $('#viewer-serie-list li.active');
   $selected_serie.attr('loaded', 'true');
 
-  // TODO:60 WHEN DATA LOADED COMPELETE
+  // TODO:100 WHEN DATA LOADED COMPELETE
   delay(createSlider, 10);
 
   function createSlider() {
