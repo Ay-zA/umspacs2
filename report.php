@@ -41,7 +41,7 @@
 </head>
 
 <body>
-  <?php include('src/components/php/header-admin.php'); ?>
+  <?php include('src/components/php/header-report.php'); ?>
   <div class="flex-container">
     <div id="template-section">
       <div id="accordion" role="tablist" aria-multiselectable="true">

@@ -119,6 +119,7 @@
         clearSearchInputs();
       });
       $('#patient-table_wrapper #patient-table').closest('div').addClass('table-responsive');
+      $('#patient-table_wrapper #patient-table').closest('div').removeClass('col-sm-12');
     }
   }
 

@@ -61,7 +61,7 @@
 #template-section {
   overflow-y: auto;
   color: #eee;
-  background: #333;
+  background: #eee;
   min-width: 200px;
   max-width: 200px;
 }

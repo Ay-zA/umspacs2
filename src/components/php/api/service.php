@@ -40,6 +40,29 @@
     return getAllUsers();
   }
 
+  function returnSetModalityVisibility() {
+    $visibility = (isset($_GET['visibility']) && is_valid($_GET['visibility'])) ?  $_GET['visibility']  : NULL;
+    $id = (isset($_GET['id']) && is_valid($_GET['id'])) ?  $_GET['id']  : NULL;
+    $result = setModalityVisibility($visibility, $id);
+    return $result;
+  }
+
+  function returnSetInstitutionVisibility() {
+    $visibility = (isset($_GET['visibility']) && is_valid($_GET['visibility'])) ?  $_GET['visibility']  : NULL;
+    $id = (isset($_GET['id']) && is_valid($_GET['id'])) ?  $_GET['id']  : NULL;
+    $result = setInstitutionVisibility($visibility, $id);
+    return $result;
+  }
+
+  function returnAllIgnoredModalities() {
+    $result = getAllIgnoredModalities();
+    return $result;
+  }
+  function returnAllIgnoredInstitution() {
+    $result = getAllIgnoredInstitution();
+    return $result;
+  }
+
   if(isset($_GET['action'])){
     $action = strtolower($_GET['action']);
     switch($action){
@@ -76,6 +99,16 @@
       case 'updateuser':
         $response = returnUpdateUser();
         break;
+      case 'setmodalityvisibility':
+        $response = returnSetModalityVisibility();
+        break;
+      case 'setinstitutionvisibility':
+        $response = returnSetInstitutionVisibility();
+        break;
+      case 'getignoredmodalities':
+        $response = returnAllIgnoredModalities();
+      case 'getignoredinstitutions':
+        $response = returnAllIgnoredInstitution();
       case 'searchstudies':
         // echo  $_GET['id'] . "<br>" . $_GET['name']. '<br> ' . $_GET['modality']. '<br> ' . $_GET['from']. '<br> ' . $_GET['to'];
         $id           = is_valid($_GET['id'])          ? $_GET['id']                 : NULL;

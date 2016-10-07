@@ -34,7 +34,7 @@
   </head>
 
   <body>
-    <?php include('src/components/php/header-admin.php'); ?>
+    <?php include('src/components/php/header-setting.php'); ?>
 
     <div class="flex-container">
       <div class="left-sider">

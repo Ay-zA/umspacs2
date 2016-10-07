@@ -10,11 +10,18 @@ var adminConfig = {
       "url": "src/components/php/api/service.php?action=getalldynamicinsts",
       "dataSrc": function(json) {
         var data = [];
+        var showButton;
+        var name;
+
         for (var i = 0, ien = json.length; i < ien; i++) {
           if (ignoreInsts.includes(json[i].name)) continue;
+
+          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility ? 'open' : 'close') + '" data-type="institution" data-id="' + json[i].id + '"></span></button>';
+          name = '<span style="padding-top:5px;">' + fix_name(json[i].name) + '</span>';
+
           data.push({
-            '0': fix_name(json[i].name),
-            '1': 'Remove'
+            '0': showButton,
+            '1': name
           });
         }
         return data;
@@ -23,6 +30,7 @@ var adminConfig = {
     "bFilter": false,
     "bAutoWidth": false,
     "bInfo": true,
+    "bSort": false,
     "bLengthChange": false,
     "sPaginationType": "full_numbers",
     "fnDrawCallback": function() {
@@ -49,12 +57,20 @@ var adminConfig = {
       "url": "src/components/php/api/service.php?action=getalldynamicmods",
       "dataSrc": function(json) {
         var data = [];
+        var showButton;
+        var name;
+
         for (var i = 0, ien = json.length; i < ien; i++) {
           if (ignoreMods.includes(json[i].modality)) continue;
+          console.log(json[i].visibility);
+          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility == 1 ? 'open' : 'close') + '" data-type="modality" data-id="' + json[i].id + '"></span></button>';
+          name = '<span style="padding-top:5px;">' + json[i].modality + '</span>';
+
           data.push({
-            '0': json[i].modality,
-            '1': 'Info',
-            '2': 'Remove'
+            '0': showButton,
+            '1': name,
+            '2': 'Info'
+              // '2':
           });
         }
         return data;
@@ -63,6 +79,7 @@ var adminConfig = {
     "bFilter": false,
     "bAutoWidth": false,
     "bInfo": true,
+    "bSort": false,
     "bLengthChange": false,
     "sPaginationType": "full_numbers",
     "fnDrawCallback": function() {

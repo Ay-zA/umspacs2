@@ -397,7 +397,7 @@ function updateAllModalities(){
     }
   }
   $allDynamicMods = $allMods;
-
+  //TODO: Sync
   // Get All Static Inst
   clearStaticMods();
   // Check if exixts
@@ -424,6 +424,58 @@ function getAllUsers()
 
   $query->execute();
   $result = $query->fetchAll();
+  return $result;
+}
+
+function setModalityVisibility($visibility, $id) {
+  if(!isset($visibility) || !isset($id))
+    return false;
+  $visibility = ($visibility == 'true') ? 1 : 0;
+  $conn = connect('dicom');
+  // TODO: Set visibility
+  $query = "UPDATE `modalities` SET `visibility`= :visibility WHERE `id` = :id; ";
+  $query =$conn->prepare($query);
+  $query->bindParam(':visibility', $visibility);
+  $query->bindParam(':id', $id);
+  $query->execute();
+
+  return true;
+}
+
+function setInstitutionVisibility($visibility, $id) {
+  if(!isset($visibility) || !isset($id))
+    return false;
+  $visibility = ($visibility == 'true') ? 1 : 0;
+  $conn = connect('dicom');
+  // TODO: Set visibility
+  $query = "UPDATE `institutions` SET `visibility`=:visibility WHERE `id` = :id;";
+  $query =$conn->prepare($query);
+  $query->bindParam(':visibility', $visibility);
+  $query->bindParam(':id', $id);
+  $query->execute();
+
+  return true;
+}
+
+function getAllIgnoredModalities() {
+  $conn = connect('dicom');
+  // TODO: Set visibility
+  $query = "SELECT * FROM `modalities` WHERE `visibility` = 0;";
+  $query =$conn->prepare($query);
+  $query->execute();
+  $result = $query->fetchAll();
+
+  return $result;
+}
+
+function getAllIgnoredInstitution() {
+  $conn = connect('dicom');
+  // TODO: Set visibility
+  $query = "SELECT * FROM `institutions` WHERE `visibility` = 0;";
+  $query =$conn->prepare($query);
+  $query->execute();
+  $result = $query->fetchAll();
+
   return $result;
 }
 ?>

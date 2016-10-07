@@ -113,7 +113,7 @@ function showEditMessage(message, success) {
 
 
 function handelEditUserSave() {
-  if($(this).hasClass('disabled'))
+  if ($(this).hasClass('disabled'))
     return;
   var userInfo = {};
   userInfo.username = selectedUser.username;
@@ -158,4 +158,39 @@ function showInstTableSuccessMessage(data) {
   var $instTableMessage = $('#inst-table-success-message');
   $instTableMessage.show();
   hideMessageAfter($instTableMessage, 3000);
+}
+
+function handelToggleVisibility() {
+  var $target = $(event.target);
+  var $span = $target.children('span').length === 1 ? $($target.children('span')) : $target;
+  var id = $span.attr('data-id');
+  var type = $span.attr('data-type');
+  var isVisible = $span.hasClass('glyphicon-eye-open');
+  setEyeVisibility($span, !isVisible);
+  setVisibility(type, !isVisible, id);
+}
+
+function setEyeVisibility($eye, visibility) {
+  if (visibility) {
+    $eye.removeClass('glyphicon-eye-close');
+    $eye.addClass('glyphicon-eye-open');
+  } else {
+    $eye.removeClass('glyphicon-eye-open');
+    $eye.addClass('glyphicon-eye-close');
+  }
+}
+
+function setVisibility(type, visibility, id) {
+  if (type !== 'institution' && type !== 'modality') {
+    console.error('NOT VALID TYPE');
+    return;
+  }
+
+  var url = 'src/components/php/api/service.php?action=set' + type + 'visibility' +
+    '&visibility=' + visibility +
+    '&id=' + id;
+    console.log(url);
+  $.getJSON(url, function (data) {
+    console.log(data);
+  });
 }

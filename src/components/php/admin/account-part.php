@@ -1,59 +1,50 @@
-<hr />
-<form id="account-form" class="form-horizontal" data-toggle="validator" action="src/components/php/admin/updateuser.php" method="post">
+<form id="account-form" class="form-horizontal form-flex" data-toggle="validator" action="src/components/php/admin/updateuser.php" method="post" style="margin-top: 2em;">
   <fieldset>
     <!-- Form Name -->
     <legend>Change Password</legend>
     <!-- Success message -->
     <?php if(isset($_SESSION['user_success'])): ?>
-      <div class="alert alert-success col-md-12" role="alert" id="user_success_message"><?php echo $_SESSION['user_success'] ?> <i class="glyphicon glyphicon-thumbs-up"></i></div>
+      <div class="alert alert-success col-md-12" role="alert" id="user_success_message"><?php echo $_SESSION['user_success'] ?></div>
       <div class="clearfix"></div>
       <?php unset($_SESSION['user_success']); ?>
     <?php endif ?>
 
     <?php if(isset($_SESSION['user_error'])): ?>
-      <div class="alert alert-danger col-md-12" role="alert" id="user_error_message"><?php echo $_SESSION['user_error'] ?> <i class="glyphicon glyphicon-thumbs-up"></i></div>
+      <div class="alert alert-danger col-md-12" role="alert" id="user_error_message"><?php echo $_SESSION['user_error'] ?></div>
       <div class="clearfix"></div>
       <?php unset($_SESSION['user_error']); ?>
     <?php endif ?>
 
 
-    <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-2 control-label">Username</label>
-      <div class="col-md-10 inputGroupContainer">
+      <div class="col-xs-12">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <span class="input-group-addon">Username</span>
           <input name="username" readonly placeholder="Username" class="form-control" type="text" value="<?php echo $_SESSION['dicom_username']; ?>">
         </div>
       </div>
     </div>
 
-    <!-- Passwords -->
     <div class="form-group">
-      <label class="col-md-2 control-label">Password</label>
-      <div class="col-md-5 inputGroupContainer">
+      <div class="col-xs-6">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input id="account-password" name="password" placeholder="Password" class="form-control"  type="password" required>
+            <span class="input-group-addon">Password</span>
+            <input id="account-password" name="password" placeholder="Password" class="form-control"  type="password" required>
         </div>
-        <div class="help-block with-errors"></div>
       </div>
-
-      <div class="col-md-5 inputGroupContainer">
+      <div class="col-xs-6">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+          <span class="input-group-addon">Confirm</span>
           <input name="repeat_password" data-match="#account-password" data-match-error="Passwords don't match" placeholder="Confirm" required class="form-control" type="password">
-      </div>
-      <div class="help-block with-errors"></div>
+        </div>
+        <div class="help-block with-errors" style="margin-bottom:0;"></div>
       </div>
     </div>
 
-    <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-2 control-label">Email</label>
-      <div class="col-md-10 inputGroupContainer">
+      <div class="col-xs-12">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+          <span class="input-group-addon">Email</span>
           <input name="email" placeholder="E-Mail Address" class="form-control" type="text">
         </div>
       </div>
@@ -61,8 +52,7 @@
 
     <!-- Button -->
     <div class="form-group">
-      <label class="col-md-2 control-label"></label>
-      <div class="col-md-10">
+      <div class="col-md-12">
         <button type="submit" class="btn btn-block btn-warning">Update <span class="glyphicon glyphicon-send"></span></button>
       </div>
     </div>
