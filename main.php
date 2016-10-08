@@ -64,7 +64,7 @@
       var $loading = $('#loadingDiv').hide();
 
       $(function() {
-        $("#search-from input[type='text']").persianDatepicker({
+        $("#search-from .persian-date-input").persianDatepicker({
           observer: true,
           format: 'YYYY/MM/DD',
           autoClose: true,

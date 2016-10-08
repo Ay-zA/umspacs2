@@ -110,9 +110,10 @@
     position: absolute;
     top: 100px;
     font: 12px tahoma;
-    border-top: 1px solid #00a175;
+    /* border-top: 1px solid #00a175; */
     background-color: #fff;
-    margin-top: -1px;
+    /* margin-top: -1px; */
+    z-index: 1000;
 }
 .datepicker-plot-area table, .datepicker-plot-area td, .datepicker-plot-area th {
     border: none;

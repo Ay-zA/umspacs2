@@ -350,8 +350,8 @@ td[data-type='weasis'] {
 #search-from input {
   background: #444;
   border: none;
-  font-size: smaller;
-  height: 2.5em;
+  font-size: 12px;
+  height: 30px;
   color: #eee;
 }
 
@@ -689,12 +689,30 @@ tr.active .weasis-btn {
   -ms-box-flex: 1;
   -moz-box-flex: 1;
   flex: 1 150px;
-  max-width: 150px;
+  /* max-width: 150px; */
   height: auto;
   background: #444;
   border: none;
   box-shadow: none;
   color: #eee;
+}
+
+.bootstrap-select.btn-group .dropdown-menu {
+  background: #333;
+  border:0;
+  border-radius:0;
+}
+
+.bootstrap-select.btn-group .dropdown-menu a{
+  color: #eee;
+}
+
+.bs-searchbox {
+  padding-right: 0;
+}
+
+.bootstrap-select.btn-group .dropdown-menu a:hover{
+  background: #00a175;
 }
 
 .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
@@ -817,7 +835,9 @@ tr.active .weasis-btn {
 
 .bootstrap-select.btn-group:not(.input-group-btn) button, .bootstrap-select.btn-group[class*=col-] button, .bootstrap-select.btn-group:not(.input-group-btn) button:hover, .bootstrap-select.btn-group[class*=col-] button:hover {
   background: #444;
-  padding: 4px .7em;
+  padding: 6px 12px;
+  font-size: 12px;
+  height: 30px;
 }
 
 .bootstrap-select.btn-group:not(.input-group-btn) button:focus, .bootstrap-select.btn-group[class*=col-] button:focus {
@@ -826,8 +846,7 @@ tr.active .weasis-btn {
 }
 
 .bootstrap-select.btn-group:not(.input-group-btn) button[title="Modality"], .bootstrap-select.btn-group:not(.input-group-btn) button[title="Institution"] {
-  color: #aaa;
-  padding: .3em 1em;
+  color: #BBB;
 }
 
 .bootstrap-select.open button {
@@ -912,6 +931,27 @@ div.invalid input, div.invalid input:focus, div.invalid input:hover {
 
 .table-small tr td:first-child {
   text-align: center;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+  left: 7px;
+  top: 8px;
+  height:15px;
+  border: 1px solid #00a175;
+  border-radius: 0px;
+  box-shadow: none;
+  line-height: 14px;
+  background-color: transparent;
+  color: #00a175
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+  color: #be4141;
+  background-color: transparent;
+  border-color: #be4141;
+
 }
 
 @media (max-width: 767px) {

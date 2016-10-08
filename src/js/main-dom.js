@@ -85,7 +85,7 @@
       output += '<td data-type="institution">' + fix_name(data[i].institution) + '</td>';
       output += '<td data-type="accession">' + fix_name(data[i].accession_no) + '</td>';
       output += '<td data-type="modality">' + data[i].mods_in_study + '</td>';
-      output += '<td data-type="study_date">' + toReadableDate(data[i].study_datetime, true) + ' ' + get_time(data[i].study_datetime) + '</td>';
+      output += '<td data-type="study_date">' + toReadableDate(data[i].study_datetime, true) + ' <span class="label label-default">' + get_time(data[i].study_datetime) + '</span></td>';
       output += '<td class="hidden-xs" data-type="num_series"><span class="label label-default" style="margin-right:2px;">' + data[i].num_series + ' Series </span><span class="label label-default">' + data[i].num_instances + ' Images </span>' + '</td>';
       var url = generateWeasisUrl('study', data[i].study_iuid);
       output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a><a class="weasis-btn flat-btn hidden-xs" href="report.php?study_id=' + data[i].study_id + '"><span class="glyphicon glyphicon-list-alt"></span></a></td>';
