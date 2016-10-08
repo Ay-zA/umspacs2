@@ -98,6 +98,44 @@ body, html {
   transition: 0.4s;
 }
 
+.navbar-inverse .btn-group .open>.dropdown-toggle.btn-default, .navbar-inverse .btn-group button {
+  background-color: #222;
+  padding: 15px;
+  border: none;
+}
+
+.navbar-inverse .btn-group.open>.dropdown-toggle.btn-default, .navbar-inverse .btn-group.open>.dropdown-toggle.btn-default:hover, .navbar-inverse .btn-group.open>.dropdown-toggle.btn-default:focus {
+  background: #333;
+}
+
+.navbar-inverse .btn-group button:active, .navbar-inverse .btn-group button:focus {
+  border: none !important;
+  outline: none;
+}
+
+.navbar-inverse .btn-group.open ul {
+  margin: 0;
+  background-color: #222;
+  border-radius: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .navbar-right .dropdown-menu {
+    right: -1px;
+  }
+}
+
+.navbar-inverse .btn-group.open li a:hover, .navbar-inverse .btn-group.open li a:focus {
+  background-color: #00a175;
+  outline: none;
+}
+
+.navbar-inverse .btn-group.open ul li a {
+  padding: 10px 0 10px 20px;
+  color: #eee;
+}
+
 .form-control {
   border-radius: 0;
 }
@@ -236,7 +274,7 @@ td[data-type='weasis'] {
 }
 
 #search-section {
-  z-index: 1000000;
+  z-index: 999;
 }
 
 #study-section {
@@ -284,7 +322,6 @@ td[data-type='weasis'] {
   margin-right: 1em;
   -webkit-box-flex: 1;
   flex: 1 150px;
-  max-width: 150px;
 }
 
 #search-from input {
@@ -334,7 +371,7 @@ td[data-type='weasis'] {
   bottom: 0;
   background: transparent;
   padding: 4px 15px 0px 20px;
-/*   border-radius: 10px 0 0 0; */
+  /*   border-radius: 10px 0 0 0; */
   border: 1px solid #00a175;
   border-bottom: 0;
   border-right: none;
@@ -799,9 +836,7 @@ div.invalid span {
   color: white;
 }
 
-div.invalid input,
-div.invalid input:focus,
-div.invalid input:hover {
+div.invalid input, div.invalid input:focus, div.invalid input:hover {
   border-left: none;
   border-color: #b1473c;
 }
@@ -811,34 +846,32 @@ div.invalid input:hover {
   border-left: none;
 }
 
-.has-error .input-group-addon{
+.has-error .input-group-addon {
   border-color: #b1473c;
   background-color: #b1473c;
   color: white;
-
 }
 
 .table-small tr td {
-  padding:5px !important;
+  padding: 5px !important;
 }
 
 .table-option-button {
   background: none;
   border: none;
-  margin:0 5px 0 0;
+  margin: 0 5px 0 0;
 }
 
 .table-option-button .glyphicon-eye-open {
-    color: #333;
+  color: #333;
 }
 
 .table-option-button .glyphicon-eye-close {
-    color: #aaa;
+  color: #aaa;
 }
 
-.table-option-button .glyphicon-eye-open:hover ,
-.table-option-button .glyphicon-eye-close:hover {
-    color: #00a175;
+.table-option-button .glyphicon-eye-open:hover, .table-option-button .glyphicon-eye-close:hover {
+  color: #00a175;
 }
 
 .table-option-button:focus {
@@ -996,48 +1029,50 @@ div.invalid input:hover {
   border-bottom: 0;
 }
 */
+
 .left-sider {
   box-shadow: 1px 0 3px rgba(0, 0, 0, .1);
   background-color: #F5F5F5;
 }
 
 .flex-navbar {
-  position:relative;
+  position: relative;
   color: #EEE;
   display: flex;
   height: 50px;
   line-height: normal;
   background: #333;
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
-  -moz-box-shadow: 0 1px 1px rgba(0,0,0,.2);
-  box-shadow: 0 1px 1px rgba(0,0,0,.2);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
   z-index: 10000;
 }
 
-.flex-navbar .navbar-right-icon{
-  margin-left:1em;
+.flex-navbar .navbar-right-icon {
+  margin-left: 1em;
   margin-top: 15px;
 }
 
-.flex-navbar .navbar-right-icon a{
+.flex-navbar .navbar-right-icon a {
   color: #EEE;
 }
-.flex-navbar .navbar-right-icon a span{
-  padding-right:1em;
-  padding-top:1px;
+
+.flex-navbar .navbar-right-icon a span {
+  padding-right: 1em;
+  padding-top: 1px;
 }
 
-.flex-navbar .navbar-right-icon a:hover{
+.flex-navbar .navbar-right-icon a:hover {
   color: #00a175;
 }
 
-.flex-navbar .nav-header{
+.flex-navbar .nav-header {
   flex: 1;
-  text-align:center;
+  text-align: center;
 }
 
-.flex-navbar .nav-title{
+.flex-navbar .nav-title {
   font-size: 19px;
-  padding:14px;
-  margin:0;
+  padding: 14px;
+  margin: 0;
 }

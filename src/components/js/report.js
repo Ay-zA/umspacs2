@@ -9,14 +9,19 @@ var $studyPart = $('#study-part');
 var $studyDate = $('#study-datetime');
 var $reportDate = $('#report-date');
 var $doctorName = $('#doctor-name');
+var invalidInputs = [];
 
 $patientName.on('input', validateInputs);
 $reportDate.on('input', validateInputs);
 $doctorName.on('input', validateInputs);
+$submitReport.on('click', handelSubmitReport);
 
 function initForm() {
   var dob = convertStringDateToDate($patientDOB.val());
   $patientDOB.val(to_persian_date(dob));
+
+  var name = fix_name($patientName.val());
+  $patientName.val(name);
 
   var studyTime = convertStringDateToDate($studyDate.val());
   var age = getAge(studyTime, dob);
@@ -55,12 +60,12 @@ function validateInputs() {
   var name = $('#patient-name').val();
   var reportDate = $reportDate.val();
   var doctorName = $doctorName.val();
-  var invalidInputs= [];
   // console.log(name);
 
   if (name === '' || !isPersian(name)) {
     setInvalid($patientName.parent());
-    invalidInputs.push('name');
+    if (invalidInputs.indexOf('name') < 0)
+      invalidInputs.push('name');
   } else {
     setValid($patientName.parent());
     invalidInputs = removeFromArray(invalidInputs, 'name');
@@ -68,7 +73,8 @@ function validateInputs() {
 
   if (reportDate === '' || !isValidDate(reportDate)) {
     setInvalid($reportDate.parent());
-    invalidInputs.push('reportDate');
+    if (invalidInputs.indexOf('reportDate') < 0)
+      invalidInputs.push('reportDate');
   } else {
     setValid($reportDate.parent());
     invalidInputs = removeFromArray(invalidInputs, 'reportDate');
@@ -76,7 +82,8 @@ function validateInputs() {
 
   if (doctorName === '') {
     setInvalid($doctorName.parent());
-    invalidInputs.push('DrName');
+    if (invalidInputs.indexOf('DrName') < 0)
+      invalidInputs.push('DrName');
   } else {
     setValid($doctorName.parent());
     invalidInputs = removeFromArray(invalidInputs, 'DrName');
@@ -90,5 +97,21 @@ function validateInputs() {
     $submitReport.removeClass('disabled');
     $submitReport.removeAttr('disabled');
   }
+
+}
+
+function handelSubmitReport() {
+  if (canSubmitReport()) {
+    console.log('Not Valid');
+    return;
+  }
+  submitReport();
+}
+
+function canSubmitReport() {
+  return invalidInputs.length > 0 || $submitReport.hasClass('disabled') || $submitReport.attr('disabled');
+}
+
+function submitReport() {
 
 }

@@ -53,14 +53,20 @@
     </li>
     </ul>
     <ul class="nav navbar-nav navbar-right hidden-xs">
-      <li class="dropdown">
-        <a href="setting.php">Setting</a>
-      </li>
       <li>
         <a class="searchButton" href="#">Search</a>
       </li>
       <li class="dropdown">
-        <a href="src/components/php/logout.php">Logout</a>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <?php echo ucwords($_SESSION['dicom_username']);?> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="setting.php"><span class="glyphicon glyphicon-cog"><span> Setting</a></li>
+            <li><a href="src/components/php/logout.php"><span class="glyphicon glyphicon glyphicon-off"><span> Logout</a><li>
+          </ul>
+        </div>
       </li>
     </ul>
   </div>

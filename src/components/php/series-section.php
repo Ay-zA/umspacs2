@@ -3,20 +3,22 @@
     <h4>Series</h4>
     <button id="close-button" type="button" name="button" onclick="hideResultSection();">X</button>
   </div>
-    <div class="section-content">
+  <div class="section-content">
     <div id="serie-table-container" class="col-xs-12 col-sm-6 full-height">
-      <table id="series-table" class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Body Part</th>
-            <th>Images</th>
-            <th>Description</th>
-            <th class="hidden-xs">Viewer</th>
-            <th class="visible-xs">Show</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div class="row full-height">
+        <table id="series-table" class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Body Part</th>
+              <th>Images</th>
+              <th>Description</th>
+              <th class="hidden-xs">Viewer</th>
+              <th class="visible-xs">Show</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
     <div id="viewer-mini" class="full-height col-xs-12 col-sm-6">
       <div id="thumb-div" class="row full-height"></div>

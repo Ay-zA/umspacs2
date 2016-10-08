@@ -208,7 +208,7 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
           $queryBase .= ' AND study.accession_no LIKE CONCAT (?,"%")';
       }
       if (isset($inQuery)) {
-          $queryBase .= ' AND LOWER(study.mods_in_study) IN(' . $inQuery . ')';
+          $queryBase .= ' AND LOWER(LEFT(study.mods_in_study,2)) IN(' . $inQuery . ')';
       }
       if (isset($from)) {
           $queryBase .= ' AND study.study_datetime >= ?';
@@ -329,7 +329,7 @@ function getAllModalities($dynamic=false){
     updateAllModalities();
   }
   $conn = connect('dicom');
-  $query = "SELECT * FROM modalities";
+  $query = "SELECT * FROM modalities ORDER BY modality";
   $query = $conn->prepare($query);
 
   $query->execute();
@@ -342,7 +342,7 @@ function getAllInstitutions($dynamic=false){
     updateInstituations();
   }
   $conn = connect('dicom');
-  $query = "SELECT * FROM institutions";
+  $query = "SELECT * FROM institutions ORDER BY name";
   $query = $conn->prepare($query);
 
   $query->execute();
@@ -470,7 +470,6 @@ function setModalityVisibility($visibility, $id) {
     return false;
   $visibility = ($visibility == 'true') ? 1 : 0;
   $conn = connect('dicom');
-  // TODO: Set visibility
   $query = "UPDATE `modalities` SET `visibility`= :visibility WHERE `id` = :id; ";
   $query =$conn->prepare($query);
   $query->bindParam(':visibility', $visibility);
@@ -485,7 +484,7 @@ function setInstitutionVisibility($visibility, $id) {
     return false;
   $visibility = ($visibility == 'true') ? 1 : 0;
   $conn = connect('dicom');
-  // TODO: Set visibility
+  // DONE:10 Set visibility
   $query = "UPDATE `institutions` SET `visibility`=:visibility WHERE `id` = :id;";
   $query =$conn->prepare($query);
   $query->bindParam(':visibility', $visibility);
@@ -497,7 +496,6 @@ function setInstitutionVisibility($visibility, $id) {
 
 function getAllIgnoredModalities() {
   $conn = connect('dicom');
-  // TODO: Set visibility
   $query = "SELECT * FROM `modalities` WHERE `visibility` = 0;";
   $query =$conn->prepare($query);
   $query->execute();
@@ -508,7 +506,7 @@ function getAllIgnoredModalities() {
 
 function getAllIgnoredInstitution() {
   $conn = connect('dicom');
-  // TODO: Set visibility
+  // DONE:20 Set visibility
   $query = "SELECT * FROM `institutions` WHERE `visibility` = 0;";
   $query =$conn->prepare($query);
   $query->execute();

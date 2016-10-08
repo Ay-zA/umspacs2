@@ -21,7 +21,4 @@ function is_valid($var){
   return isset($var) && !is_null($var) && $var != '';
 }
 
-function fixDICOMName($name) {
-  //TODO:90 Regex to fix name invalid character
-}
 ?>

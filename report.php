@@ -16,12 +16,12 @@
     }
   }
   // var_dump($reportInfo);
-  // TODO:50 Save Data to database
-  // TODO:30 Editor component
-  // TODO:70 Template
-  // TODO:10 Check for farsi name
+  // TODO:30 Save Data to database
+  // TODO:10 Editor component
+  // TODO:50 Template
+  // DONE:0 Check for farsi name
   // TODO:0 Attach file
-  // TODO:40 Print
+  // TODO:20 Print
 ?>
 <!DOCTYPE html>
 <html lang="en">

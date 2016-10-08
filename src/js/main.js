@@ -190,7 +190,6 @@ function toggleModal() {
 
   $('#viewer-modal').modal('toggle');
 
-  // TODO:60 Scroll
   //FIXME:0 async func x__x
   delay(function() {
     initCtViewer();
