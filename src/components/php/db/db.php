@@ -18,7 +18,20 @@ function connect($dbname)
         return;
     }
 }
-function getReportInfo($studyId='') {
+function getReportInfo($study_id) {
+  $conn  = connect('dicom');
+  $query = "SELECT * FROM `reports` WHERE study_fk=:study_pk";
+  $query = $conn->prepare($query);
+  $query->bindParam(':study_pk', $study_id);
+  $query->execute();
+  $result = $query->fetchAll();
+  if (isset($result[0])) {
+    return $result[0];
+  }
+  return "Report Not Existed";
+}
+
+function getStudyInfoForReport($studyId='') {
   $conn = connect('pacsdb');
   if ($conn == null) {
     return 404;
@@ -484,7 +497,6 @@ function setInstitutionVisibility($visibility, $id) {
     return false;
   $visibility = ($visibility == 'true') ? 1 : 0;
   $conn = connect('dicom');
-  // DONE:10 Set visibility
   $query = "UPDATE `institutions` SET `visibility`=:visibility WHERE `id` = :id;";
   $query =$conn->prepare($query);
   $query->bindParam(':visibility', $visibility);
@@ -495,9 +507,9 @@ function setInstitutionVisibility($visibility, $id) {
 }
 
 function getAllIgnoredModalities() {
-  $conn = connect('dicom');
+  $conn  = connect('dicom');
   $query = "SELECT * FROM `modalities` WHERE `visibility` = 0;";
-  $query =$conn->prepare($query);
+  $query = $conn->prepare($query);
   $query->execute();
   $result = $query->fetchAll();
 
@@ -506,11 +518,53 @@ function getAllIgnoredModalities() {
 
 function getAllIgnoredInstitution() {
   $conn = connect('dicom');
-  // DONE:20 Set visibility
   $query = "SELECT * FROM `institutions` WHERE `visibility` = 0;";
   $query =$conn->prepare($query);
   $query->execute();
   $result = $query->fetchAll();
+
+  return $result;
+}
+
+function submitReport ($study_pk, $patient_name ,$findings ,$impression ,$comments ,$doctor_name ,$report_date ) {
+
+  $conn  = connect('dicom');
+
+  if(isReportExistFor($study_pk)) {
+    $query = "UPDATE `reports` SET `farsi_name`=:name,`findings`=:findings,`impression`=:impression,`comments`=:comments,`dr_name`=:doctor_name,`report_date`=:report_date WHERE `study_fk`=:study_fk;";
+    $query = $conn->prepare($query);
+    $query->bindParam(':name', $patient_name);
+    $query->bindParam(':findings', $findings);
+    $query->bindParam(':impression', $impression);
+    $query->bindParam(':comments', $comments);
+    $query->bindParam(':doctor_name', $doctor_name);
+    $query->bindParam(':report_date', $report_date);
+    $query->bindParam(':study_fk', $study_pk);
+    $query->execute();
+    echo "Updated";
+  } else {
+    $query = "INSERT INTO `reports`(`study_fk`, `farsi_name`, `findings`, `impression`, `comments`, `dr_name`, `report_date`) VALUES (:study_fk, :patient_name ,:findings ,:impression ,:comments ,:doctor_name ,:report_date)";
+    $query = $conn->prepare($query);
+    $query->bindParam(':study_fk', $study_pk);
+    $query->bindParam(':patient_name', $patient_name);
+    $query->bindParam(':findings', $findings);
+    $query->bindParam(':impression', $impression);
+    $query->bindParam(':comments', $comments);
+    $query->bindParam(':doctor_name', $doctor_name);
+    $query->bindParam(':report_date', $report_date);
+    $query->execute();
+    echo "Created";
+  }
+  return true;
+}
+
+function isReportExistFor($study_pk){
+  $conn  = connect('dicom');
+  $query = "SELECT count(*) FROM `reports` WHERE `study_fk`=:study_fk";
+  $query = $conn->prepare($query);
+  $query->bindParam(':study_fk', $study_pk);
+  $query->execute();
+  $result = $query->fetch(PDO::FETCH_COLUMN);
 
   return $result;
 }

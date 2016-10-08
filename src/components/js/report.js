@@ -7,8 +7,14 @@ var $patientSex = $('#patient-sex');
 var $studyMod = $('#study-mod');
 var $studyPart = $('#study-part');
 var $studyDate = $('#study-datetime');
+var $studyDesc = $('#study-desc');
 var $reportDate = $('#report-date');
 var $doctorName = $('#doctor-name');
+
+var $findings = $('#findings');
+var $impression = $('#impression');
+var $comments = $('#comments');
+
 var invalidInputs = [];
 
 $patientName.on('input', validateInputs);
@@ -46,7 +52,12 @@ function initForm() {
   var persianToday = to_persian_date(formatDate(new Date()));
   if (reportDate === '') {
     $reportDate.val(persianToday);
+  } else {
+    $reportDate.val(formatDate(reportDate));
   }
+
+  var studyDesc = fix_name($studyDesc.val()).toUpperCase();
+  $studyDesc.val(studyDesc);
 }
 
 function validateInputs() {
@@ -89,7 +100,6 @@ function validateInputs() {
     invalidInputs = removeFromArray(invalidInputs, 'DrName');
   }
 
-  console.log(invalidInputs);
   if (invalidInputs.length > 0) {
     $submitReport.addClass('disabled');
     $submitReport.attr('disabled');
@@ -113,5 +123,26 @@ function canSubmitReport() {
 }
 
 function submitReport() {
+  var studyPk = $patientId.attr('data-studyPk');
+  var name = $patientName.val();
+  var findings = $findings.val();
+  var impression = $impression.val();
+  var comments = $comments.val();
+  var doctorName = $doctorName.val();
+  var reportDate = $reportDate.val();
 
+  var url = 'src/components/php/api/service.php?action=submitreport' +
+    '&study_pk=' + studyPk +
+    '&patient_name=' + name +
+    '&findings=' + findings +
+    '&impression=' + impression +
+    '&comments=' + comments +
+    '&doctor_name=' + doctorName +
+    '&report_date=' + reportDate;
+
+    console.log(url);
+
+    $.getJSON(url, function (data) {
+      console.log(data);
+    });
 }

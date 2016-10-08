@@ -4,22 +4,27 @@
   require_once 'src/components/php/db/accesscontrol.php';
   require_once 'src/components/php/admin/admin.php';
 
-  if (!is_session_exist()) {
+  if (!is_session_exist() || !isset($_GET['study_id']) ) {
       header('location: index.php');
   }
 
   $studyId = $_GET['study_id'];
-  $reportInfo = getReportInfo($studyId);
-  function printBodyParts($reportInfo){
-  foreach ($reportInfo['body_parts'] as $key => $bodyPart) {
+  $existed = false;
+  if(isReportExistFor($studyId)) {
+    $existedReport = getReportInfo($studyId);
+    $existed = true;
+  }
+  $studyInfo = getStudyInfoForReport($studyId);
+  function printBodyParts($studyInfo){
+  foreach ($studyInfo['body_parts'] as $key => $bodyPart) {
       echo "$bodyPart\\";
     }
   }
-  // var_dump($reportInfo);
-  // TODO:30 Save Data to database
+  // var_dump($studyInfo);
+  // DONE:0 Save Data to database
   // TODO:10 Editor component
-  // TODO:50 Template
-  // DONE:0 Check for farsi name
+  // TODO:30 Template
+  // DONE:10 Check for farsi name
   // TODO:0 Attach file
   // TODO:20 Print
 ?>
@@ -72,19 +77,19 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Patient Id</span>
-                <input id="patient-id" type="text" class="form-control" placeholder="Patient Id" readonly value="<?php echo $reportInfo['pat_id']; ?>">
+                <input id="patient-id" type="text" class="form-control" placeholder="Patient Id" readonly value="<?php echo $studyInfo['pat_id']; ?>" data-studyPk="<?php echo $studyId; ?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Name</span>
-                <input id="patient-name" type="text" class="form-control" placeholder="Name" value="<?php echo $reportInfo['pat_name']; ?>">
+                <input id="patient-name" type="text" class="form-control" placeholder="Name" value="<?php  echo ($existed ? $existedReport['farsi_name'] : $studyInfo['pat_name']); ?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">DOB</span>
-                <input id="patient-dob" type="text" class="form-control" placeholder="DOB" readonly value="<?php echo $reportInfo['pat_birthdate'];?>">
+                <input id="patient-dob" type="text" class="form-control" placeholder="DOB" readonly value="<?php echo $studyInfo['pat_birthdate'];?>">
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12">
@@ -96,7 +101,7 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Sex</span>
-                <input id="patient-sex" type="text" class="form-control" placeholder="Sex" readonly value="<?php echo $reportInfo['pat_sex'];?>">
+                <input id="patient-sex" type="text" class="form-control" placeholder="Sex" readonly value="<?php echo $studyInfo['pat_sex'];?>">
               </div>
             </div>
           </div>
@@ -110,35 +115,35 @@
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Modality</span>
-                <input id="study-mod" type="text" class="form-control" placeholder="Modality" readonly value="<?php echo $reportInfo['mods_in_study'];?>">
+                <input id="study-mod" type="text" class="form-control" placeholder="Modality" readonly value="<?php echo $studyInfo['mods_in_study'];?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Body Part</span>
-                <input id="study-part" type="text" class="form-control" placeholder="Body Part" readonly value="<?php printBodyParts($reportInfo);?>">
+                <input id="study-part" type="text" class="form-control" placeholder="Body Part" readonly value="<?php printBodyParts($studyInfo);?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Study Date</span>
-                <input id="study-datetime" type="text" class="form-control" placeholder="Study Date" readonly value="<?php echo $reportInfo['study_datetime'];?>">
+                <input id="study-datetime" type="text" class="form-control" placeholder="Study Date" readonly value="<?php echo $studyInfo['study_datetime'];?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
                 <span class="input-group-addon">Accession No</span>
-                <input type="text" class="form-control" placeholder="Accession No" readonly value="<?php echo $reportInfo['accession_no'];?>">
+                <input type="text" class="form-control" placeholder="Accession No" readonly value="<?php echo $studyInfo['accession_no'];?>">
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-xs-12">
               <div class="input-group">
-                <span class="input-group-addon">Study Discription</span>
-                <input type="text" class="form-control" placeholder="Study Discription" readonly value="<?php echo $reportInfo['study_desc'];?>">
+                <span class="input-group-addon">Study Description</span>
+                <input id="study-desc" type="text" class="form-control" placeholder="Study Description" readonly value="<?php echo $studyInfo['study_desc'];?>">
               </div>
             </div>
 
@@ -148,27 +153,27 @@
 
         <legend>Findings</legend>
         <div class="input">
-          <textarea name="name" rows="8"></textarea>
+          <textarea id="findings" name="name" rows="8"><?php if($existed) echo $existedReport['findings'];?></textarea>
         </div>
         <legend>Impression</legend>
         <div class="input">
-          <textarea name="name" rows="8"></textarea>
+          <textarea id="impression" name="name" rows="8"><?php if($existed) echo $existedReport['impression'];?></textarea>
         </div>
         <legend>Comments</legend>
         <div class="input">
-          <textarea name="name" rows="8"></textarea>
+          <textarea id="comments" name="name" rows="8"><?php if($existed) echo $existedReport['comments'];?></textarea>
         </div>
 
         <legend>Report Info</legend>
 
         <div class="input-group inline">
           <span class="input-group-addon">Doctor Name</span>
-          <input id="doctor-name" type="text" class="form-control" placeholder="Doctor Name">
+          <input id="doctor-name" type="text" class="form-control" placeholder="Doctor Name" value="<?php if($existed) echo $existedReport['dr_name']; ?>">
         </div>
 
         <div class="input-group inline">
           <span class="input-group-addon">Report Date</span>
-          <input id="report-date" type="text" class="form-control" placeholder="Report Date">
+          <input id="report-date" type="text" class="form-control" placeholder="Report Date" value="<?php if($existed) echo $existedReport['report_date']; ?>">
         </div>
 
         <div class="input-group inline">
