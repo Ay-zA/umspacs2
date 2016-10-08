@@ -26,6 +26,12 @@
 
 .form-flex .input textarea {
   width: 100%;
+  padding:.5em 1em;
+}
+
+.form-flex .input textarea:focus {
+  border-color: #00a175;
+  outline: none;
 }
 
 .form-flex button {
@@ -75,7 +81,7 @@
   border-radius: 0;
   background-color: transparent;
   border: 0;
-  color: white;
+  /* color: white; */
 }
 .panel-title {
   font-size: 24px;

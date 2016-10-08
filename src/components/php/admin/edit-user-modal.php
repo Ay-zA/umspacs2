@@ -54,7 +54,7 @@
 
           <div class="form-group">
             <div class="row">
-              <label class="col-md-2 control-label">Role</label>
+              <label class="col-md-2 radio-label">Role</label>
               <div class="col-xs-10">
                 <div class="radio-inline">
                   <label><input type="radio" name="role" id="edit-user-viewer" value="viewer">Viewer</label>

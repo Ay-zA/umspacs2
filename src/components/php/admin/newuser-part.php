@@ -1,6 +1,6 @@
 <h3>Create account:</h3>
 <hr/>
-<form id="newuser-form" class="form-horizontal" data-toggle="validator" action="src/components/php/admin/createuser.php" method="post" autocomplete="off">
+<form id="newuser-form" class="form-horizontal form-flex" data-toggle="validator" action="src/components/php/admin/createuser.php" method="post" autocomplete="off">
   <fieldset>
     <!-- Success message -->
   <?php if(isset($_SESSION['newuser_success'])): ?>
@@ -17,10 +17,9 @@
 
     <!-- Username-->
     <div class="form-group">
-      <label class="col-md-2 control-label">Username</label>
-      <div class="col-md-10 inputGroupContainer">
+      <div class="col-xs-12">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <span class="input-group-addon">Username</span>
           <input name="newuser_username" placeholder="Username" class="form-control" type="text" autocomplete="dontfillitdearchrome2" required >
         </div>
       </div>
@@ -29,39 +28,41 @@
 
     <!-- Passwords -->
     <div class="form-group">
-      <label class="col-md-2 control-label">Password</label>
-      <div class="col-md-5 inputGroupContainer">
+      <div class="col-xs-6">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input id="newuser_password" name="newuser_password" placeholder="Password" class="form-control"  type="password" required>
+            <span class="input-group-addon">Password</span>
+            <input id="newuser_password" name="newuser_password" placeholder="Password" class="form-control"  type="password" required>
         </div>
-        <div class="help-block with-errors"></div>
       </div>
-
-      <div class="col-md-5 inputGroupContainer">
+      <div class="col-xs-6">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+          <span class="input-group-addon">Confirm</span>
           <input name="newuser_confirm" data-match="#newuser_password" data-match-error="Passwords don't match" placeholder="Confirm" required class="form-control" type="password">
-      </div>
-      <div class="help-block with-errors"></div>
+        </div>
+        <div class="help-block with-errors" style="margin-bottom:0;"></div>
       </div>
     </div>
+
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-2 control-label">E-mail</label>
-      <div class="col-md-10 inputGroupContainer">
+      <div class="col-xs-12">
         <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+          <span class="input-group-addon">Email</span>
           <input name="newuser_email" placeholder="E-Mail Address" class="form-control" type="email">
         </div>
       </div>
     </div>
 
+
     <div class="form-group">
-      <label class="col-md-2 control-label">Role</label>
-      <div class="col-md-10 ">
-        <label class="radio-inline"><input type="radio" name="newuser_role" value="viewer" checked required>Viewer</label>
-        <label class="radio-inline"><input type="radio" name="newuser_role" value="admin" required>Admin</label>
+        <label class="col-md-1 radio-label" style="padding-top: 8px;">Role:</label>
+        <div class="col-md-10 ">
+          <div class="radio-inline">
+            <label><input type="radio" name="newuser_role" value="viewer" checked required>Viewer</label>
+          </div>
+          <div class="radio-inline">
+            <label><input type="radio" name="newuser_role" value="admin" required>Admin</label>
+          </div>
       </div>
     </div>
 

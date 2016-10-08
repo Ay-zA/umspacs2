@@ -2,7 +2,7 @@ button, a, li {
   transition: all 0.3s;
 }
 
-li[data-dtr-index="8"] {
+li[data-dtr-index="7s"] {
   display: none;
 }
 
@@ -14,21 +14,6 @@ li[data-dtr-index="8"] {
   float: right;
 }
 
-.personal-info .gender {
-  min-width: 5em;
-  margin-left: 2px;
-}
-
-.personal-info .gender-M {
-  background: #493296;
-}
-
-.personal-info .gender-F {
-  background: #be4141;
-  padding-left: .7em;
-  padding-right: .7em;
-}
-
 body, html {
   padding: 0;
   margin: 0;
@@ -36,8 +21,33 @@ body, html {
   height: 100%;
 }
 
+.personal-info .gender {
+  min-width: 5em;
+  margin-left: 2px;
+}
+
+.personal-info .gender-M {
+  color: #493296;
+}
+
+.personal-info .gender-F {
+  color: #be4141;
+  padding-left: .7em;
+  padding-right: .7em;
+}
+
 .label {
   border-radius: 0;
+}
+
+td .label-default {
+  font-size: .8em;
+  background-color: transparent;
+  color: #777;
+}
+
+tr.active td .label-default {
+  color: #EEE;
 }
 
 #main-container {
@@ -247,6 +257,19 @@ td[data-type='weasis'] {
 
 .modal-dialog .row {
   height: 100%;
+}
+
+.panel-heading a:focus, 
+.panel-heading a:hover {
+  text-decoration: none;
+}
+.panel-heading .panel-title {
+  font-size: 22px;
+  padding: .7em 0 0 0;
+}
+
+.panel-collapse .nav li a {
+  padding-left: 1.5em;
 }
 
 #viewer-modal .modal-dialog .row div {
@@ -732,6 +755,11 @@ tr.active .weasis-btn {
   -moz-box-flex: 1;
   flex: 1;
   overflow-y: auto;
+}
+.pagination:first-child li a,
+.pagination:last-child li a,
+.pagination li a {
+  border-radius: 0;
 }
 
 .pagination li a {

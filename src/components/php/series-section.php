@@ -1,7 +1,7 @@
 <section id="result-section" class="row" style="display:none;">
   <div class="col-xs-12 section-header">
     <h4>Series</h4>
-    <button id="close-button" type="button" name="button" onclick="hideResultSection();">X</button>
+    <button id="close-button" type="button" name="button" onclick="hideResultSection();">×</button>
   </div>
   <div class="section-content">
     <div id="serie-table-container" class="col-xs-12 col-sm-6 full-height">

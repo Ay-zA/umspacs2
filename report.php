@@ -20,11 +20,9 @@
       echo "$bodyPart\\";
     }
   }
-  // var_dump($studyInfo);
-  // DONE:0 Save Data to database
+
   // TODO:10 Editor component
   // TODO:30 Template
-  // DONE:10 Check for farsi name
   // TODO:0 Attach file
   // TODO:20 Print
 ?>
@@ -51,16 +49,26 @@
     <div id="template-section">
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingTwo">
-            <h3 class="panel-title tabs-header">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              Templates
-            </a>
-          </h3>
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h3 class="panel-title">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Global Templates</a>
+            </h3>
           </div>
-          <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+          <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <ul class="nav nav-pills nav-stacked">
-              <li class="active"><a href="#">Template 1</a></li>
+              <li class="active"><a href="#">Global Template 1</a></li>
+              <li><a href="#">Global Template 2</a></li>
+            </ul>
+          </div>
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h3 class="panel-title">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapsGlobal" aria-expanded="true" aria-controls="collapsGlobal">My Templates</a>
+            </h3>
+          </div>
+          <div id="collapsGlobal" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="#">My Template 1</a></li>
+              <li><a href="#">My Template 2</a></li>
             </ul>
           </div>
         </div>
