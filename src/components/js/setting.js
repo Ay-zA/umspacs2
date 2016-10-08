@@ -141,7 +141,7 @@ function updateUser(userInfo, cb) {
 function refreshMods(e) {
   var url = 'src/components/php/api/service.php?action=getalldynamicmods';
   $.getJSON(url, showModTableSuccessMessage);
-}
+  }
 
 function refreshInsts(e) {
   var url = 'src/components/php/api/service.php?action=getalldynamicinsts';
@@ -152,12 +152,14 @@ function showModTableSuccessMessage(data) {
   var $modTableMessage = $('#mod-table-success-message');
   $modTableMessage.show();
   hideMessageAfter($modTableMessage, 3000);
+  $modDataTable.ajax.reload();
 }
 
 function showInstTableSuccessMessage(data) {
   var $instTableMessage = $('#inst-table-success-message');
   $instTableMessage.show();
   hideMessageAfter($instTableMessage, 3000);
+  $instDataTable.ajax.reload();
 }
 
 function handelToggleVisibility() {
@@ -189,8 +191,6 @@ function setVisibility(type, visibility, id) {
   var url = 'src/components/php/api/service.php?action=set' + type + 'visibility' +
     '&visibility=' + visibility +
     '&id=' + id;
-    console.log(url);
-  $.getJSON(url, function (data) {
-    console.log(data);
-  });
+    // console.log(url);
+  $.getJSON(url);
 }

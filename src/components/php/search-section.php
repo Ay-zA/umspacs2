@@ -19,12 +19,12 @@
 
     <select title="Modality" id="searchByModality" class="form-control search-control hidden-xs selectpicker" multiple>
       <option value="all">All</option>
-      <?php loadAllModalities($pritnModOption) ?>
+      <?php loadAllVisibleModalities($pritnModOption) ?>
     </select>
 
     <select title="Institution" id="searchByInstitution" class="form-control search-control hidden-xs selectpicker" data-live-search="true">
       <option value="all">All</option>
-      <?php loadAllInstitution($printInstOption) ?>
+      <?php loadAllVisibleInstitution($printInstOption) ?>
     </select>
 
     <div class="search-input-group hidden-xs">

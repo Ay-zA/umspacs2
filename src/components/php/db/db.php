@@ -360,23 +360,42 @@ function updateInstituations(){
   $allDynamicInsts = $query->fetchAll(PDO::FETCH_COLUMN, 0);
 
   // Get All Static Inst
-  clearStaticInsts();
-
+  $allStaticInsts = getAllStaticInsts();
   $conn = connect('dicom');
+
+  foreach ($allStaticInsts as $key => $instName) {
+    if( !in_array($instName, $allDynamicInsts) ){
+      removeStaticInst($instName);
+    }
+  }
   // Check if exixts
   foreach ($allDynamicInsts as $key => $instName) {
+    if(in_array($instName, $allStaticInsts)) continue;
+
     $query = "INSERT INTO `institutions` (`name`) VALUES ('$instName');";
     $query = $conn->prepare($query);
     $query->execute();
   }
 }
 
-function clearStaticInsts() {
+function removeStaticInst($instName){
   $conn = connect('dicom');
-  $query = "TRUNCATE institutions";
+  $query = "DELETE FROM `institutions` WHERE `name`=:name";
   $query = $conn->prepare($query);
+  $query->bindParam(':name', $instName);
   $query->execute();
 }
+
+function getAllStaticInsts() {
+  $conn = connect('dicom');
+  $query = "SELECT * from `institutions`";
+  $query = $conn->prepare($query);
+  $query->execute();
+  $result = $query->fetchAll(PDO::FETCH_COLUMN, 1);
+
+  return $result;
+}
+
 
 function updateAllModalities(){
   // Get All Dynamic Modalities
@@ -397,23 +416,42 @@ function updateAllModalities(){
     }
   }
   $allDynamicMods = $allMods;
-  //TODO: Sync
+
   // Get All Static Inst
-  clearStaticMods();
-  // Check if exixts
+  $allStaticMods = getAllStaticMods();
   $conn = connect('dicom');
+
+  foreach ($allStaticMods as $key => $modName) {
+    if( !in_array($modName, $allDynamicMods) ){
+      removeStaticMod($modName);
+    }
+  }
+
   foreach ($allDynamicMods as $key => $modName) {
+    if(in_array($modName, $allStaticMods)) continue;
     $query = "INSERT INTO `modalities` (`modality`) VALUES ('$modName');";
 
     $query = $conn->prepare($query);
     $query->execute();
   }
 }
-function clearStaticMods() {
+
+function removeStaticMod($modName){
   $conn = connect('dicom');
-  $query = "TRUNCATE modalities";
+  $query = "DELETE FROM `modalities` WHERE `modality`=:modality";
+  $query = $conn->prepare($query);
+  $query->bindParam(':modality', $modName);
+  $query->execute();
+}
+
+function getAllStaticMods() {
+  $conn = connect('dicom');
+  $query = "SELECT * from `modalities`";
   $query = $conn->prepare($query);
   $query->execute();
+  $result = $query->fetchAll(PDO::FETCH_COLUMN, 1);
+
+  return $result;
 }
 
 function getAllUsers()

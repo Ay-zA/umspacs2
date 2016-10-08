@@ -16,7 +16,7 @@ var adminConfig = {
         for (var i = 0, ien = json.length; i < ien; i++) {
           if (ignoreInsts.includes(json[i].name)) continue;
 
-          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility ? 'open' : 'close') + '" data-type="institution" data-id="' + json[i].id + '"></span></button>';
+          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility == 1 ? 'open' : 'close') + '" data-type="institution" data-id="' + json[i].id + '"></span></button>';
           name = '<span style="padding-top:5px;">' + fix_name(json[i].name) + '</span>';
 
           data.push({
@@ -62,7 +62,6 @@ var adminConfig = {
 
         for (var i = 0, ien = json.length; i < ien; i++) {
           if (ignoreMods.includes(json[i].modality)) continue;
-          console.log(json[i].visibility);
           showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility == 1 ? 'open' : 'close') + '" data-type="modality" data-id="' + json[i].id + '"></span></button>';
           name = '<span style="padding-top:5px;">' + json[i].modality + '</span>';
 

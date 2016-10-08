@@ -828,6 +828,19 @@ div.invalid input:hover {
   margin:0 5px 0 0;
 }
 
+.table-option-button .glyphicon-eye-open {
+    color: #333;
+}
+
+.table-option-button .glyphicon-eye-close {
+    color: #aaa;
+}
+
+.table-option-button .glyphicon-eye-open:hover ,
+.table-option-button .glyphicon-eye-close:hover {
+    color: #00a175;
+}
+
 .table-option-button:focus {
   outline: none;
 }
