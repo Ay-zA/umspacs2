@@ -19,8 +19,8 @@
 
 .form-flex .input-group input {
   flex: 1;
-  padding: 1.4em 10px 1.3em 10px;
   font-size: .9em;
+  height: 40px;
 }
 
 .radio-label{

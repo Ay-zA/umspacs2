@@ -88,7 +88,9 @@
       output += '<td data-type="study_date">' + toReadableDate(data[i].study_datetime, true) + ' <span class="label label-default">' + get_time(data[i].study_datetime) + '</span></td>';
       output += '<td class="hidden-xs" data-type="num_series"><span class="label label-default" style="margin-right:2px;">' + data[i].num_series + ' Series </span><span class="label label-default">' + data[i].num_instances + ' Images </span>' + '</td>';
       var url = generateWeasisUrl('study', data[i].study_iuid);
-      output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a><a class="weasis-btn flat-btn hidden-xs" href="report.php?study_id=' + data[i].study_id + '"><span class="glyphicon glyphicon-list-alt"></span></a></td>';
+      output += '<td data-type="weasis"><a class="weasis-btn flat-btn hidden-xs" href="' + url + '"><span class="glyphicon glyphicon-eye-open"></span></a>';
+      // output += '<a class="weasis-btn flat-btn hidden-xs" href="report.php?study_id=' + data[i].study_id + '"><span class="glyphicon glyphicon-list-alt"></span></a>';
+      output += '</td>';
       output += '</tr>';
       i++;
     }
@@ -237,7 +239,9 @@
     if (endResultIndex > totalStudy) {
       endResultIndex = totalStudy;
     }
-    var output = '<p> showing result ' + startResultIndex + ' to ' + endResultIndex + '.<br />' + totalStudy + ' studies, ' + totalSerie + ' series, ' + totalInstance + ' images founded.';
+    var output = '<p> showing result ' + startResultIndex + ' to ' + endResultIndex + ' <br />' +
+      totalSerie + ' series, ' + totalInstance + ' images founded.<br />'+
+      'Total studies: ' + totalStudy;
     $info.html(output);
 
   }

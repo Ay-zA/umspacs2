@@ -36,6 +36,11 @@
         </div>
         <div class="modal-body">
         </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="button" name="prev" onclick="prevFrame();">Prev</button>
+          <button class="btn btn-primary" type="button" name="play" onclick="togglePause();">Play</button>
+          <button class="btn btn-primary" type="button" name="next" onclick="nextFrame();">Next</button>
+        </div>
       </div>
     </div>
   </div>

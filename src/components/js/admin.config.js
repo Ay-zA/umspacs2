@@ -16,7 +16,7 @@ var adminConfig = {
         for (var i = 0, ien = json.length; i < ien; i++) {
           if (ignoreInsts.includes(json[i].name)) continue;
 
-          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility == 1 ? 'open' : 'close') + '" data-type="institution" data-id="' + json[i].id + '"></span></button>';
+          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(event); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility == 1 ? 'open' : 'close') + '" data-type="institution" data-id="' + json[i].id + '"></span></button>';
           name = '<span style="padding-top:5px;">' + fix_name(json[i].name) + '</span>';
 
           data.push({
@@ -45,7 +45,7 @@ var adminConfig = {
       }
     },
     "initComplete": function(settings, json) {
-      var refreshInstButton = '<button class="btn" onclick="refreshInsts();">Refresh</button>';
+      var refreshInstButton = '<button class="btn" onclick="refreshInsts(event);">Refresh</button>';
       $('#inst-table_info').html(refreshInstButton);
     },
     "iDisplayLength": 5
@@ -62,7 +62,7 @@ var adminConfig = {
 
         for (var i = 0, ien = json.length; i < ien; i++) {
           if (ignoreMods.includes(json[i].modality)) continue;
-          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility == 1 ? 'open' : 'close') + '" data-type="modality" data-id="' + json[i].id + '"></span></button>';
+          showButton = '<button class="table-option-button small" onclick="handelToggleVisibility(event); return false;"><span class="glyphicon glyphicon-eye-'+ (json[i].visibility == 1 ? 'open' : 'close') + '" data-type="modality" data-id="' + json[i].id + '"></span></button>';
           name = '<span style="padding-top:5px;">' + json[i].modality + '</span>';
 
           data.push({
@@ -93,7 +93,7 @@ var adminConfig = {
       }
     },
     "initComplete": function(settings, json) {
-      var refreshInstButton = '<button class="btn" onclick="refreshMods();">Refresh</button>';
+      var refreshInstButton = '<button class="btn" onclick="refreshMods(event);">Refresh</button>';
       $('#mod-table_info').html(refreshInstButton);
     },
     "iDisplayLength": 5
@@ -111,7 +111,7 @@ var adminConfig = {
             '0': json[i].username,
             '1': json[i].email,
             '2': json[i].role,
-            '3': '<button class="weasis-btn flat-btn edit-user" onclick="handelEditUser(); return false;" data-username="' + json[i].username + '" ><i class="glyphicon glyphicon-pencil"></i></button><button class="weasis-btn flat-btn delete-user"  onclick="handelDeleteUser(); return false;" data-username="' + json[i].username + '" ><i class="glyphicon glyphicon-trash"></i></button>'
+            '3': '<button class="weasis-btn flat-btn edit-user" onclick="handelEditUser(event); return false;" data-username="' + json[i].username + '" ><i class="glyphicon glyphicon-pencil"></i></button><button class="weasis-btn flat-btn delete-user"  onclick="handelDeleteUser(event); return false;" data-username="' + json[i].username + '" ><i class="glyphicon glyphicon-trash"></i></button>'
           });
         }
 

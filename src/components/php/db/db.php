@@ -185,7 +185,7 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
     }
     $conn = connect('pacsdb');
 
-    $querySelect = 'SELECT
+    $querySelect = 'SELECT SQL_CALC_FOUND_ROWS
                 patient.pk,
                 patient.pat_id,
                 patient.pat_name,
@@ -250,60 +250,67 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
               study.accession_no,
               study.study_status';
 
-    $queryOrder = ' ORDER BY study.study_datetime DESC';
+    $queryOrder = " ORDER BY study.study_datetime DESC ";
+    $queryLimit = "LIMIT $page_size OFFSET $start_index ";
+    $data_query = $querySelect . $queryBase . $queryGroup . $queryOrder . $queryLimit;
 
-    $query = $querySelect . $queryBase . $queryGroup . $queryOrder;
-    $query = $conn->prepare($query);
+    $data_query = $conn->prepare($data_query);
     $i = 1;
 
     if (isset($patient_id)) {
-        $query->bindValue($i, $patient_id);
+        $data_query->bindValue($i, $patient_id);
         $i++;
     }
 
     if (isset($name)) {
-        $query->bindValue($i, $name);
+        $data_query->bindValue($i, $name);
         $i++;
     }
 
     if (isset($accession)) {
-        $query->bindValue($i, $accession);
+        $data_query->bindValue($i, $accession);
         $i++;
     }
 
     if (isset($modalities)) {
       foreach ($modalities as $k => $modality)
       {
-        $query->bindValue($i, $modality);
+        $data_query->bindValue($i, $modality);
         $i++;
       }
     }
 
     if (isset($from)) {
-      $query->bindValue($i, $from);
+      $data_query->bindValue($i, $from);
       $i++;
     }
 
     if (isset($to)) {
-      $query->bindValue($i, $to);
+      $data_query->bindValue($i, $to);
       $i++;
     }
 
     if (isset($institution)) {
       $institution = strtolower($institution);
-      $query->bindValue($i, $institution);
+      $data_query->bindValue($i, $institution);
       $i++;
     }
 
-    $query->execute();
-    $result = $query->fetchAll();
-    $studyCount = sizeof($result);
+    // var_dump($data_query);
+    $data_query->execute();
+    $result = $data_query->fetchAll();
 
+    // var_dump($result);
+
+    $query = 'SELECT FOUND_ROWS();';
+    $query = $conn->prepare($query);
+    $query->execute();
+    $count = $query->fetch(PDO::FETCH_COLUMN);
+    // $studyCount = sizeof($result);
     $serieCount = getSerieCount($result);
     $instanceCount = getInstanceCount($result);
-
-    $result = array_slice($result, $start_index , $page_size);
-    $result['studyCount'] = $studyCount;
+    // $result = array_slice($result, $start_index , $page_size);
+    $result['studyCount'] = $count;
     $result['serieCount'] = $serieCount;
     $result['instanceCount'] = $instanceCount;
     return $result;

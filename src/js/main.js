@@ -1,6 +1,7 @@
 var $thumb = $('#thumb-div');
 var $modal = $('#viewer-modal .modal-body');
 var $modalHeader = $('#viewer-modal .modal-title');
+var $modalActions = $('#viewer-modal .modal-actions');
 var $patient_table = $('#patient-table tbody');
 var $seriesTable = $('#series-table tbody');
 var $resultSection = $('#result-section');
@@ -27,6 +28,18 @@ var defaultPageSize = 10;
 var currentPageIndex = 1;
 
 var ctViewer;
+
+function prevFrame() {
+  ctViewer.prev();
+}
+
+function togglePause() {
+  ctViewer.togglePause();
+}
+
+function nextFrame() {
+  ctViewer.next();
+}
 
 function patientRowClicked() {
   clearInstance();
@@ -193,7 +206,13 @@ function toggleModal() {
   //FIXME:0 async func x__x
   delay(function() {
     initCtViewer();
+    if (ctViewer.canSlide()) {
+      $modalActions.show();
+    } else {
+      $modalActions.hide();
+    }
   }, 200);
+
 
 }
 
@@ -201,8 +220,17 @@ function initCtViewer() {
   var viewer = $('#viewer');
   ctViewer = new CtViewer(viewer);
 
-  if (isFirefox) {
 
+  if (ctViewer.canSlide()) {
+    $modalActions.show();
+    bindMouseWheelEvent(viewer);
+  } else {
+    $modalActions.hide();
+  }
+}
+
+function bindMouseWheelEvent(viewer) {
+  if (isFirefox) {
     viewer.bind('DOMMouseScroll', function(e) {
       if (e.originalEvent.detail > 0) {
         ctViewer.next();
@@ -289,7 +317,7 @@ function closeNavbar(event) {
 function handelResetSearchInput() {
   var $searchInput = $(this).parent().children('input');
   var oldVal = $searchInput.val();
-  if(!oldVal) return;
+  if (!oldVal) return;
   $searchInput.removeClass('used');
   $searchInput.val('').trigger('input');
 }

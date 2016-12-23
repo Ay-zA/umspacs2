@@ -38,6 +38,17 @@
   <link rel="shortcut icon" type="image/x-icon" href="src/images/favicon.ico">
   <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
   <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+
+  <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="bower_components/froala-wysiwyg-editor/css/froala_editor.min.css" rel="stylesheet">
+  <link href="bower_components/froala-wysiwyg-editor/css/froala_style.min.css" rel="stylesheet">
+  <link href="node_modules/codemirror/lib/codemirror.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/char_counter.css">
+  <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/file.css">
+  <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/fullscreen.css">
+  <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/line_breaker.css">
+
   <link href="node_modules/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
   <link href="src/css/style.css" rel="stylesheet">
   <link href="src/css/report.css" rel="stylesheet">
@@ -192,11 +203,83 @@
   </div>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="node_modules/codemirror/lib/codemirror.js"></script>
+  <script src="bower_components/froala-wysiwyg-editor/js/froala_editor.min.js"></script>
   <script src="node_modules/persian-date/dist/0.1.8b/persian-date-0.1.8b.min.js"></script>
+
+  <script type="text/javascript" src="bower_components/froala-wysiwyg-editor/js/plugins/align.min.js"></script>
+  <script type="text/javascript" src="bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js"></script>
+  <script type="text/javascript" src="bower_components/froala-wysiwyg-editor/js/plugins/file.min.js"></script>
+  <script type="text/javascript" src="bower_components/froala-wysiwyg-editor/js/plugins/fullscreen.min.js"></script>
+  <script type="text/javascript" src="bower_components/froala-wysiwyg-editor/js/plugins/lists.min.js"></script>
+  <script type="text/javascript" src="bower_components/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js"></script>
+  <script type="text/javascript" src="bower_components/froala-wysiwyg-editor/js/plugins/save.min.js"></script>
+
+
+
+
+  <script>
+    $(function() {
+      var changeDirection = function (dir, align) {
+        this.selection.save();
+        var elements = this.selection.blocks();
+        for (var i = 0; i < elements.length; i++) {
+          var element = elements[i];
+          if (element != this.$el.get(0)) {
+           $(element)
+             .css('direction', dir)
+             .css('text-align', align);
+          }
+        }
+        this.selection.restore();
+      }
+
+      $.FroalaEditor.DefineIcon('rightToLeft', {NAME: 'caret-left'});
+      $.FroalaEditor.RegisterCommand('rightToLeft', {
+        title: 'RTL',
+        focus: true,
+        undo: true,
+        refreshAfterCallback: true,
+        callback: function () {
+          changeDirection.apply(this, ['rtl', 'right']);
+        }
+      });
+
+      $.FroalaEditor.DefineIcon('leftToRight', {NAME: 'caret-right'});
+      $.FroalaEditor.RegisterCommand('leftToRight', {
+        title: 'LTR',
+        focus: true,
+        undo: true,
+        refreshAfterCallback: true,
+        callback: function () {
+          changeDirection.apply(this, ['ltr', 'left']);
+        }
+      })
+
+    });
+  </script>
+
 
   <script type="text/javascript">
     $(function () {
       initForm();
+      $("#findings").froalaEditor({toolbarButtons: ['undo', 'redo' , '|' , 'bold', 'italic', 'underline', 'strikeThrough', '|', 'leftToRight', 'rightToLeft', '|', 'formatUL', 'outdent', 'indent', '|', 'insertFile', 'fullscreen','selectAll'],
+            placeholderText: 'Findings...'});
+      $("#impression").froalaEditor({toolbarButtons: 	['undo', 'redo' , '|' , 'bold', 'italic', 'underline', 'strikeThrough', '|', 'leftToRight', 'rightToLeft', '|', 'formatUL', 'outdent', 'indent', '|', 'insertFile', 'fullscreen','selectAll'],
+             placeholderText: 'impression...'});
+      $("#comments").froalaEditor({toolbarButtons: ['undo', 'redo' , '|' , 'bold', 'italic', 'underline', 'strikeThrough', '|', 'leftToRight', 'rightToLeft', '|', 'formatUL', 'outdent', 'indent', '|', 'insertFile', 'fullscreen','selectAll'],
+             placeholderText: 'Comments...',});
+
+       $('textarea').on('froalaEditor.focus', function (e, editor) {
+         var target = $(e.target);
+         target.closest('.input').addClass('active');
+       });
+
+       $('textarea').on('froalaEditor.blur', function (e, editor) {
+         var target = $(e.target);
+         target.closest('.input').removeClass('active');
+       });
+
       validateInputs();
     })
   </script>

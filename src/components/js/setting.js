@@ -33,7 +33,7 @@ function clearInputs() {
   $('#account-form input[name="username"]').val(username);
 }
 
-function handelDeleteUser() {
+function handelDeleteUser(event) {
   var _this = event.target;
   var $user = $($(_this).closest('tr').children('td')[0]).text();
   console.log($user);
@@ -56,7 +56,7 @@ function deleteUser($user, cb) {
 }
 var selectedUser = {};
 
-function handelEditUser() {
+function handelEditUser(event) {
   var _this = event.target;
   var $row = $(_this).closest('tr');
   selectedUser.username = $row.children('td:nth-child(1)').text();
@@ -162,7 +162,7 @@ function showInstTableSuccessMessage(data) {
   $instDataTable.ajax.reload();
 }
 
-function handelToggleVisibility() {
+function handelToggleVisibility(event) {
   var $target = $(event.target);
   var $span = $target.children('span').length === 1 ? $($target.children('span')) : $target;
   var id = $span.attr('data-id');

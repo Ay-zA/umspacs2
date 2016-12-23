@@ -34,17 +34,12 @@
   outline: none;
 }
 
-.form-flex button {
-  flex: 0;
-  min-width: 100%;
-}
-
 .form-flex .input-group span {
   flex: 1;
   max-width: 120px;
   text-align: left;
   font-style: normal;
-  line-height: 2em;
+  line-height: 2.2em;
   border-radius: 0;
   font-size: .8em;
 }
@@ -55,8 +50,8 @@
 
 .form-flex .input-group input[type="text"] {
   flex: 1;
-  padding: 1.4em 10px;
   font-size: .9em;
+  height: 40px;
 }
 
 #report-section {
