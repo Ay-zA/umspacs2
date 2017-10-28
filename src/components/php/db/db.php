@@ -6,8 +6,8 @@ function connect($dbname)
     global $char_set;
     $servername = 'localhost';
     $username = 'root';
-    $password = 'A1l2i3 !@#';
-    // $password = '';
+    // $password = 'A1l2i3 !@#';
+    $password = '';
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -18,25 +18,27 @@ function connect($dbname)
         return;
     }
 }
-function getReportInfo($study_id) {
-  $conn  = connect('dicom');
-  $query = "SELECT * FROM `reports` WHERE study_fk=:study_pk";
-  $query = $conn->prepare($query);
-  $query->bindParam(':study_pk', $study_id);
-  $query->execute();
-  $result = $query->fetchAll();
-  if (isset($result[0])) {
-    return $result[0];
-  }
-  return "Report Not Existed";
+function getReportInfo($study_id)
+{
+    $conn  = connect('dicom');
+    $query = "SELECT * FROM `reports` WHERE study_fk=:study_pk";
+    $query = $conn->prepare($query);
+    $query->bindParam(':study_pk', $study_id);
+    $query->execute();
+    $result = $query->fetchAll();
+    if (isset($result[0])) {
+        return $result[0];
+    }
+    return "Report Not Existed";
 }
 
-function getStudyInfoForReport($studyId='') {
-  $conn = connect('pacsdb');
-  if ($conn == null) {
-    return 404;
-  }
-  $query = 'SELECT
+function getStudyInfoForReport($studyId='')
+{
+    $conn = connect('pacsdb');
+    if ($conn == null) {
+        return 404;
+    }
+    $query = 'SELECT
               patient.pat_id,
               patient.pat_name,
               patient.pat_birthdate,
@@ -50,22 +52,22 @@ function getStudyInfoForReport($studyId='') {
             from study
             LEFT JOIN patient ON study.patient_fk = patient.pk
             WHERE study.study_id = :studyId;';
-  $query = $conn->prepare($query);
-  $query->bindParam(':studyId', $studyId);
-  $query->execute();
-  $result = $query->fetch(PDO::FETCH_ASSOC);
+    $query = $conn->prepare($query);
+    $query->bindParam(':studyId', $studyId);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
 
-  $studyPk = $result['study_pk'];
-  $query = "SELECT DISTINCT body_part
+    $studyPk = $result['study_pk'];
+    $query = "SELECT DISTINCT body_part
             FROM series
             LEFT JOIN study ON series.study_fk = study.pk
             WHERE study.pk = :studyPk;";
-  $query = $conn->prepare($query);
-  $query->bindParam(':studyPk', $studyPk);
-  $query->execute();
-  $bodyParts = $query->fetchAll(PDO::FETCH_COLUMN, 0);
-  $result['body_parts'] = $bodyParts;
-  return $result;
+    $query = $conn->prepare($query);
+    $query->bindParam(':studyPk', $studyPk);
+    $query->execute();
+    $bodyParts = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+    $result['body_parts'] = $bodyParts;
+    return $result;
 }
 function getAllPatient()
 {
@@ -179,9 +181,9 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
     $page_size = (int)$page_size;
 
     if (isset($modality)) {
-      $modality = strtolower($modality);
-      $modalities = explode('\\\\',$modality);
-      $inQuery = implode(',', array_fill(0, count($modalities), '?'));
+        $modality = strtolower($modality);
+        $modalities = explode('\\\\', $modality);
+        $inQuery = implode(',', array_fill(0, count($modalities), '?'));
     }
     $conn = connect('pacsdb');
 
@@ -206,34 +208,34 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
               LEFT JOIN patient ON patient.pk = study.patient_fk
               LEFT JOIN series ON series.study_fk = study.pk';
 
-      $queryBase = ' WHERE 1 = 1';
+    $queryBase = ' WHERE 1 = 1';
 
-      if (isset($patient_id)) {
-          $patient_id = strtolower($patient_id);
-          $queryBase .= ' AND LOWER(patient.pat_id) LIKE CONCAT (?,"%")';
-      }
-      if (isset($name)) {
-          $name = strtolower($name);
-          $queryBase .= ' AND LOWER(patient.pat_name) LIKE CONCAT ("%",?,"%")';
-      }
-      if (isset($accession)) {
-          $accession = strtolower($accession);
-          $queryBase .= ' AND study.accession_no LIKE CONCAT (?,"%")';
-      }
-      if (isset($inQuery)) {
-          $queryBase .= ' AND LOWER(LEFT(study.mods_in_study,2)) IN(' . $inQuery . ')';
-      }
-      if (isset($from)) {
-          $queryBase .= ' AND study.study_datetime >= ?';
-      }
-      if (isset($to)) {
-          $queryBase .= ' AND study.study_datetime <= ?';
-      }
-      if (isset($institution)) {
-          $queryBase .= ' AND LOWER(series.institution) LIKE CONCAT ("%",?,"%")';
-      }
+    if (isset($patient_id)) {
+        $patient_id = strtolower($patient_id);
+        $queryBase .= ' AND LOWER(patient.pat_id) LIKE CONCAT (?,"%")';
+    }
+    if (isset($name)) {
+        $name = strtolower($name);
+        $queryBase .= ' AND LOWER(patient.pat_name) LIKE CONCAT ("%",?,"%")';
+    }
+    if (isset($accession)) {
+        $accession = strtolower($accession);
+        $queryBase .= ' AND study.accession_no LIKE CONCAT (?,"%")';
+    }
+    if (isset($inQuery)) {
+        $queryBase .= ' AND LOWER(LEFT(study.mods_in_study,2)) IN(' . $inQuery . ')';
+    }
+    if (isset($from)) {
+        $queryBase .= ' AND study.study_datetime >= ?';
+    }
+    if (isset($to)) {
+        $queryBase .= ' AND study.study_datetime <= ?';
+    }
+    if (isset($institution)) {
+        $queryBase .= ' AND LOWER(series.institution) LIKE CONCAT ("%",?,"%")';
+    }
 
-      $queryGroup = ' GROUP BY
+    $queryGroup = ' GROUP BY
               patient.pk,
               patient.pat_id,
               patient.pat_name,
@@ -273,27 +275,26 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
     }
 
     if (isset($modalities)) {
-      foreach ($modalities as $k => $modality)
-      {
-        $data_query->bindValue($i, $modality);
-        $i++;
-      }
+        foreach ($modalities as $k => $modality) {
+            $data_query->bindValue($i, $modality);
+            $i++;
+        }
     }
 
     if (isset($from)) {
-      $data_query->bindValue($i, $from);
-      $i++;
+        $data_query->bindValue($i, $from);
+        $i++;
     }
 
     if (isset($to)) {
-      $data_query->bindValue($i, $to);
-      $i++;
+        $data_query->bindValue($i, $to);
+        $i++;
     }
 
     if (isset($institution)) {
-      $institution = strtolower($institution);
-      $data_query->bindValue($i, $institution);
-      $i++;
+        $institution = strtolower($institution);
+        $data_query->bindValue($i, $institution);
+        $i++;
     }
 
     // var_dump($data_query);
@@ -316,24 +317,27 @@ function searchStudies($patient_id = null, $name = null, $accession = null, $mod
     return $result;
 }
 
-function getSerieCount($data){
-  $result = 0;
-  foreach ($data as $key => $value) {
-    $result += $value['num_series'];
-  }
-  return $result;
+function getSerieCount($data)
+{
+    $result = 0;
+    foreach ($data as $key => $value) {
+        $result += $value['num_series'];
+    }
+    return $result;
 }
 
-function getInstanceCount($data) {
-  $result = 0;
-  foreach ($data as $key => $value) {
-    $result += $value['num_instances'];
-  }
+function getInstanceCount($data)
+{
+    $result = 0;
+    foreach ($data as $key => $value) {
+        $result += $value['num_instances'];
+    }
 
-  return $result;
+    return $result;
 }
 
-function getInstitutionName($study_pk){
+function getInstitutionName($study_pk)
+{
     $conn = connect('pacsdb');
     $query = "SELECT series.institution FROM series WHERE series.study_fk = :study_pk ;";
     $query = $conn->prepare($query);
@@ -344,235 +348,254 @@ function getInstitutionName($study_pk){
     $result = $query->fetch(PDO::FETCH_ASSOC);
     return $result;
 }
-function getAllModalities($dynamic=false){
-  if ($dynamic) {
-    updateAllModalities();
-  }
-  $conn = connect('dicom');
-  $query = "SELECT * FROM modalities ORDER BY modality";
-  $query = $conn->prepare($query);
-
-  $query->execute();
-  $result = $query->fetchAll();
-  return $result;
-}
-
-function getAllInstitutions($dynamic=false){
-  if ($dynamic) {
-    updateInstituations();
-  }
-  $conn = connect('dicom');
-  $query = "SELECT * FROM institutions ORDER BY name";
-  $query = $conn->prepare($query);
-
-  $query->execute();
-  $result = $query->fetchAll();
-  return $result;
-}
-
-function updateInstituations(){
-  // Get All Dynamic Insts
-  $conn = connect('pacsdb');
-  $query = "SELECT DISTINCT series.institution FROM `series`;";
-  $query = $conn->prepare($query);
-
-  $query->execute();
-  $allDynamicInsts = $query->fetchAll(PDO::FETCH_COLUMN, 0);
-
-  // Get All Static Inst
-  $allStaticInsts = getAllStaticInsts();
-  $conn = connect('dicom');
-
-  foreach ($allStaticInsts as $key => $instName) {
-    if( !in_array($instName, $allDynamicInsts) ){
-      removeStaticInst($instName);
+function getAllModalities($dynamic=false)
+{
+    if ($dynamic) {
+        updateAllModalities();
     }
-  }
-  // Check if exixts
-  foreach ($allDynamicInsts as $key => $instName) {
-    if(in_array($instName, $allStaticInsts)) continue;
+    $conn = connect('dicom');
+    $query = "SELECT * FROM modalities ORDER BY modality";
+    $query = $conn->prepare($query);
 
-    $query = "INSERT INTO `institutions` (`name`) VALUES ('$instName');";
+    $query->execute();
+    $result = $query->fetchAll();
+    return $result;
+}
+
+function getAllInstitutions($dynamic=false)
+{
+    if ($dynamic) {
+        updateInstituations();
+    }
+    $conn = connect('dicom');
+    $query = "SELECT * FROM institutions ORDER BY name";
+    $query = $conn->prepare($query);
+
+    $query->execute();
+    $result = $query->fetchAll();
+    return $result;
+}
+
+function updateInstituations()
+{
+    // Get All Dynamic Insts
+    $conn = connect('pacsdb');
+    $query = "SELECT DISTINCT series.institution FROM `series`;";
+    $query = $conn->prepare($query);
+
+    $query->execute();
+    $allDynamicInsts = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+
+    // Get All Static Inst
+    $allStaticInsts = getAllStaticInsts();
+    $conn = connect('dicom');
+
+    foreach ($allStaticInsts as $key => $instName) {
+        if (!in_array($instName, $allDynamicInsts)) {
+            removeStaticInst($instName);
+        }
+    }
+    // Check if exixts
+    foreach ($allDynamicInsts as $key => $instName) {
+        if (in_array($instName, $allStaticInsts)) {
+            continue;
+        }
+
+        $query = "INSERT INTO `institutions` (`name`) VALUES ('$instName');";
+        $query = $conn->prepare($query);
+        $query->execute();
+    }
+}
+
+function removeStaticInst($instName)
+{
+    $conn = connect('dicom');
+    $query = "DELETE FROM `institutions` WHERE `name`=:name";
+    $query = $conn->prepare($query);
+    $query->bindParam(':name', $instName);
+    $query->execute();
+}
+
+function getAllStaticInsts()
+{
+    $conn = connect('dicom');
+    $query = "SELECT * from `institutions`";
     $query = $conn->prepare($query);
     $query->execute();
-  }
-}
+    $result = $query->fetchAll(PDO::FETCH_COLUMN, 1);
 
-function removeStaticInst($instName){
-  $conn = connect('dicom');
-  $query = "DELETE FROM `institutions` WHERE `name`=:name";
-  $query = $conn->prepare($query);
-  $query->bindParam(':name', $instName);
-  $query->execute();
-}
-
-function getAllStaticInsts() {
-  $conn = connect('dicom');
-  $query = "SELECT * from `institutions`";
-  $query = $conn->prepare($query);
-  $query->execute();
-  $result = $query->fetchAll(PDO::FETCH_COLUMN, 1);
-
-  return $result;
+    return $result;
 }
 
 
-function updateAllModalities(){
-  // Get All Dynamic Modalities
-  $conn = connect('pacsdb');
-  $query = "SELECT DISTINCT study.mods_in_study FROM `study`;";
-  $query = $conn->prepare($query);
+function updateAllModalities()
+{
+    // Get All Dynamic Modalities
+    $conn = connect('pacsdb');
+    $query = "SELECT DISTINCT study.mods_in_study FROM `study`;";
+    $query = $conn->prepare($query);
 
-  $query->execute();
-  $allDynamicMods = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+    $query->execute();
+    $allDynamicMods = $query->fetchAll(PDO::FETCH_COLUMN, 0);
 
-  $allMods = [];
-  foreach ($allDynamicMods as $key => $value) {
-    $values = explode( '\\',$value);
-    foreach ($values as $key2 => $value2) {
-      if (!in_array($value2, $allMods)) {
-        $allMods[] = $value2;
-      }
+    $allMods = [];
+    foreach ($allDynamicMods as $key => $value) {
+        $values = explode('\\', $value);
+        foreach ($values as $key2 => $value2) {
+            if (!in_array($value2, $allMods)) {
+                $allMods[] = $value2;
+            }
+        }
     }
-  }
-  $allDynamicMods = $allMods;
+    $allDynamicMods = $allMods;
 
-  // Get All Static Inst
-  $allStaticMods = getAllStaticMods();
-  $conn = connect('dicom');
+    // Get All Static Inst
+    $allStaticMods = getAllStaticMods();
+    $conn = connect('dicom');
 
-  foreach ($allStaticMods as $key => $modName) {
-    if( !in_array($modName, $allDynamicMods) ){
-      removeStaticMod($modName);
+    foreach ($allStaticMods as $key => $modName) {
+        if (!in_array($modName, $allDynamicMods)) {
+            removeStaticMod($modName);
+        }
     }
-  }
 
-  foreach ($allDynamicMods as $key => $modName) {
-    if(in_array($modName, $allStaticMods)) continue;
-    $query = "INSERT INTO `modalities` (`modality`) VALUES ('$modName');";
+    foreach ($allDynamicMods as $key => $modName) {
+        if (in_array($modName, $allStaticMods)) {
+            continue;
+        }
+        $query = "INSERT INTO `modalities` (`modality`) VALUES ('$modName');";
 
+        $query = $conn->prepare($query);
+        $query->execute();
+    }
+}
+
+function removeStaticMod($modName)
+{
+    $conn = connect('dicom');
+    $query = "DELETE FROM `modalities` WHERE `modality`=:modality";
+    $query = $conn->prepare($query);
+    $query->bindParam(':modality', $modName);
+    $query->execute();
+}
+
+function getAllStaticMods()
+{
+    $conn = connect('dicom');
+    $query = "SELECT * from `modalities`";
     $query = $conn->prepare($query);
     $query->execute();
-  }
-}
+    $result = $query->fetchAll(PDO::FETCH_COLUMN, 1);
 
-function removeStaticMod($modName){
-  $conn = connect('dicom');
-  $query = "DELETE FROM `modalities` WHERE `modality`=:modality";
-  $query = $conn->prepare($query);
-  $query->bindParam(':modality', $modName);
-  $query->execute();
-}
-
-function getAllStaticMods() {
-  $conn = connect('dicom');
-  $query = "SELECT * from `modalities`";
-  $query = $conn->prepare($query);
-  $query->execute();
-  $result = $query->fetchAll(PDO::FETCH_COLUMN, 1);
-
-  return $result;
+    return $result;
 }
 
 function getAllUsers()
 {
-  $conn = connect('dicom');
-  $query = "SELECT username, role, email FROM users";
-  $query = $conn->prepare($query);
-
-  $query->execute();
-  $result = $query->fetchAll();
-  return $result;
-}
-
-function setModalityVisibility($visibility, $id) {
-  if(!isset($visibility) || !isset($id))
-    return false;
-  $visibility = ($visibility == 'true') ? 1 : 0;
-  $conn = connect('dicom');
-  $query = "UPDATE `modalities` SET `visibility`= :visibility WHERE `id` = :id; ";
-  $query =$conn->prepare($query);
-  $query->bindParam(':visibility', $visibility);
-  $query->bindParam(':id', $id);
-  $query->execute();
-
-  return true;
-}
-
-function setInstitutionVisibility($visibility, $id) {
-  if(!isset($visibility) || !isset($id))
-    return false;
-  $visibility = ($visibility == 'true') ? 1 : 0;
-  $conn = connect('dicom');
-  $query = "UPDATE `institutions` SET `visibility`=:visibility WHERE `id` = :id;";
-  $query =$conn->prepare($query);
-  $query->bindParam(':visibility', $visibility);
-  $query->bindParam(':id', $id);
-  $query->execute();
-
-  return true;
-}
-
-function getAllIgnoredModalities() {
-  $conn  = connect('dicom');
-  $query = "SELECT * FROM `modalities` WHERE `visibility` = 0;";
-  $query = $conn->prepare($query);
-  $query->execute();
-  $result = $query->fetchAll();
-
-  return $result;
-}
-
-function getAllIgnoredInstitution() {
-  $conn = connect('dicom');
-  $query = "SELECT * FROM `institutions` WHERE `visibility` = 0;";
-  $query =$conn->prepare($query);
-  $query->execute();
-  $result = $query->fetchAll();
-
-  return $result;
-}
-
-function submitReport ($study_pk, $patient_name ,$findings ,$impression ,$comments ,$doctor_name ,$report_date ) {
-
-  $conn  = connect('dicom');
-
-  if(isReportExistFor($study_pk)) {
-    $query = "UPDATE `reports` SET `farsi_name`=:name,`findings`=:findings,`impression`=:impression,`comments`=:comments,`dr_name`=:doctor_name,`report_date`=:report_date WHERE `study_fk`=:study_fk;";
+    $conn = connect('dicom');
+    $query = "SELECT username, role, email FROM users";
     $query = $conn->prepare($query);
-    $query->bindParam(':name', $patient_name);
-    $query->bindParam(':findings', $findings);
-    $query->bindParam(':impression', $impression);
-    $query->bindParam(':comments', $comments);
-    $query->bindParam(':doctor_name', $doctor_name);
-    $query->bindParam(':report_date', $report_date);
+
+    $query->execute();
+    $result = $query->fetchAll();
+    return $result;
+}
+
+function setModalityVisibility($visibility, $id)
+{
+    if (!isset($visibility) || !isset($id)) {
+        return false;
+    }
+    $visibility = ($visibility == 'true') ? 1 : 0;
+    $conn = connect('dicom');
+    $query = "UPDATE `modalities` SET `visibility`= :visibility WHERE `id` = :id; ";
+    $query =$conn->prepare($query);
+    $query->bindParam(':visibility', $visibility);
+    $query->bindParam(':id', $id);
+    $query->execute();
+
+    return true;
+}
+
+function setInstitutionVisibility($visibility, $id)
+{
+    if (!isset($visibility) || !isset($id)) {
+        return false;
+    }
+    $visibility = ($visibility == 'true') ? 1 : 0;
+    $conn = connect('dicom');
+    $query = "UPDATE `institutions` SET `visibility`=:visibility WHERE `id` = :id;";
+    $query =$conn->prepare($query);
+    $query->bindParam(':visibility', $visibility);
+    $query->bindParam(':id', $id);
+    $query->execute();
+
+    return true;
+}
+
+function getAllIgnoredModalities()
+{
+    $conn  = connect('dicom');
+    $query = "SELECT * FROM `modalities` WHERE `visibility` = 0;";
+    $query = $conn->prepare($query);
+    $query->execute();
+    $result = $query->fetchAll();
+
+    return $result;
+}
+
+function getAllIgnoredInstitution()
+{
+    $conn = connect('dicom');
+    $query = "SELECT * FROM `institutions` WHERE `visibility` = 0;";
+    $query =$conn->prepare($query);
+    $query->execute();
+    $result = $query->fetchAll();
+
+    return $result;
+}
+
+function submitReport($study_pk, $patient_name, $findings, $impression, $comments, $doctor_name, $report_date)
+{
+    $conn  = connect('dicom');
+
+    if (isReportExistFor($study_pk)) {
+        $query = "UPDATE `reports` SET `farsi_name`=:name,`findings`=:findings,`impression`=:impression,`comments`=:comments,`dr_name`=:doctor_name,`report_date`=:report_date WHERE `study_fk`=:study_fk;";
+        $query = $conn->prepare($query);
+        $query->bindParam(':name', $patient_name);
+        $query->bindParam(':findings', $findings);
+        $query->bindParam(':impression', $impression);
+        $query->bindParam(':comments', $comments);
+        $query->bindParam(':doctor_name', $doctor_name);
+        $query->bindParam(':report_date', $report_date);
+        $query->bindParam(':study_fk', $study_pk);
+        $query->execute();
+        echo "Updated";
+    } else {
+        $query = "INSERT INTO `reports`(`study_fk`, `farsi_name`, `findings`, `impression`, `comments`, `dr_name`, `report_date`) VALUES (:study_fk, :patient_name ,:findings ,:impression ,:comments ,:doctor_name ,:report_date)";
+        $query = $conn->prepare($query);
+        $query->bindParam(':study_fk', $study_pk);
+        $query->bindParam(':patient_name', $patient_name);
+        $query->bindParam(':findings', $findings);
+        $query->bindParam(':impression', $impression);
+        $query->bindParam(':comments', $comments);
+        $query->bindParam(':doctor_name', $doctor_name);
+        $query->bindParam(':report_date', $report_date);
+        $query->execute();
+        echo "Created";
+    }
+    return true;
+}
+
+function isReportExistFor($study_pk)
+{
+    $conn  = connect('dicom');
+    $query = "SELECT count(*) FROM `reports` WHERE `study_fk`=:study_fk";
+    $query = $conn->prepare($query);
     $query->bindParam(':study_fk', $study_pk);
     $query->execute();
-    echo "Updated";
-  } else {
-    $query = "INSERT INTO `reports`(`study_fk`, `farsi_name`, `findings`, `impression`, `comments`, `dr_name`, `report_date`) VALUES (:study_fk, :patient_name ,:findings ,:impression ,:comments ,:doctor_name ,:report_date)";
-    $query = $conn->prepare($query);
-    $query->bindParam(':study_fk', $study_pk);
-    $query->bindParam(':patient_name', $patient_name);
-    $query->bindParam(':findings', $findings);
-    $query->bindParam(':impression', $impression);
-    $query->bindParam(':comments', $comments);
-    $query->bindParam(':doctor_name', $doctor_name);
-    $query->bindParam(':report_date', $report_date);
-    $query->execute();
-    echo "Created";
-  }
-  return true;
-}
+    $result = $query->fetch(PDO::FETCH_COLUMN);
 
-function isReportExistFor($study_pk){
-  $conn  = connect('dicom');
-  $query = "SELECT count(*) FROM `reports` WHERE `study_fk`=:study_fk";
-  $query = $conn->prepare($query);
-  $query->bindParam(':study_fk', $study_pk);
-  $query->execute();
-  $result = $query->fetch(PDO::FETCH_COLUMN);
-
-  return $result;
+    return $result;
 }
 ?>

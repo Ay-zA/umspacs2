@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`name`, `username`, `password`) VALUES
-('Admin', 'admin', 'admin');
+('Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 --
 -- Indexes for dumped tables
